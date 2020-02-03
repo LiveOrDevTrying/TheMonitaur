@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Companies\PixelHorrorStudios\Projects\PHS.TheMonitaur\Source\TheMonitaur.Public\TheMonitaur.Lib\TheMonitaur.Lib\TheMonitaur.Lib.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Responses\" />
+    <Folder Include="VMs\" />
+  </ItemGroup>
+
+</Project>

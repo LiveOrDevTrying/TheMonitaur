@@ -1,0 +1,188 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TheMonitaur.Lib</name>
+    </assembly>
+    <members>
+        <member name="T:TheMonitaur.Lib.DTOs.AlertDTO">
+            <summary>
+            An Alert data-transfer object
+            </summary>
+        </member>
+        <member name="P:TheMonitaur.Lib.DTOs.AlertDTO.StatusType">
+            <summary>
+            The status type of the Alert
+            Possible values: 0 - 'Online', 1 - 'Offline'
+            </summary>
+        </member>
+        <member name="P:TheMonitaur.Lib.DTOs.AlertDTO.StatusTypeValue">
+            <summary>
+            The status type of the Alert as a string
+            </summary>
+        </member>
+        <member name="P:TheMonitaur.Lib.DTOs.AlertDTO.AlertType">
+            <summary>
+            The alert type of the Alertg', 3 - 'Alert', 4 - 'Error'
+            </summary>
+            Possible values: 0 - 'Debug', 1 - 'Info', 2 - 'Warnin
+        </member>
+        <member name="P:TheMonitaur.Lib.DTOs.AlertDTO.AlertTypeValue">
+            <summary>
+            The alert type of the Alert as a string
+            </summary>
+        </member>
+        <member name="P:TheMonitaur.Lib.DTOs.AlertDTO.Message">
+            <summary>
+            The message or payload attached to the Alert
+            </summary>
+        </member>
+        <member name="P:TheMonitaur.Lib.DTOs.AlertDTO.Timestamp">
+            <summary>
+            The Timestamp of the alert
+            </summary>
+        </member>
+        <member name="T:TheMonitaur.Lib.DTOs.BaseDTO">
+            <summary>
+            A base data-transfer object
+            </summary>
+        </member>
+        <member name="P:TheMonitaur.Lib.DTOs.BaseDTO.Id">
+            <summary>
+            The unique identifier of the data-transfer object
+            </summary>
+        </member>
+        <member name="T:TheMonitaur.Lib.DTOs.ClientApplicationDTO">
+            <summary>
+            A Client Application data-transfer object
+            </summary>
+        </member>
+        <member name="P:TheMonitaur.Lib.DTOs.ClientApplicationDTO.ClientName">
+            <summary>
+            The Name of the Client Application
+            </summary>
+        </member>
+        <member name="P:TheMonitaur.Lib.DTOs.ClientApplicationDTO.ClientDescription">
+            <summary>
+            The Description of the Client Application
+            </summary>
+        </member>
+        <member name="T:TheMonitaur.Lib.Enums.StatusType">
+            <summary>
+            The Alert Status Type
+            </summary>
+        </member>
+        <member name="F:TheMonitaur.Lib.Enums.StatusType.Online">
+            <summary>
+            The Alert Status Type if the service is online
+            </summary>
+        </member>
+        <member name="F:TheMonitaur.Lib.Enums.StatusType.Offline">
+            <summary>
+            The Alert Status Type if the service is offline
+            </summary>
+        </member>
+        <member name="T:TheMonitaur.Lib.Enums.AlertType">
+            <summary>
+            The Alert Type
+            </summary>
+        </member>
+        <member name="F:TheMonitaur.Lib.Enums.AlertType.Debug">
+            <summary>
+            The Alert Type for debug statements
+            </summary>
+        </member>
+        <member name="F:TheMonitaur.Lib.Enums.AlertType.Info">
+            <summary>
+            The Alert Type for info statements
+            </summary>
+        </member>
+        <member name="F:TheMonitaur.Lib.Enums.AlertType.Warning">
+            <summary>
+            The Alert Type for warning statements
+            </summary>
+        </member>
+        <member name="F:TheMonitaur.Lib.Enums.AlertType.Alert">
+            <summary>
+            The Alert Type for alert statements
+            </summary>
+        </member>
+        <member name="F:TheMonitaur.Lib.Enums.AlertType.Error">
+            <summary>
+            The Alert Type for error statements
+            </summary>
+        </member>
+        <member name="T:TheMonitaur.Lib.Requests.AlertCreateRequest">
+            <summary>
+            An Alert create request
+            </summary>
+        </member>
+        <member name="P:TheMonitaur.Lib.Requests.AlertCreateRequest.StatusType">
+            <summary>
+            The status type of the Alert
+            Possible values: 0 - 'Online', 1 - 'Offline'
+            </summary>
+        </member>
+        <member name="P:TheMonitaur.Lib.Requests.AlertCreateRequest.AlertType">
+            <summary>
+            The alert type of the Alert
+            Possible values: 0 - 'Debug', 1 - 'Info', 2 - 'Warning', 3 - 'Alert', 4 - 'Error'
+            </summary>
+        </member>
+        <member name="P:TheMonitaur.Lib.Requests.AlertCreateRequest.Message">
+            <summary>
+            The message or payload attached to the Alert
+            </summary>
+        </member>
+        <member name="T:TheMonitaur.Lib.Requests.AlertsDismissRequest">
+            <summary>
+            An Alerts dismiss request
+            </summary>
+        </member>
+        <member name="P:TheMonitaur.Lib.Requests.AlertsDismissRequest.Ids">
+            <summary>
+            The Ids of the Alerts to dismiss
+            </summary>
+        </member>
+        <member name="T:TheMonitaur.Lib.Requests.AlertsLookupRequest">
+            <summary>
+            An Alerts Lookup request
+            </summary>
+        </member>
+        <member name="P:TheMonitaur.Lib.Requests.AlertsLookupRequest.MaxRecordsToRetrieve">
+            <summary>
+            The maximum number of records to retrieve - if not specified, defaults to 150 records. 
+            The total number of records to retrieve is limited to 5000 maximum records in one webapi call.
+            </summary>
+        </member>
+        <member name="P:TheMonitaur.Lib.Requests.AlertsLookupRequest.AlertTypes">
+            <summary>
+            The Alert Type to retrieve, if provided
+            </summary>
+        </member>
+        <member name="P:TheMonitaur.Lib.Requests.AlertsLookupRequest.StatusTypes">
+            <summary>
+            The Status Type to retrieve, if provided
+            </summary>
+        </member>
+        <member name="P:TheMonitaur.Lib.Requests.AlertsLookupRequest.StartDate">
+            <summary>
+            The Start Date to retrieve the Alerts , if provided- Inclusive
+            </summary>
+        </member>
+        <member name="P:TheMonitaur.Lib.Requests.AlertsLookupRequest.EndDate">
+            <summary>
+            The End Date to retrieve the Alerts, if provided - Exclusive
+            </summary>
+        </member>
+        <member name="P:TheMonitaur.Lib.Requests.AlertsLookupRequest.IncludeDismissedAlerts">
+            <summary>
+            Flag to indicate if the query should include dismissed Alerts
+            </summary>
+        </member>
+        <member name="T:TheMonitaur.Lib.Requests.CreateRequest">
+            <summary>
+            A base create request
+            </summary>
+        </member>
+    </members>
+</doc>
