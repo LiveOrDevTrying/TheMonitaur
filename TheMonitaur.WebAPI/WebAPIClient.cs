@@ -40,6 +40,15 @@ namespace TheMonitaur.WebAPI
             return await GetAsync<ClientApplicationDTO>("clientApplication");
         }
         /// <summary>
+        /// Update the Authorized Client Application
+        /// </summary>
+        /// <param name="request">The Client Application update request</param>
+        /// <returns></returns>
+        public virtual async Task<ClientApplicationDTO> UpdateClientApplicationAsync(ClientApplicationUpdateRequest request)
+        {
+            return await PutAsync<ClientApplicationUpdateRequest, ClientApplicationDTO>("clientapplications/app", request, request.Id);
+        }
+        /// <summary>
         /// Read the Alerts for a Client Application
         /// </summary>
         /// <param name="clientApplicationId">The Client Application to retrieve the non-dismissed Alerts</param>
@@ -148,6 +157,27 @@ namespace TheMonitaur.WebAPI
 
             return default;
         }
+        protected virtual async Task<U> PutAsync<T, U>(string path, T request, long id)
+        {
+            CheckIfTokenIsValid();
+
+            try
+            {
+                using var client = CreateClient();
+                var fullPath = $"{_webAPIBaseUri}/{path}/{id}";
+                var response = await client.PutAsync(fullPath, new JsonContent(request));
+
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    return JsonConvert.DeserializeObject<U>(await response.Content.ReadAsStringAsync());
+                }
+            }
+            catch
+            { }
+
+            return default;
+        }
+
         protected virtual async Task<bool> DeleteAsync(string path, long id)
         {
             CheckIfTokenIsValid();

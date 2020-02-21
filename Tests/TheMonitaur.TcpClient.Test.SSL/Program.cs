@@ -6,7 +6,7 @@ using TheMonitaur.Lib.Enums;
 using TheMonitaur.Lib.Requests;
 using TheMonitaur.Tcp;
 
-namespace TheMonitaur.TcpClient.Test
+namespace TheMonitaur.TcpClient.Test.SSL
 {
     class Program
     {
@@ -76,9 +76,8 @@ namespace TheMonitaur.TcpClient.Test
             } while (string.IsNullOrWhiteSpace(_oauthToken));
 
             _client = new MonitaurTcp(_oauthToken,
-                uri: Globals.THEMONITAUR_TCP_SERVER_URI,
-                port: Globals.THEMONITAUR_TCP_SERVER_PORT,
-                isSSL: false);
+                uri: Globals.THEMONITAUR_TCP_SERVER_SSL_URI,
+                port: Globals.THEMONITAUR_TCP_SERVER_SSL_PORT);
 
             Console.WriteLine();
 

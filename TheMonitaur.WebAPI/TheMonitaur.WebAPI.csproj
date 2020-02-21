@@ -5,11 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TheMonitaur.Lib\TheMonitaur.Lib\TheMonitaur.Lib.csproj" />
+    <ProjectReference Include="..\..\TheMonitaur.App\Backend\Modules\TheMonitaur.Lib.Internal\TheMonitaur.Lib.Internal.csproj" />
+    <ProjectReference Include="..\TheMonitaur.Lib\TheMonitaur.Lib.csproj" />
   </ItemGroup>
 
 </Project>

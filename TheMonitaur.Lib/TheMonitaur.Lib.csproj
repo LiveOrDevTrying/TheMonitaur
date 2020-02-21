@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\Companies\PixelHorrorStudios\Projects\PHS.TheMonitaur\Source\TheMonitaur.Public\TheMonitaur.Lib\TheMonitaur.Lib\TheMonitaur.Lib.xml</DocumentationFile>
+    <DocumentationFile>C:\Companies\PixelHorrorStudios\Projects\PHS.TheMonitaur\Source\TheMonitaur.Public\TheMonitaur.Lib\TheMonitaur.Lib.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

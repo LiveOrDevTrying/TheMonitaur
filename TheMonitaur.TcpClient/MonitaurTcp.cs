@@ -1,12 +1,12 @@
 ﻿using Newtonsoft.Json;
-using PHS.Core.Enums;
-using PHS.Core.Models;
+using PHS.Networking.Enums;
+using PHS.Networking.Models;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Tcp.NET.Client;
-using Tcp.NET.Core.Enums;
-using Tcp.NET.Core.Events.Args;
+using Tcp.NET.Client.Events.Args;
+using Tcp.NET.Client.Models;
 using TheMonitaur.Lib.Requests;
 
 namespace TheMonitaur.Tcp
@@ -15,71 +15,66 @@ namespace TheMonitaur.Tcp
     {
         protected readonly ITcpNETClient _client;
         protected readonly string _oauthToken;
-        protected readonly string _uri;
         protected readonly int _port;
-        protected readonly string _eol;
 
-        public MonitaurTcp(string oauthToken, 
-            string uri = "connect.themonituar.com", 
-            int port = 6895, 
-            string endOfLineCharacters = "\r\n")
+        public MonitaurTcp(string oauthToken,
+            string uri = "https://connect.themonitaur.com",
+            int port = 6780,
+            bool isSSL = true)
         {
             _oauthToken = oauthToken;
-            _uri = uri;
-            _port = port;
-            _eol = endOfLineCharacters;
 
-            _client = new TcpNETClient();
-            _client.ConnectionEvent += ConnectionEvent;
+            var pparameters = new ParamsTcpClient
+            {
+                EndOfLineCharacters = "\r\n",
+                IsSSL = isSSL,
+                Port = port,
+                Uri = uri
+            };
+
+            _client = new TcpNETClient(pparameters, oauthToken: oauthToken);
+            _client.ConnectionEvent += OnConnectionEvent;
             _client.MessageEvent += OnMessageEvent;
             _client.ErrorEvent += OnErrorEvent;
-            _client.Connect(uri, port, endOfLineCharacters);
+            _client.ConnectAsync();
         }
 
-        protected virtual Task OnErrorEvent(object sender, TcpErrorEventArgs args)
+        protected virtual async Task OnErrorEvent(object sender, TcpErrorClientEventArgs args)
         {
             if (_client != null &&
                 !_client.IsRunning)
             {
                 Thread.Sleep(10000);
-                _client.Connect(_uri, _port, _eol);
+                await _client.ConnectAsync();
             }
 
-            return Task.CompletedTask;
         }
-        protected virtual Task OnMessageEvent(object sender, TcpMessageEventArgs args)
+        protected virtual Task OnMessageEvent(object sender, TcpMessageClientEventArgs args)
         {
             return Task.CompletedTask;
         }
-        protected virtual Task ConnectionEvent(object sender, TcpConnectionEventArgs args)
+        protected virtual async Task OnConnectionEvent(object sender, TcpConnectionClientEventArgs args)
         {
-            switch (args.ConnectionType)
+            switch (args.ConnectionEventType)
             {
-                case TcpConnectionType.Connected:
-                    _client.SendToServer($"oauth:{_oauthToken}");
+                case ConnectionEventType.Connected:
+                    await _client.SendToServerRawAsync($"oauth:{_oauthToken}"); 
                     break;
-                case TcpConnectionType.Disconnect:
+                case ConnectionEventType.Disconnect:
                     Thread.Sleep(10000);
-                    _client.Connect(_uri, _port, _eol);
+                    await _client.ConnectAsync();
                     break;
-                case TcpConnectionType.ServerStart:
-                    break;
-                case TcpConnectionType.ServerStop:
-                    break;
-                case TcpConnectionType.Connecting:
+                case ConnectionEventType.Connecting:
                     break;
                 default:
                     break;
             }
-
-            return Task.CompletedTask;
         }
 
-        public virtual void SendAlert(AlertCreateRequest request)
+        public virtual async Task SendAlertAsync(AlertCreateRequest request)
         {
-            _client.SendToServer(new PacketDTO
+            await _client.SendToServerAsync(new Packet
             {
-                Action = (int)ActionType.SendToServer,
                 Data = JsonConvert.SerializeObject(request),
                 Timestamp = DateTime.UtcNow
             });
@@ -88,7 +83,7 @@ namespace TheMonitaur.Tcp
         public virtual void Dispose()
         {
             _client.Dispose();
-            _client.ConnectionEvent -= ConnectionEvent;
+            _client.ConnectionEvent -= OnConnectionEvent;
             _client.MessageEvent -= OnMessageEvent;
             _client.ErrorEvent -= OnErrorEvent;
         }

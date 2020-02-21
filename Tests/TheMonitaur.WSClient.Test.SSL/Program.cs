@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Tcp.NET.Client.Models;
 using TheMonitaur.Domain.Variables;
 using TheMonitaur.Lib.Enums;
 using TheMonitaur.Lib.Requests;
-using TheMonitaur.Tcp;
+using TheMonitaur.WebSocket;
+using WebsocketsSimple.Client.Models;
 
-namespace TheMonitaur.TcpClient.Test
+namespace TheMonitaur.WSClient.Test.SSL
 {
     class Program
     {
-        private static IMonitaurTcp _client;
+        private static IMonitaurWebSocket _client;
         private static string _oauthToken;
 
         static async Task Main(string[] args)
@@ -75,11 +75,11 @@ namespace TheMonitaur.TcpClient.Test
                 Console.WriteLine("That is not a valid entry.");
             } while (string.IsNullOrWhiteSpace(_oauthToken));
 
-            _client = new MonitaurTcp(_oauthToken,
-                uri: Globals.THEMONITAUR_TCP_SERVER_URI,
-                port: Globals.THEMONITAUR_TCP_SERVER_PORT,
-                isSSL: false);
-
+            _client = new MonitaurWebSocket(_oauthToken,
+                uri: Globals.THEMONITAUR_WEBSOCKET_SERVER_URI,
+                port: Globals.THEMONITAUR_WEBSOCKET_SERVER_SSL_PORT);
+                
+            await _client.ConnectAsync();
             Console.WriteLine();
 
             await MenuAsync();

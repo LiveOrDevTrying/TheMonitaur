@@ -4,6 +4,7 @@ using TheMonitaur.Domain.Variables;
 using TheMonitaur.Lib.Enums;
 using TheMonitaur.Lib.Requests;
 using TheMonitaur.WebSocket;
+using WebsocketsSimple.Client.Models;
 
 namespace TheMonitaur.WSClient.Test
 {
@@ -74,7 +75,11 @@ namespace TheMonitaur.WSClient.Test
                 Console.WriteLine("That is not a valid entry.");
             } while (string.IsNullOrWhiteSpace(_oauthToken));
 
-            _client = new MonitaurWebSocket(_oauthToken, uri: "localhost", port: Globals.THEMONITAUR_WEBSOCKET_SERVER_PORT);
+            _client = new MonitaurWebSocket(_oauthToken,
+                uri: Globals.THEMONITAUR_WEBSOCKET_SERVER_URI,
+                port: Globals.THEMONITAUR_WEBSOCKET_SERVER_PORT,
+                isSSL: false);
+
             await _client.ConnectAsync();
             Console.WriteLine();
 

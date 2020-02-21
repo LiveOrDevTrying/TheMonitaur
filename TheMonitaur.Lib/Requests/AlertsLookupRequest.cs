@@ -15,10 +15,12 @@ namespace TheMonitaur.Lib.Requests
         public int? MaxRecordsToRetrieve { get; set; }
         /// <summary>
         /// The Alert Type to retrieve, if provided
+        /// Possible values: 0 - 'Debug', 1 - 'Info', 2 - 'Warning', 3 - 'Alert', 4 - 'Error'
         /// </summary>
         public AlertType[] AlertTypes { get; set; } = new AlertType[0];
         /// <summary>
         /// The Status Type to retrieve, if provided
+        /// Possible values: 0 - 'Online', 1 - 'Offline'
         /// </summary>
         public StatusType[] StatusTypes { get; set; } = new StatusType[0];
         /// <summary>
@@ -29,6 +31,10 @@ namespace TheMonitaur.Lib.Requests
         /// The End Date to retrieve the Alerts, if provided - Exclusive
         /// </summary>
         public DateTime? EndDate { get; set; }
+        /// <summary>
+        /// Flag to indicate if the query should include active Alerts
+        /// </summary>
+        public bool? IncludeActiveAlerts { get; set; }
         /// <summary>
         /// Flag to indicate if the query should include dismissed Alerts
         /// </summary>

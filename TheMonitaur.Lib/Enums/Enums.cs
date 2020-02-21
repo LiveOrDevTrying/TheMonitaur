@@ -16,7 +16,7 @@
     }
 
     /// <summary>
-    /// The Alert Type
+    /// The Alert Alert Type
     /// </summary>
     public enum AlertType
     {

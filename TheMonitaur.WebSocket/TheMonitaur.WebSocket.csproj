@@ -5,11 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="WebsocketsSimple.Client" Version="1.0.8" />
+    <PackageReference Include="WebsocketsSimple.Client" Version="1.1.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TheMonitaur.Lib\TheMonitaur.Lib\TheMonitaur.Lib.csproj" />
+    <ProjectReference Include="..\TheMonitaur.Lib\TheMonitaur.Lib.csproj" />
   </ItemGroup>
 
 </Project>

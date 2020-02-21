@@ -18,9 +18,9 @@ namespace TheMonitaur.Lib.DTOs
         /// </summary>
         public string StatusTypeValue { get; set; }
         /// <summary>
-        /// The alert type of the Alertg', 3 - 'Alert', 4 - 'Error'
+        /// The alert type of the Alert,
+        /// Possible values: 0 - 'Debug', 1 - 'Info', 2 - 'Warning', 3 - 'Alert', 4 - 'Error'
         /// </summary>
-        /// Possible values: 0 - 'Debug', 1 - 'Info', 2 - 'Warnin
         public AlertType AlertType { get; set; }
         /// <summary>
         /// The alert type of the Alert as a string

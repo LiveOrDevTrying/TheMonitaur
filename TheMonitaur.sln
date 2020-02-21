@@ -3,7 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29609.76
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheMonitaur.Lib", "TheMonitaur.Lib\TheMonitaur.Lib\TheMonitaur.Lib.csproj", "{ED6BF1CA-0F3A-459D-B8B4-1ED675D6F30A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheMonitaur.Lib", "TheMonitaur.Lib\TheMonitaur.Lib.csproj", "{80DAB173-AFE4-41B1-8DFE-B44DD37892ED}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheMonitaur.Tcp", "TheMonitaur.TcpClient\TheMonitaur.Tcp.csproj", "{7D5CDD0D-FF0B-403D-B361-31DA775157D1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheMonitaur.WebAPI", "TheMonitaur.WebAPI\TheMonitaur.WebAPI.csproj", "{58E5FF4F-4662-4DC8-8B73-80A420300A3C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheMonitaur.WebSocket", "TheMonitaur.WebSocket\TheMonitaur.WebSocket.csproj", "{CEE126B6-63B7-436E-9F39-1F72A27E0A9F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{52CE058D-B93B-4418-A812-8C93AFDADB0B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheMonitaur.TcpClient.Test", "Tests\TheMonitaur.TcpClient.Test\TheMonitaur.TcpClient.Test.csproj", "{94579EBD-D4E4-4705-B94C-EDAEA0D8F9FA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheMonitaur.TcpClient.Test.SSL", "Tests\TheMonitaur.TcpClient.Test.SSL\TheMonitaur.TcpClient.Test.SSL.csproj", "{63093454-BF56-4243-A5A4-0438BA1A8F5D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheMonitaur.WebAPIClient.Test", "Tests\TheMonitaur.WebAPIClient.Test\TheMonitaur.WebAPIClient.Test.csproj", "{0D3C339F-7BC7-4C18-9BA7-087E50F5F78E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheMonitaur.WSClient.Test", "Tests\TheMonitaur.WSClient.Test\TheMonitaur.WSClient.Test.csproj", "{81EE8FBE-8C85-40D9-9157-45CAA37747D6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheMonitaur.WSClient.Test.SSL", "Tests\TheMonitaur.WSClient.Test.SSL\TheMonitaur.WSClient.Test.SSL.csproj", "{C814DED1-A0FB-4518-BB95-AA6998E3E857}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,13 +29,52 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{ED6BF1CA-0F3A-459D-B8B4-1ED675D6F30A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ED6BF1CA-0F3A-459D-B8B4-1ED675D6F30A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ED6BF1CA-0F3A-459D-B8B4-1ED675D6F30A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ED6BF1CA-0F3A-459D-B8B4-1ED675D6F30A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80DAB173-AFE4-41B1-8DFE-B44DD37892ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80DAB173-AFE4-41B1-8DFE-B44DD37892ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80DAB173-AFE4-41B1-8DFE-B44DD37892ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80DAB173-AFE4-41B1-8DFE-B44DD37892ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D5CDD0D-FF0B-403D-B361-31DA775157D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D5CDD0D-FF0B-403D-B361-31DA775157D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D5CDD0D-FF0B-403D-B361-31DA775157D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D5CDD0D-FF0B-403D-B361-31DA775157D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58E5FF4F-4662-4DC8-8B73-80A420300A3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58E5FF4F-4662-4DC8-8B73-80A420300A3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58E5FF4F-4662-4DC8-8B73-80A420300A3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58E5FF4F-4662-4DC8-8B73-80A420300A3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEE126B6-63B7-436E-9F39-1F72A27E0A9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEE126B6-63B7-436E-9F39-1F72A27E0A9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEE126B6-63B7-436E-9F39-1F72A27E0A9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEE126B6-63B7-436E-9F39-1F72A27E0A9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94579EBD-D4E4-4705-B94C-EDAEA0D8F9FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94579EBD-D4E4-4705-B94C-EDAEA0D8F9FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94579EBD-D4E4-4705-B94C-EDAEA0D8F9FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94579EBD-D4E4-4705-B94C-EDAEA0D8F9FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63093454-BF56-4243-A5A4-0438BA1A8F5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63093454-BF56-4243-A5A4-0438BA1A8F5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63093454-BF56-4243-A5A4-0438BA1A8F5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63093454-BF56-4243-A5A4-0438BA1A8F5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D3C339F-7BC7-4C18-9BA7-087E50F5F78E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D3C339F-7BC7-4C18-9BA7-087E50F5F78E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D3C339F-7BC7-4C18-9BA7-087E50F5F78E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D3C339F-7BC7-4C18-9BA7-087E50F5F78E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81EE8FBE-8C85-40D9-9157-45CAA37747D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81EE8FBE-8C85-40D9-9157-45CAA37747D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81EE8FBE-8C85-40D9-9157-45CAA37747D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81EE8FBE-8C85-40D9-9157-45CAA37747D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C814DED1-A0FB-4518-BB95-AA6998E3E857}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C814DED1-A0FB-4518-BB95-AA6998E3E857}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C814DED1-A0FB-4518-BB95-AA6998E3E857}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C814DED1-A0FB-4518-BB95-AA6998E3E857}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{94579EBD-D4E4-4705-B94C-EDAEA0D8F9FA} = {52CE058D-B93B-4418-A812-8C93AFDADB0B}
+		{63093454-BF56-4243-A5A4-0438BA1A8F5D} = {52CE058D-B93B-4418-A812-8C93AFDADB0B}
+		{0D3C339F-7BC7-4C18-9BA7-087E50F5F78E} = {52CE058D-B93B-4418-A812-8C93AFDADB0B}
+		{81EE8FBE-8C85-40D9-9157-45CAA37747D6} = {52CE058D-B93B-4418-A812-8C93AFDADB0B}
+		{C814DED1-A0FB-4518-BB95-AA6998E3E857} = {52CE058D-B93B-4418-A812-8C93AFDADB0B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BF1917F4-0E4D-446C-BC60-BB2F0B73B84F}
