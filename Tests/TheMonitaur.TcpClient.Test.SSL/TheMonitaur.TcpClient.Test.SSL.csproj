@@ -6,10 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\TheMonitaur.App\Backend\Domain\TheMonitaur.Domain.Lib\TheMonitaur.Domain.Lib.csproj" />
-    <ProjectReference Include="..\..\..\TheMonitaur.App\Backend\Domain\TheMonitaur.Domain.Variables\TheMonitaur.Domain.Variables.csproj" />
-    <ProjectReference Include="..\..\TheMonitaur.Lib\TheMonitaur.Lib.csproj" />
-    <ProjectReference Include="..\..\TheMonitaur.TcpClient\TheMonitaur.Tcp.csproj" />
+    <PackageReference Include="TheMonitaur" Version="1.0.1" />
   </ItemGroup>
 
 </Project>

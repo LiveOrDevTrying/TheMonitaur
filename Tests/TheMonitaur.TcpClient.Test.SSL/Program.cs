@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Tcp.NET.Client.Models;
-using TheMonitaur.Domain.Variables;
 using TheMonitaur.Lib.Enums;
 using TheMonitaur.Lib.Requests;
 using TheMonitaur.Tcp;
@@ -75,9 +73,7 @@ namespace TheMonitaur.TcpClient.Test.SSL
                 Console.WriteLine("That is not a valid entry.");
             } while (string.IsNullOrWhiteSpace(_oauthToken));
 
-            _client = new MonitaurTcp(_oauthToken,
-                uri: Globals.THEMONITAUR_TCP_SERVER_SSL_URI,
-                port: Globals.THEMONITAUR_TCP_SERVER_SSL_PORT);
+            _client = new MonitaurTcp(_oauthToken);
 
             Console.WriteLine();
 

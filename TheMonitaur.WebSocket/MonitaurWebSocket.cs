@@ -17,7 +17,7 @@ namespace TheMonitaur.WebSocket
         protected readonly IParamsWSClient _parameters;
 
         public MonitaurWebSocket(string oauthToken,
-            string uri = "https://connect.themonitaur.com",
+            string uri = "connect.themonitaur.com",
             int port = 6790,
             bool isSSL = true)
         {

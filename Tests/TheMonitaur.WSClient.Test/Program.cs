@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using TheMonitaur.Domain.Variables;
 using TheMonitaur.Lib.Enums;
 using TheMonitaur.Lib.Requests;
 using TheMonitaur.WebSocket;
-using WebsocketsSimple.Client.Models;
 
 namespace TheMonitaur.WSClient.Test
 {
@@ -76,8 +74,8 @@ namespace TheMonitaur.WSClient.Test
             } while (string.IsNullOrWhiteSpace(_oauthToken));
 
             _client = new MonitaurWebSocket(_oauthToken,
-                uri: Globals.THEMONITAUR_WEBSOCKET_SERVER_URI,
-                port: Globals.THEMONITAUR_WEBSOCKET_SERVER_PORT,
+
+                port: 6795,
                 isSSL: false);
 
             await _client.ConnectAsync();

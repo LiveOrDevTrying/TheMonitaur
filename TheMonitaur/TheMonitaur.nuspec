@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>The Monitaur</title>
+    <authors>Rob Engel - LiveOrDevTrying</authors>
+    <owners>Rob Engel - LiveOrDevTrying - Pixel Horror Studios</owners>
+    <license type="expression">Apache-2.0</license>
+    <projectUrl>https://www.TheMonitaur.com</projectUrl>
+    <icon>Logo.png</icon>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>This packages contains the public plugins for interacting with https://www.TheMonitaur.com, a free and simple single-source web application for monitoring all your application layers using Tcp, Websocket, and/or WebAPI / Http.</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2020</copyright>
+    <tags>N-Tier ntier tcp websocket webapi monitor monitoring async await 2.1 2.1 2.2 message services liveordevtrying monitaur themonitaur log logger logging universal</tags>
+    <dependencies>
+      <group targetFramework="netcoreapp2.2">
+        <dependency id="Microsoft.NETCore.App" version="[2.2,3)" />
+        <dependency id="TheMonitaur.Tcp" version="[1,2)" />
+        <dependency id="TheMonitaur.WebAPI" version="[1,2)" />
+        <dependency id="TheMonitaur.WebSocket" version="[1,2)" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="Logo.png" target="" />
+  </files>
+</package>

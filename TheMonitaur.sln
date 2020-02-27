@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.29609.76
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheMonitaur.Lib", "TheMonitaur.Lib\TheMonitaur.Lib.csproj", "{80DAB173-AFE4-41B1-8DFE-B44DD37892ED}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheMonitaur.Tcp", "TheMonitaur.TcpClient\TheMonitaur.Tcp.csproj", "{7D5CDD0D-FF0B-403D-B361-31DA775157D1}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheMonitaur.WebAPI", "TheMonitaur.WebAPI\TheMonitaur.WebAPI.csproj", "{58E5FF4F-4662-4DC8-8B73-80A420300A3C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheMonitaur.WebSocket", "TheMonitaur.WebSocket\TheMonitaur.WebSocket.csproj", "{CEE126B6-63B7-436E-9F39-1F72A27E0A9F}"
@@ -23,6 +21,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheMonitaur.WSClient.Test",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheMonitaur.WSClient.Test.SSL", "Tests\TheMonitaur.WSClient.Test.SSL\TheMonitaur.WSClient.Test.SSL.csproj", "{C814DED1-A0FB-4518-BB95-AA6998E3E857}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheMonitaur.Tcp", "TheMonitaur.Tcp\TheMonitaur.Tcp.csproj", "{E3DE0045-6BDB-4476-BCA5-D370C14A3F88}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheMonitaur", "TheMonitaur\TheMonitaur.csproj", "{0D87C6A4-CE64-4394-8C2E-C2DF2BE3FA3F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,10 +35,6 @@ Global
 		{80DAB173-AFE4-41B1-8DFE-B44DD37892ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80DAB173-AFE4-41B1-8DFE-B44DD37892ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80DAB173-AFE4-41B1-8DFE-B44DD37892ED}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7D5CDD0D-FF0B-403D-B361-31DA775157D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7D5CDD0D-FF0B-403D-B361-31DA775157D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7D5CDD0D-FF0B-403D-B361-31DA775157D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7D5CDD0D-FF0B-403D-B361-31DA775157D1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{58E5FF4F-4662-4DC8-8B73-80A420300A3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{58E5FF4F-4662-4DC8-8B73-80A420300A3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58E5FF4F-4662-4DC8-8B73-80A420300A3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -65,6 +63,14 @@ Global
 		{C814DED1-A0FB-4518-BB95-AA6998E3E857}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C814DED1-A0FB-4518-BB95-AA6998E3E857}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C814DED1-A0FB-4518-BB95-AA6998E3E857}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3DE0045-6BDB-4476-BCA5-D370C14A3F88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3DE0045-6BDB-4476-BCA5-D370C14A3F88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3DE0045-6BDB-4476-BCA5-D370C14A3F88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3DE0045-6BDB-4476-BCA5-D370C14A3F88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D87C6A4-CE64-4394-8C2E-C2DF2BE3FA3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D87C6A4-CE64-4394-8C2E-C2DF2BE3FA3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D87C6A4-CE64-4394-8C2E-C2DF2BE3FA3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D87C6A4-CE64-4394-8C2E-C2DF2BE3FA3F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

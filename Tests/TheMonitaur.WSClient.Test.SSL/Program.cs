@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using TheMonitaur.Domain.Variables;
 using TheMonitaur.Lib.Enums;
 using TheMonitaur.Lib.Requests;
 using TheMonitaur.WebSocket;
-using WebsocketsSimple.Client.Models;
 
 namespace TheMonitaur.WSClient.Test.SSL
 {
@@ -75,9 +73,7 @@ namespace TheMonitaur.WSClient.Test.SSL
                 Console.WriteLine("That is not a valid entry.");
             } while (string.IsNullOrWhiteSpace(_oauthToken));
 
-            _client = new MonitaurWebSocket(_oauthToken,
-                uri: Globals.THEMONITAUR_WEBSOCKET_SERVER_URI,
-                port: Globals.THEMONITAUR_WEBSOCKET_SERVER_SSL_PORT);
+            _client = new MonitaurWebSocket(_oauthToken);
                 
             await _client.ConnectAsync();
             Console.WriteLine();
