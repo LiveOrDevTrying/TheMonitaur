@@ -18,7 +18,7 @@ namespace TheMonitaur.Tcp
         protected readonly int _port;
 
         public MonitaurTcp(string oauthToken,
-            string uri = "https://connect.themonitaur.com",
+            string uri = "connect.themonitaur.com",
             int port = 6780,
             bool isSSL = true)
         {
