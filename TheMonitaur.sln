@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheMonitaur.TcpClient.Test"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheMonitaur.TcpClient.Test.SSL", "Tests\TheMonitaur.TcpClient.Test.SSL\TheMonitaur.TcpClient.Test.SSL.csproj", "{63093454-BF56-4243-A5A4-0438BA1A8F5D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheMonitaur.WebAPIClient.Test", "Tests\TheMonitaur.WebAPIClient.Test\TheMonitaur.WebAPIClient.Test.csproj", "{0D3C339F-7BC7-4C18-9BA7-087E50F5F78E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheMonitaur.WebAPI.Test", "Tests\TheMonitaur.WebAPIClient.Test\TheMonitaur.WebAPI.Test.csproj", "{0D3C339F-7BC7-4C18-9BA7-087E50F5F78E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheMonitaur.WSClient.Test", "Tests\TheMonitaur.WSClient.Test\TheMonitaur.WSClient.Test.csproj", "{81EE8FBE-8C85-40D9-9157-45CAA37747D6}"
 EndProject
@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheMonitaur.WSClient.Test.S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheMonitaur.Tcp", "TheMonitaur.Tcp\TheMonitaur.Tcp.csproj", "{E3DE0045-6BDB-4476-BCA5-D370C14A3F88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheMonitaur", "TheMonitaur\TheMonitaur.csproj", "{0D87C6A4-CE64-4394-8C2E-C2DF2BE3FA3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheMonitaur", "TheMonitaur\TheMonitaur.csproj", "{0D87C6A4-CE64-4394-8C2E-C2DF2BE3FA3F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

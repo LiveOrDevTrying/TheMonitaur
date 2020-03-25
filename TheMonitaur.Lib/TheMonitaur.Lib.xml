@@ -186,21 +186,6 @@
             Flag to indicate if the query should include dismissed Alerts
             </summary>
         </member>
-        <member name="T:TheMonitaur.Lib.Requests.ClientApplicationUpdateRequest">
-            <summary>
-            A Client Application update request
-            </summary>
-        </member>
-        <member name="P:TheMonitaur.Lib.Requests.ClientApplicationUpdateRequest.ClientName">
-            <summary>
-            The updated name of the Client Application
-            </summary>
-        </member>
-        <member name="P:TheMonitaur.Lib.Requests.ClientApplicationUpdateRequest.ClientDescription">
-            <summary>
-            The updated description of the Client Application
-            </summary>
-        </member>
         <member name="T:TheMonitaur.Lib.Requests.CreateRequest">
             <summary>
             A base create request

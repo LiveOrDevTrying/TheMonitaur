@@ -40,15 +40,6 @@ namespace TheMonitaur.WebAPI
             return await GetAsync<ClientApplicationDTO>("clientApplication");
         }
         /// <summary>
-        /// Update the Authorized Client Application
-        /// </summary>
-        /// <param name="request">The Client Application update request</param>
-        /// <returns></returns>
-        public virtual async Task<ClientApplicationDTO> UpdateClientApplicationAsync(ClientApplicationUpdateRequest request)
-        {
-            return await PutAsync<ClientApplicationUpdateRequest, ClientApplicationDTO>("clientapplications/app", request, request.Id);
-        }
-        /// <summary>
         /// Read the Alerts for a Client Application
         /// </summary>
         /// <param name="clientApplicationId">The Client Application to retrieve the non-dismissed Alerts</param>
