@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -14,21 +15,21 @@ namespace TheMonitaur.WebAPI
     public class WebAPIClient : IWebAPIClient
     {
         protected readonly string _webAPIBaseUri;
-        protected string _accessToken;
+        protected string _token;
 
-        public WebAPIClient(string accessToken, string webAPIBaseUri = "https://api.themonitaur.com")
+        public WebAPIClient(string token, string webAPIBaseUri = "https://api.themonitaur.com")
         {
-            _accessToken = accessToken;
+            _token = token;
             _webAPIBaseUri = webAPIBaseUri;
         }
 
         /// <summary>
-        /// Set the access token
+        /// Set the token
         /// </summary>
-        /// <param name="accessToken">The access token to be used when requesting The Monitaur's WebAPI</param>
-        public virtual void SetAccessToken(string accessToken)
+        /// <param name="token">The token to be used when requesting The Monitaur's WebAPI</param>
+        public virtual void SetToken(string token)
         {
-            _accessToken = accessToken;
+            _token = token;
         }
 
         /// <summary>
@@ -40,13 +41,51 @@ namespace TheMonitaur.WebAPI
             return await GetAsync<ClientApplicationDTO>("clientApplication");
         }
         /// <summary>
-        /// Read the Alerts for a Client Application
+        /// Read the undismissed Alerts for a Client Application
         /// </summary>
         /// <param name="clientApplicationId">The Client Application to retrieve the non-dismissed Alerts</param>
         /// <returns>An array of Alert data-transfer objects</returns>
         public virtual async Task<AlertDTO[]> GetAlertsAsync()
         {
             return await GetAsync<AlertDTO[]>("alerts");
+        }
+        /// <summary>
+        /// Read the Alerts for a Client Application within the AlertsLookupRequest criteria
+        /// </summary>
+        /// <param name="AlertsLookupRequest">An Alerts Lookup Request object</param>
+        /// <returns>An array of Alert data-transfer objects</returns>
+        public virtual async Task<AlertDTO[]> GetAlertsAsync(AlertsLookupRequest request)
+        {
+            var queryString = new StringBuilder();
+            request.AlertTypes.ToList().ForEach(s =>
+            {
+                queryString.Append($"alertTypes={s}&");
+            });
+            request.StatusTypes.ToList().ForEach(s =>
+            {
+                queryString.Append($"statusTypes={s}&");
+            });
+            if (request.StartDate.HasValue)
+            {
+                queryString.Append($"startDate={request.StartDate.Value}&");
+            }
+            if (request.EndDate.HasValue)
+            {
+                queryString.Append($"endDate={request.EndDate.Value}&");
+            }
+            if (request.MaxRecordsToRetrieve.HasValue)
+            {
+                queryString.Append($"maxRecordsToRetrieve={request.MaxRecordsToRetrieve.Value}&");
+            }
+            if (request.IncludeActiveAlerts.HasValue)
+            {
+                queryString.Append($"includeActiveAlerts={request.IncludeActiveAlerts.Value}&");
+            }
+            if (request.IncludeActiveAlerts.HasValue)
+            {
+                queryString.Append($"includeDismissedAlerts={request.IncludeDismissedAlerts.Value}&");
+            }
+            return await GetAsync<AlertDTO[]>($"alerts?{queryString.ToString().Substring(0, queryString.ToString().Length - 1)}");
         }
         /// <summary>
         /// Request an Alert
@@ -96,7 +135,7 @@ namespace TheMonitaur.WebAPI
 
         protected virtual void CheckIfTokenIsValid()
         {
-            if (string.IsNullOrWhiteSpace(_accessToken))
+            if (string.IsNullOrWhiteSpace(_token))
             {
                 throw new Exception("There is no access token currently loaded to access the WebAPI. " +
                     "Please use SetAccesssToken to load a new access token and try again");
@@ -105,7 +144,7 @@ namespace TheMonitaur.WebAPI
         protected virtual HttpClient CreateClient()
         {
             var client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
             return client;
         }
         protected virtual async Task<T> GetAsync<T>(string path, string parameters = "")
@@ -148,27 +187,6 @@ namespace TheMonitaur.WebAPI
 
             return default;
         }
-        protected virtual async Task<U> PutAsync<T, U>(string path, T request, long id)
-        {
-            CheckIfTokenIsValid();
-
-            try
-            {
-                using var client = CreateClient();
-                var fullPath = $"{_webAPIBaseUri}/{path}/{id}";
-                var response = await client.PutAsync(fullPath, new JsonContent(request));
-
-                if (response.StatusCode == HttpStatusCode.OK)
-                {
-                    return JsonConvert.DeserializeObject<U>(await response.Content.ReadAsStringAsync());
-                }
-            }
-            catch
-            { }
-
-            return default;
-        }
-
         protected virtual async Task<bool> DeleteAsync(string path, long id)
         {
             CheckIfTokenIsValid();

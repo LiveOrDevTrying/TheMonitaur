@@ -16,10 +16,15 @@ namespace TheMonitaur.WebAPI
         /// <returns>A Client Application data-transfer object</returns>
         Task<ClientApplicationDTO> GetClientApplicationAsync();
         /// <summary>
-        /// Gets the Alerts for the Authorized Client Application
+        /// Gets the undismissed Alerts for the Authorized Client Application
         /// </summary>
         /// <returns>An array of Alert data-transfer objects</returns>
         Task<AlertDTO[]> GetAlertsAsync();
+        /// <summary>
+        /// Read the Alerts for a Client Application within the AlertsLookupRequest criteria
+        /// </summary>
+        /// <returns>An array of Alert data-transfer objects</returns>
+        Task<AlertDTO[]> GetAlertsAsync(AlertsLookupRequest request);
         /// <summary>
         /// Get an Alert for the Authorized Client Application
         /// </summary>
@@ -45,9 +50,9 @@ namespace TheMonitaur.WebAPI
         /// <returns>True if the Alerts was deleted successfully, and false if the Alert could not be deletewd</returns>
         Task<bool> DeleteAlertAsync(long id);
         /// <summary>
-        /// Set the Access Token to a new Token
+        /// Set the Token to a new Token
         /// </summary>
         /// <param name="accessToken">The new Access Token to use for WebAPI requests</param>
-        void SetAccessToken(string accessToken);
+        void SetToken(string accessToken);
     }
 }

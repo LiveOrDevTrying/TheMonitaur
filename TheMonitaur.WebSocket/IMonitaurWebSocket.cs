@@ -6,8 +6,6 @@ namespace TheMonitaur.WebSocket
 {
     public interface IMonitaurWebSocket : IDisposable
     {
-        Task ConnectAsync();
-        Task DisconnectAsync();
         Task SendAlertAsync(AlertCreateRequest request);
     }
 }

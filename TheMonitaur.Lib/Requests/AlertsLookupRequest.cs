@@ -10,7 +10,7 @@ namespace TheMonitaur.Lib.Requests
     {
         /// <summary>
         /// The maximum number of records to retrieve - if not specified, defaults to 150 records. 
-        /// The total number of records to retrieve is limited to 5000 maximum records in one webapi call.
+        /// The total number of records to retrieve is limited to 50000 maximum records in one webapi call.
         /// </summary>
         public int? MaxRecordsToRetrieve { get; set; }
         /// <summary>

@@ -14,15 +14,15 @@ namespace TheMonitaur.Tcp
     public class MonitaurTcp : IMonitaurTcp
     {
         protected readonly ITcpNETClient _client;
-        protected readonly string _oauthToken;
+        protected readonly string _token;
         protected readonly int _port;
 
-        public MonitaurTcp(string oauthToken,
+        public MonitaurTcp(string token,
             string uri = "connect.themonitaur.com",
             int port = 6780,
             bool isSSL = true)
         {
-            _oauthToken = oauthToken;
+            _token = token;
 
             var pparameters = new ParamsTcpClient
             {
@@ -32,7 +32,7 @@ namespace TheMonitaur.Tcp
                 Uri = uri
             };
 
-            _client = new TcpNETClient(pparameters, oauthToken: oauthToken);
+            _client = new TcpNETClient(pparameters, oauthToken: token);
             _client.ConnectionEvent += OnConnectionEvent;
             _client.MessageEvent += OnMessageEvent;
             _client.ErrorEvent += OnErrorEvent;
@@ -58,7 +58,7 @@ namespace TheMonitaur.Tcp
             switch (args.ConnectionEventType)
             {
                 case ConnectionEventType.Connected:
-                    await _client.SendToServerRawAsync($"oauth:{_oauthToken}"); 
+                    await _client.SendToServerRawAsync($"oauth:{_token}"); 
                     break;
                 case ConnectionEventType.Disconnect:
                     Thread.Sleep(10000);

@@ -16,7 +16,7 @@ namespace TheMonitaur.WebSocket
         protected readonly IWebsocketClient _client;
         protected readonly IParamsWSClient _parameters;
 
-        public MonitaurWebSocket(string oauthToken,
+        public MonitaurWebSocket(string token,
             string uri = "connect.themonitaur.com",
             int port = 6790,
             bool isSSL = true)
@@ -28,21 +28,15 @@ namespace TheMonitaur.WebSocket
                 Uri = uri
             };
 
-            _client = new WebsocketClient(_parameters, oauthToken: oauthToken);
+            _client = new WebsocketClient(_parameters, oauthToken: token);
             _client.ConnectionEvent += ConnectionEvent;
             _client.MessageEvent += OnMessageEvent;
             _client.ErrorEvent += OnErrorEvent;
-        }
-        public virtual async Task ConnectAsync()
-        {
-            await _client.ConnectAsync();
-        }
-        public virtual async Task DisconnectAsync()
-        {
-            if (_client != null)
+
+            Task.Run(async () =>
             {
-                await _client.DisconnectAsync();
-            }
+                await _client.ConnectAsync();
+            });
         }
 
         protected virtual async Task OnErrorEvent(object sender, WSErrorClientEventArgs args)
@@ -50,7 +44,7 @@ namespace TheMonitaur.WebSocket
             if (_client != null)
             {
                 Thread.Sleep(10000);
-                await ConnectAsync();
+                await _client.ConnectAsync();
             }
         }
         protected virtual Task OnMessageEvent(object sender, WSMessageClientEventArgs args)
@@ -65,7 +59,7 @@ namespace TheMonitaur.WebSocket
                     break;
                 case ConnectionEventType.Disconnect:
                     Thread.Sleep(10000);
-                    await ConnectAsync();
+                    await _client.ConnectAsync();
                     break;
                 case ConnectionEventType.Connecting:
                     break;
