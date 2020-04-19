@@ -79,7 +79,6 @@ namespace TheMonitaur.WebSocket
 
         public virtual void Dispose()
         {
-            DisconnectAsync().Wait();
             _client.Dispose();
             _client.ConnectionEvent -= ConnectionEvent;
             _client.MessageEvent -= OnMessageEvent;

@@ -14,11 +14,11 @@
     <PackageTags>N-Tier ntier tcp websocket webapi monitor monitoring async await 2.1 2.1 2.2 message services liveordevtrying monitaur themonitaur log logger logging universal</PackageTags>
     <RepositoryType>Github Public</RepositoryType>
     <RepositoryUrl>https://github.com/liveordevtrying/themonitaur</RepositoryUrl>
-    <Version>1.0.4</Version>
+    <Version>1.0.5</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\Companies\PixelHorrorStudios\Projects\PHS.TheMonitaur\Source\TheMonitaur.Public\TheMonitaur.Lib\TheMonitaur.Lib.xml</DocumentationFile>
+    <DocumentationFile>C:\Companies\PixelHorrorStudios\Projects\PHS.TheMonitaur\Source\TheMonitaur.App\Backend\TheMonitaur.Public\TheMonitaur.Lib\TheMonitaur.Lib.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

@@ -15,20 +15,10 @@
             Possible values: 0 - 'Online', 1 - 'Offline'
             </summary>
         </member>
-        <member name="P:TheMonitaur.Lib.DTOs.AlertDTO.StatusTypeValue">
-            <summary>
-            The status type of the Alert as a string
-            </summary>
-        </member>
         <member name="P:TheMonitaur.Lib.DTOs.AlertDTO.AlertType">
             <summary>
             The alert type of the Alert,
             Possible values: 0 - 'Debug', 1 - 'Info', 2 - 'Warning', 3 - 'Alert', 4 - 'Error'
-            </summary>
-        </member>
-        <member name="P:TheMonitaur.Lib.DTOs.AlertDTO.AlertTypeValue">
-            <summary>
-            The alert type of the Alert as a string
             </summary>
         </member>
         <member name="P:TheMonitaur.Lib.DTOs.AlertDTO.Message">
