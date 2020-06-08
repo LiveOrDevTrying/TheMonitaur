@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.CSharp.RuntimeBinder;
+using Newtonsoft.Json;
 using PHS.Networking.Enums;
 using PHS.Networking.Models;
 using System;
@@ -38,13 +39,17 @@ namespace TheMonitaur.WebSocket
             _client.ErrorEvent += OnErrorEvent;
         }
 
-        public async Task ConnectAsync()
+        public async Task<bool> ConnectAsync()
         {
             try
             {
                 await DisconnectAsync();
                 await _client.ConnectAsync();
-                return;
+
+                if (_client.IsRunning)
+                {
+                    return true;
+                }
             }
             catch (Exception ex)
             {
@@ -53,13 +58,28 @@ namespace TheMonitaur.WebSocket
                     Exception = ex
                 });
             }
+
+            return false;
         }
-        public async Task DisconnectAsync()
+        public async Task<bool> DisconnectAsync()
         {
-            if (_client.IsRunning)
+            try
             {
-                await _client.DisconnectAsync();
+                if (_client.IsRunning)
+                {
+                    await _client.DisconnectAsync();
+                    return true;
+                }
             }
+            catch (Exception ex)
+            {
+                ErrorEvent?.Invoke(this, new ErrorEventArgs
+                {
+                    Exception = ex
+                });
+            }
+
+            return false;
         }
         protected virtual Task OnErrorEvent(object sender, WSErrorClientEventArgs args)
         {
@@ -71,11 +91,25 @@ namespace TheMonitaur.WebSocket
         }
         protected virtual Task OnMessageEvent(object sender, WSMessageClientEventArgs args)
         {
-            MessageEvent?.Invoke(this, new MessageEventArgs
+            switch (args.MessageEventType)
             {
-                MessageEventType = Lib.Enums.MessageEventType.Inbound,
-                Message = args.Message
-            });
+                case MessageEventType.Sent:
+                    MessageEvent?.Invoke(this, new MessageEventArgs
+                    {
+                        MessageEventType = Lib.Enums.MessageEventType.Outbound,
+                        Message = args.Message
+                    });
+                    break;
+                case MessageEventType.Receive:
+                    MessageEvent?.Invoke(this, new MessageEventArgs
+                    {
+                        MessageEventType = Lib.Enums.MessageEventType.Inbound,
+                        Message = args.Message
+                    });
+                    break;
+                default:
+                    break;
+            }
 
             return Task.CompletedTask;
         }
@@ -117,12 +151,6 @@ namespace TheMonitaur.WebSocket
                 {
                     Data = json,
                     Timestamp = DateTime.UtcNow
-                });
-
-                MessageEvent?.Invoke(this, new MessageEventArgs
-                {
-                    Message = json,
-                    MessageEventType = Lib.Enums.MessageEventType.Outbound
                 });
             }
             catch (Exception ex)

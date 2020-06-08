@@ -8,8 +8,8 @@ namespace TheMonitaur.Tcp
     {
         Task SendAlertAsync(AlertCreateRequest request); 
         
-        Task ConnectAsync();
+        Task<bool> ConnectAsync();
 
-        Task DisconnectAsync();
+        Task<bool> DisconnectAsync();
     }
 }

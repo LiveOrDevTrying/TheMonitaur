@@ -43,13 +43,18 @@ namespace TheMonitaur.Tcp
             _client.ErrorEvent += OnErrorEvent;
         }
 
-        public async Task ConnectAsync()
+        public async Task<bool> ConnectAsync()
         {
             try
             {
                 await DisconnectAsync();
                 await _client.ConnectAsync();
-                return;
+                await _client.SendToServerRawAsync($"oauth:{_token}");
+
+                if (_client.IsRunning)
+                {
+                    return true;
+                }
             }
             catch (Exception ex)
             {
@@ -58,15 +63,30 @@ namespace TheMonitaur.Tcp
                     Exception = ex
                 });
             }
+
+            return false;
         }
-        public Task DisconnectAsync()
+        public Task<bool> DisconnectAsync()
         {
-            if (_client.IsRunning)
+            try
             {
-                _client.Disconnect();
+                if (_client.IsRunning)
+                {
+                    _client.Disconnect();
+                    return Task.FromResult(true);
+                }
+
+                return Task.FromResult(true);
+            }
+            catch (Exception ex)
+            {
+                ErrorEvent?.Invoke(this, new ErrorEventArgs
+                {
+                    Exception = ex
+                });
             }
 
-            return Task.CompletedTask;
+            return Task.FromResult(false);
         }
 
         protected virtual Task OnErrorEvent(object sender, TcpErrorClientEventArgs args)
@@ -79,15 +99,29 @@ namespace TheMonitaur.Tcp
         }
         protected virtual Task OnMessageEvent(object sender, TcpMessageClientEventArgs args)
         {
-            MessageEvent?.Invoke(this, new MessageEventArgs
+            switch (args.MessageEventType)
             {
-                MessageEventType = Lib.Enums.MessageEventType.Inbound,
-                Message = args.Message
-            });
-
+                case MessageEventType.Sent:
+                    MessageEvent?.Invoke(this, new MessageEventArgs
+                    {
+                        MessageEventType = Lib.Enums.MessageEventType.Outbound,
+                        Message = args.Message
+                    });
+                    break;
+                case MessageEventType.Receive:
+                    MessageEvent?.Invoke(this, new MessageEventArgs
+                    {
+                        MessageEventType = Lib.Enums.MessageEventType.Inbound,
+                        Message = args.Message
+                    }); 
+                    break;
+                default:
+                    break;
+            }
+           
             return Task.CompletedTask;
         }
-        protected virtual async Task OnConnectionEvent(object sender, TcpConnectionClientEventArgs args)
+        protected virtual Task OnConnectionEvent(object sender, TcpConnectionClientEventArgs args)
         {
             switch (args.ConnectionEventType)
             {
@@ -96,7 +130,6 @@ namespace TheMonitaur.Tcp
                     {
                         ConnectionStatusType = Lib.Enums.ConnectionStatusType.Connected
                     });
-                    await _client.SendToServerRawAsync($"oauth:{_token}");
                     break;
                 case ConnectionEventType.Disconnect:
                     ConnectionEvent?.Invoke(this, new ConnectionEventArgs
@@ -105,7 +138,6 @@ namespace TheMonitaur.Tcp
                     });
                     break;
                 case ConnectionEventType.Connecting:
-
                     ConnectionEvent?.Invoke(this, new ConnectionEventArgs
                     {
                         ConnectionStatusType = Lib.Enums.ConnectionStatusType.Connecting
@@ -114,6 +146,8 @@ namespace TheMonitaur.Tcp
                 default:
                     break;
             }
+
+            return Task.CompletedTask;
         }
 
         public virtual async Task SendAlertAsync(AlertCreateRequest request)
@@ -125,12 +159,6 @@ namespace TheMonitaur.Tcp
                 {
                     Data = json,
                     Timestamp = DateTime.UtcNow
-                });
-
-                MessageEvent?.Invoke(this, new MessageEventArgs
-                {
-                    Message = json,
-                    MessageEventType = Lib.Enums.MessageEventType.Outbound
                 });
             }
             catch (Exception ex)
