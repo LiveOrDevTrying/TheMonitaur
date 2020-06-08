@@ -6,6 +6,10 @@ namespace TheMonitaur.Tcp
 {
     public interface IMonitaurTcp : IDisposable
     {
-        Task SendAlertAsync(AlertCreateRequest request);
+        Task SendAlertAsync(AlertCreateRequest request); 
+        
+        Task ConnectAsync();
+
+        Task DisconnectAsync();
     }
 }

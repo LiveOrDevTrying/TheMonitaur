@@ -74,7 +74,7 @@ namespace TheMonitaur.TcpClient.Test
             } while (string.IsNullOrWhiteSpace(_oauthToken));
 
             _client = new MonitaurTcp(_oauthToken, isSSL: false, port: 6785);
-
+            await _client.ConnectAsync();
             Console.WriteLine();
 
             await MenuAsync();

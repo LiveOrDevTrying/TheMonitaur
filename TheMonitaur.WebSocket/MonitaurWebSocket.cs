@@ -2,8 +2,8 @@
 using PHS.Networking.Enums;
 using PHS.Networking.Models;
 using System;
-using System.Threading;
 using System.Threading.Tasks;
+using TheMonitaur.Lib.Events;
 using TheMonitaur.Lib.Requests;
 using WebsocketsSimple.Client;
 using WebsocketsSimple.Client.Events.Args;
@@ -15,6 +15,10 @@ namespace TheMonitaur.WebSocket
     {
         protected readonly IWebsocketClient _client;
         protected readonly IParamsWSClient _parameters;
+
+        public event ConnectionEventHandler ConnectionEvent;
+        public event MessageEventHandler MessageEvent;
+        public event ErrorEventHandler ErrorEvent;
 
         public MonitaurWebSocket(string token,
             string uri = "connect.themonitaur.com",
@@ -29,58 +33,111 @@ namespace TheMonitaur.WebSocket
             };
 
             _client = new WebsocketClient(_parameters, oauthToken: token);
-            _client.ConnectionEvent += ConnectionEvent;
+            _client.ConnectionEvent += OnConnectionEvent;
             _client.MessageEvent += OnMessageEvent;
             _client.ErrorEvent += OnErrorEvent;
-
-            Task.Run(async () =>
-            {
-                await _client.ConnectAsync();
-            });
         }
 
-        protected virtual async Task OnErrorEvent(object sender, WSErrorClientEventArgs args)
+        public async Task ConnectAsync()
         {
-            if (_client != null)
+            try
             {
-                Thread.Sleep(10000);
+                await DisconnectAsync();
                 await _client.ConnectAsync();
+                return;
             }
+            catch (Exception ex)
+            {
+                ErrorEvent?.Invoke(this, new ErrorEventArgs
+                {
+                    Exception = ex
+                });
+            }
+        }
+        public async Task DisconnectAsync()
+        {
+            if (_client.IsRunning)
+            {
+                await _client.DisconnectAsync();
+            }
+        }
+        protected virtual Task OnErrorEvent(object sender, WSErrorClientEventArgs args)
+        {
+            ErrorEvent?.Invoke(this, new ErrorEventArgs
+            {
+                Exception = args.Exception
+            });
+            return Task.CompletedTask;
         }
         protected virtual Task OnMessageEvent(object sender, WSMessageClientEventArgs args)
         {
+            MessageEvent?.Invoke(this, new MessageEventArgs
+            {
+                MessageEventType = Lib.Enums.MessageEventType.Inbound,
+                Message = args.Message
+            });
+
             return Task.CompletedTask;
         }
-        protected virtual async Task ConnectionEvent(object sender, WSConnectionClientEventArgs args)
+        protected virtual Task OnConnectionEvent(object sender, WSConnectionClientEventArgs args)
         {
             switch (args.ConnectionEventType)
             {
                 case ConnectionEventType.Connected:
+                    ConnectionEvent?.Invoke(this, new ConnectionEventArgs
+                    {
+                        ConnectionStatusType = Lib.Enums.ConnectionStatusType.Connected
+                    });
                     break;
                 case ConnectionEventType.Disconnect:
-                    Thread.Sleep(10000);
-                    await _client.ConnectAsync();
+                    ConnectionEvent?.Invoke(this, new ConnectionEventArgs
+                    {
+                        ConnectionStatusType = Lib.Enums.ConnectionStatusType.Disconnected
+                    });
                     break;
                 case ConnectionEventType.Connecting:
+                    ConnectionEvent?.Invoke(this, new ConnectionEventArgs
+                    {
+                        ConnectionStatusType = Lib.Enums.ConnectionStatusType.Connecting
+                    });
                     break;
                 default:
                     break;
             }
+
+            return Task.CompletedTask;
         }
 
         public virtual async Task SendAlertAsync(AlertCreateRequest request)
         {
-            await _client.SendToServerAsync(new Packet
+            try
             {
-                Data = JsonConvert.SerializeObject(request),
-                Timestamp = DateTime.UtcNow
-            });
+                var json = JsonConvert.SerializeObject(request);
+                await _client.SendToServerAsync(new Packet
+                {
+                    Data = json,
+                    Timestamp = DateTime.UtcNow
+                });
+
+                MessageEvent?.Invoke(this, new MessageEventArgs
+                {
+                    Message = json,
+                    MessageEventType = Lib.Enums.MessageEventType.Outbound
+                });
+            }
+            catch (Exception ex)
+            {
+                ErrorEvent?.Invoke(this, new ErrorEventArgs
+                {
+                    Exception = ex
+                });
+            }
         }
 
         public virtual void Dispose()
         {
             _client.Dispose();
-            _client.ConnectionEvent -= ConnectionEvent;
+            _client.ConnectionEvent -= OnConnectionEvent;
             _client.MessageEvent -= OnMessageEvent;
             _client.ErrorEvent -= OnErrorEvent;
         }

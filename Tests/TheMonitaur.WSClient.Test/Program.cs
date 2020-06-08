@@ -77,6 +77,7 @@ namespace TheMonitaur.WSClient.Test
 
                 port: 6795,
                 isSSL: false);
+            await _client.ConnectAsync();
 
             Console.WriteLine();
 

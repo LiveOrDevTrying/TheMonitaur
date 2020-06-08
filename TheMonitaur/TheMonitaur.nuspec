@@ -17,9 +17,9 @@
     <dependencies>
       <group targetFramework="netcoreapp2.2">
         <dependency id="Microsoft.NETCore.App" version="[2.2,3)" />
-        <dependency id="TheMonitaur.Tcp" version="[1.0.4,2)" />
-        <dependency id="TheMonitaur.WebAPI" version="[1.0.2,2)" />
-        <dependency id="TheMonitaur.WebSocket" version="[1.0.3,2)" />
+        <dependency id="TheMonitaur.Tcp" version="[1.1.0,2)" />
+        <dependency id="TheMonitaur.WebAPI" version="[1.1.0,2)" />
+        <dependency id="TheMonitaur.WebSocket" version="[1.1.0,2)" />
       </group>
     </dependencies>
   </metadata>

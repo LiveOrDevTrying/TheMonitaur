@@ -41,4 +41,42 @@
         /// </summary>
         Error
     }
+
+    /// <summary>
+    /// The Connection Status Type
+    /// </summary>
+    public enum ConnectionStatusType
+    {
+        /// <summary>
+        /// The type when a connection is connected
+        /// </summary>
+        Connected,
+        /// <summary>
+        /// The type when a connection is connecting
+        /// </summary>
+        Connecting,
+        /// <summary>
+        /// The type when a connection is disconnected
+        /// </summary>
+        Disconnected,
+        /// <summary>
+        /// The type when a connection is authorized
+        /// </summary>
+        Authorized
+    }
+
+    /// <summary>
+    /// The Message Event Type
+    /// </summary>
+    public enum MessageEventType
+    {
+        /// <summary>
+        /// The type when a message is being received from the server
+        /// </summary>
+        Inbound,
+        /// <summary>
+        /// The type when a message is being sent to the server
+        /// </summary>
+        Outbound
+    }
 }

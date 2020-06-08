@@ -74,7 +74,8 @@ namespace TheMonitaur.WSClient.Test.SSL
             } while (string.IsNullOrWhiteSpace(_oauthToken));
 
             _client = new MonitaurWebSocket(_oauthToken);
-                
+            await _client.ConnectAsync();
+
             Console.WriteLine();
 
             await MenuAsync();

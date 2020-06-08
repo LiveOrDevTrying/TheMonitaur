@@ -14,7 +14,7 @@
     <PackageTags>N-Tier ntier tcp websocket webapi monitor monitoring async await 2.1 2.1 2.2 message services liveordevtrying monitaur themonitaur log logger logging universal</PackageTags>
     <RepositoryType>Github Public</RepositoryType>
     <RepositoryUrl>https://github.com/liveordevtrying/themonitaur</RepositoryUrl>
-    <Version>1.0.5</Version>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
