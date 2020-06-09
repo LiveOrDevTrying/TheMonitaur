@@ -49,7 +49,6 @@ namespace TheMonitaur.Tcp
             {
                 await DisconnectAsync();
                 await _client.ConnectAsync();
-                await _client.SendToServerRawAsync($"oauth:{_token}");
 
                 if (_client.IsRunning)
                 {
