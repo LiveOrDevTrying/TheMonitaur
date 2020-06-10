@@ -153,13 +153,15 @@ namespace TheMonitaur.WebAPI
 
             try
             {
-                using var client = CreateClient();
-                var fullPath = $"{_webAPIBaseUri}/{path}" + (!string.IsNullOrWhiteSpace(parameters) ? $"/{parameters}" : string.Empty);
-                var response = await client.GetAsync(fullPath);
-
-                if (response.StatusCode == HttpStatusCode.OK)
+                using (var client = CreateClient())
                 {
-                    return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
+                    var fullPath = $"{_webAPIBaseUri}/{path}" + (!string.IsNullOrWhiteSpace(parameters) ? $"/{parameters}" : string.Empty);
+                    var response = await client.GetAsync(fullPath);
+
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
+                    }
                 }
             }
             catch
@@ -173,13 +175,15 @@ namespace TheMonitaur.WebAPI
 
             try
             {
-                using var client = CreateClient();
-                var fullPath = $"{_webAPIBaseUri}/{path}";
-                var response = await client.PostAsync(fullPath, new JsonContent(request));
-
-                if (response.StatusCode == HttpStatusCode.Created)
+                using (var client = CreateClient())
                 {
-                    return JsonConvert.DeserializeObject<U>(await response.Content.ReadAsStringAsync());
+                    var fullPath = $"{_webAPIBaseUri}/{path}";
+                    var response = await client.PostAsync(fullPath, new JsonContent(request));
+
+                    if (response.StatusCode == HttpStatusCode.Created)
+                    {
+                        return JsonConvert.DeserializeObject<U>(await response.Content.ReadAsStringAsync());
+                    }
                 }
             }
             catch
@@ -193,10 +197,12 @@ namespace TheMonitaur.WebAPI
 
             try
             {
-                using var client = CreateClient();
-                var fullPath = $"{_webAPIBaseUri}/{path}/{id}";
-                var response = await client.DeleteAsync(fullPath);
-                return response.StatusCode == HttpStatusCode.NoContent;
+                using (var client = CreateClient())
+                {
+                    var fullPath = $"{_webAPIBaseUri}/{path}/{id}";
+                    var response = await client.DeleteAsync(fullPath);
+                    return response.StatusCode == HttpStatusCode.NoContent;
+                }
             }
             catch
             { }

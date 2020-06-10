@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
     <ApplicationIcon>Logo.ico</ApplicationIcon>
     <Authors>Rob Engel - LiveOrDevTrying</Authors>
     <Company>Rob Engel - LiveOrDevTrying - Pixel Horror Studios</Company>
@@ -14,7 +14,7 @@
     <PackageTags>N-Tier ntier tcp websocket webapi monitor monitoring async await 2.1 2.1 2.2 message services liveordevtrying monitaur themonitaur log logger logging universal</PackageTags>
     <RepositoryType>Github Public</RepositoryType>
     <RepositoryUrl>https://github.com/liveordevtrying/themonitaur</RepositoryUrl>
-    <Version>1.1.1</Version>
+    <Version>1.1.2</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

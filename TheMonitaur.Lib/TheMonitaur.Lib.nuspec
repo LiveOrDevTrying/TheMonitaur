@@ -15,8 +15,8 @@
     <copyright>Copyright 2020</copyright>
     <tags>N-Tier ntier tcp websocket webapi monitor monitoring async await 2.1 2.1 2.2 message services liveordevtrying monitaur themonitaur log logger logging universal</tags>
     <dependencies>
-      <group targetFramework="netcoreapp2.2">
-        <dependency id="Microsoft.NETCore.App" version="[2.2,3)" />
+      <group targetFramework="netcoreapp2.1">
+        <dependency id="Microsoft.NETCore.App" version="2.1" />
       </group>
     </dependencies>
   </metadata>
