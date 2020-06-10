@@ -18,6 +18,8 @@ namespace TheMonitaur.Tcp
         protected readonly string _token;
         protected readonly int _port;
 
+        protected volatile bool _isWaitingForAuth;
+
         public event ConnectionEventHandler ConnectionEvent;
         public event MessageEventHandler MessageEvent;
         public event ErrorEventHandler ErrorEvent;
@@ -48,7 +50,14 @@ namespace TheMonitaur.Tcp
             try
             {
                 await DisconnectAsync();
+
+                _isWaitingForAuth = true;
                 await _client.ConnectAsync();
+                
+                if (_isWaitingForAuth)
+                {
+                    await Task.Delay(50);
+                }
 
                 if (_client.IsRunning)
                 {
@@ -75,6 +84,7 @@ namespace TheMonitaur.Tcp
                     return Task.FromResult(true);
                 }
 
+                _isWaitingForAuth = false;
                 return Task.FromResult(true);
             }
             catch (Exception ex)
@@ -94,6 +104,7 @@ namespace TheMonitaur.Tcp
             {
                 Exception = args.Exception
             });
+            _isWaitingForAuth = false;
             return Task.CompletedTask;
         }
         protected virtual Task OnMessageEvent(object sender, TcpMessageClientEventArgs args)
@@ -108,11 +119,18 @@ namespace TheMonitaur.Tcp
                     });
                     break;
                 case MessageEventType.Receive:
-                    MessageEvent?.Invoke(this, new MessageEventArgs
+                    if (args.Message == "You are successfully connected to The Monitaur over Tcp.")
                     {
-                        MessageEventType = Lib.Enums.MessageEventType.Inbound,
-                        Message = args.Message
-                    }); 
+                        _isWaitingForAuth = false;
+                    }
+                    else
+                    {
+                        MessageEvent?.Invoke(this, new MessageEventArgs
+                        {
+                            MessageEventType = Lib.Enums.MessageEventType.Inbound,
+                            Message = args.Message
+                        }); 
+                    }
                     break;
                 default:
                     break;
