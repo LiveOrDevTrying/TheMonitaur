@@ -52,17 +52,9 @@
         /// </summary>
         Connected,
         /// <summary>
-        /// The type when a connection is connecting
-        /// </summary>
-        Connecting,
-        /// <summary>
         /// The type when a connection is disconnected
         /// </summary>
         Disconnected,
-        /// <summary>
-        /// The type when a connection is authorized
-        /// </summary>
-        Authorized
     }
 
     /// <summary>

@@ -111,19 +111,9 @@
             The type when a connection is connected
             </summary>
         </member>
-        <member name="F:TheMonitaur.Lib.Enums.ConnectionStatusType.Connecting">
-            <summary>
-            The type when a connection is connecting
-            </summary>
-        </member>
         <member name="F:TheMonitaur.Lib.Enums.ConnectionStatusType.Disconnected">
             <summary>
             The type when a connection is disconnected
-            </summary>
-        </member>
-        <member name="F:TheMonitaur.Lib.Enums.ConnectionStatusType.Authorized">
-            <summary>
-            The type when a connection is authorized
             </summary>
         </member>
         <member name="T:TheMonitaur.Lib.Enums.MessageEventType">

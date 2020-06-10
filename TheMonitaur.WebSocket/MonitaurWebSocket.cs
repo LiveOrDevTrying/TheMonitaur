@@ -130,10 +130,6 @@ namespace TheMonitaur.WebSocket
                     });
                     break;
                 case ConnectionEventType.Connecting:
-                    ConnectionEvent?.Invoke(this, new ConnectionEventArgs
-                    {
-                        ConnectionStatusType = Lib.Enums.ConnectionStatusType.Connecting
-                    });
                     break;
                 default:
                     break;

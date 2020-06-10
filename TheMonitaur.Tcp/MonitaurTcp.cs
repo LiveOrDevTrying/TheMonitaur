@@ -122,6 +122,11 @@ namespace TheMonitaur.Tcp
                     if (args.Message == "You are successfully connected to The Monitaur over Tcp.")
                     {
                         _isWaitingForAuth = false;
+
+                        ConnectionEvent?.Invoke(this, new ConnectionEventArgs
+                        {
+                            ConnectionStatusType = Lib.Enums.ConnectionStatusType.Connected
+                        });
                     }
                     else
                     {
@@ -143,10 +148,6 @@ namespace TheMonitaur.Tcp
             switch (args.ConnectionEventType)
             {
                 case ConnectionEventType.Connected:
-                    ConnectionEvent?.Invoke(this, new ConnectionEventArgs
-                    {
-                        ConnectionStatusType = Lib.Enums.ConnectionStatusType.Connected
-                    });
                     break;
                 case ConnectionEventType.Disconnect:
                     ConnectionEvent?.Invoke(this, new ConnectionEventArgs
@@ -155,10 +156,6 @@ namespace TheMonitaur.Tcp
                     });
                     break;
                 case ConnectionEventType.Connecting:
-                    ConnectionEvent?.Invoke(this, new ConnectionEventArgs
-                    {
-                        ConnectionStatusType = Lib.Enums.ConnectionStatusType.Connecting
-                    });
                     break;
                 default:
                     break;
