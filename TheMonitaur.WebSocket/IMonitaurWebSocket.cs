@@ -16,5 +16,7 @@ namespace TheMonitaur.WebSocket
         event ConnectionEventHandler ConnectionEvent;
         event MessageEventHandler MessageEvent;
         event ErrorEventHandler ErrorEvent;
+
+        bool IsRunning { get; }
     }
 }

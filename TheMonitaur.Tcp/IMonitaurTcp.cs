@@ -7,8 +7,8 @@ namespace TheMonitaur.Tcp
 {
     public interface IMonitaurTcp : IDisposable
     {
-        Task SendAlertAsync(AlertCreateRequest request); 
-        
+        Task<bool> SendAlertAsync(AlertCreateRequest request);
+
         Task<bool> ConnectAsync();
 
         Task<bool> DisconnectAsync();
@@ -16,5 +16,7 @@ namespace TheMonitaur.Tcp
         event ConnectionEventHandler ConnectionEvent;
         event MessageEventHandler MessageEvent;
         event ErrorEventHandler ErrorEvent;
+
+        bool IsRunning { get; }
     }
 }

@@ -158,6 +158,14 @@ namespace TheMonitaur.WebSocket
             }
         }
 
+        public bool IsRunning
+        {
+            get
+            {
+                return _client.IsRunning;
+            }
+        }
+
         public virtual void Dispose()
         {
             _client.Dispose();

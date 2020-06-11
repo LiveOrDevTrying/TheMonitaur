@@ -18,8 +18,6 @@ namespace TheMonitaur.Tcp
         protected readonly string _token;
         protected readonly int _port;
 
-        protected volatile bool _isWaitingForAuth;
-
         public event ConnectionEventHandler ConnectionEvent;
         public event MessageEventHandler MessageEvent;
         public event ErrorEventHandler ErrorEvent;
@@ -51,13 +49,7 @@ namespace TheMonitaur.Tcp
             {
                 await DisconnectAsync();
 
-                _isWaitingForAuth = true;
                 await _client.ConnectAsync();
-                
-                if (_isWaitingForAuth)
-                {
-                    await Task.Delay(50);
-                }
 
                 if (_client.IsRunning)
                 {
@@ -74,18 +66,17 @@ namespace TheMonitaur.Tcp
 
             return false;
         }
-        public Task<bool> DisconnectAsync()
+        public async Task<bool> DisconnectAsync()
         {
             try
             {
                 if (_client.IsRunning)
                 {
-                    _client.Disconnect();
-                    return Task.FromResult(true);
+                    await _client.DisconnectAsync();
+                    return true;
                 }
 
-                _isWaitingForAuth = false;
-                return Task.FromResult(true);
+                return true;
             }
             catch (Exception ex)
             {
@@ -95,7 +86,7 @@ namespace TheMonitaur.Tcp
                 });
             }
 
-            return Task.FromResult(false);
+            return false;
         }
 
         protected virtual Task OnErrorEvent(object sender, TcpErrorClientEventArgs args)
@@ -104,7 +95,6 @@ namespace TheMonitaur.Tcp
             {
                 Exception = args.Exception
             });
-            _isWaitingForAuth = false;
             return Task.CompletedTask;
         }
         protected virtual Task OnMessageEvent(object sender, TcpMessageClientEventArgs args)
@@ -121,8 +111,6 @@ namespace TheMonitaur.Tcp
                 case MessageEventType.Receive:
                     if (args.Message == "You are successfully connected to The Monitaur over Tcp.")
                     {
-                        _isWaitingForAuth = false;
-
                         ConnectionEvent?.Invoke(this, new ConnectionEventArgs
                         {
                             ConnectionStatusType = Lib.Enums.ConnectionStatusType.Connected
@@ -164,12 +152,12 @@ namespace TheMonitaur.Tcp
             return Task.CompletedTask;
         }
 
-        public virtual async Task SendAlertAsync(AlertCreateRequest request)
+        public virtual async Task<bool> SendAlertAsync(AlertCreateRequest request)
         {
             try
             {
                 var json = JsonConvert.SerializeObject(request);
-                await _client.SendToServerAsync(new Packet
+                return await _client.SendToServerAsync(new Packet
                 {
                     Data = json,
                     Timestamp = DateTime.UtcNow
@@ -181,6 +169,16 @@ namespace TheMonitaur.Tcp
                 {
                     Exception = ex
                 });
+            }
+
+            return false;
+        }
+
+        public bool IsRunning
+        {
+            get
+            {
+                return _client.IsRunning;
             }
         }
 
