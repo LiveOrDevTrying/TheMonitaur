@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
-    <PackageReference Include="Tcp.NET" Version="1.3.8" />
+    <PackageReference Include="Tcp.NET.Client" Version="1.3.7" />
     <PackageReference Include="TheMonitaur.Lib" Version="1.1.2" />
   </ItemGroup>
 
