@@ -6,11 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="TheMonitaur" Version="1.1.8" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\TheMonitaur.WebAPI\TheMonitaur.WebAPI.csproj" />
+    <PackageReference Include="TheMonitaur" Version="1.2.0" />
   </ItemGroup>
 
 </Project>

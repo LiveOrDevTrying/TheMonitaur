@@ -39,7 +39,7 @@ namespace TheMonitaur.WebSocket
             _client.ErrorEvent += OnErrorEvent;
         }
 
-        public async Task<bool> ConnectAsync()
+        public virtual async Task<bool> ConnectAsync()
         {
             try
             {
@@ -53,7 +53,7 @@ namespace TheMonitaur.WebSocket
             }
             catch (Exception ex)
             {
-                ErrorEvent?.Invoke(this, new ErrorEventArgs
+                await ErrorEvent?.Invoke(this, new ErrorEventArgs
                 {
                     Exception = ex
                 });
@@ -61,7 +61,7 @@ namespace TheMonitaur.WebSocket
 
             return false;
         }
-        public async Task<bool> DisconnectAsync()
+        public virtual async Task<bool> DisconnectAsync()
         {
             try
             {
@@ -73,7 +73,7 @@ namespace TheMonitaur.WebSocket
             }
             catch (Exception ex)
             {
-                ErrorEvent?.Invoke(this, new ErrorEventArgs
+                await ErrorEvent?.Invoke(this, new ErrorEventArgs
                 {
                     Exception = ex
                 });
@@ -81,27 +81,26 @@ namespace TheMonitaur.WebSocket
 
             return false;
         }
-        protected virtual Task OnErrorEvent(object sender, WSErrorClientEventArgs args)
+        protected virtual async Task OnErrorEvent(object sender, WSErrorClientEventArgs args)
         {
-            ErrorEvent?.Invoke(this, new ErrorEventArgs
+            await ErrorEvent?.Invoke(this, new ErrorEventArgs
             {
                 Exception = args.Exception
             });
-            return Task.CompletedTask;
         }
-        protected virtual Task OnMessageEvent(object sender, WSMessageClientEventArgs args)
+        protected virtual async Task OnMessageEvent(object sender, WSMessageClientEventArgs args)
         {
             switch (args.MessageEventType)
             {
                 case MessageEventType.Sent:
-                    MessageEvent?.Invoke(this, new MessageEventArgs
+                    await MessageEvent?.Invoke(this, new MessageEventArgs
                     {
                         MessageEventType = Lib.Enums.MessageEventType.Outbound,
                         Message = args.Message
                     });
                     break;
                 case MessageEventType.Receive:
-                    MessageEvent?.Invoke(this, new MessageEventArgs
+                    await MessageEvent?.Invoke(this, new MessageEventArgs
                     {
                         MessageEventType = Lib.Enums.MessageEventType.Inbound,
                         Message = args.Message
@@ -110,21 +109,19 @@ namespace TheMonitaur.WebSocket
                 default:
                     break;
             }
-
-            return Task.CompletedTask;
         }
-        protected virtual Task OnConnectionEvent(object sender, WSConnectionClientEventArgs args)
+        protected virtual async Task OnConnectionEvent(object sender, WSConnectionClientEventArgs args)
         {
             switch (args.ConnectionEventType)
             {
                 case ConnectionEventType.Connected:
-                    ConnectionEvent?.Invoke(this, new ConnectionEventArgs
+                    await ConnectionEvent?.Invoke(this, new ConnectionEventArgs
                     {
                         ConnectionStatusType = Lib.Enums.ConnectionStatusType.Connected
                     });
                     break;
                 case ConnectionEventType.Disconnect:
-                    ConnectionEvent?.Invoke(this, new ConnectionEventArgs
+                    await ConnectionEvent?.Invoke(this, new ConnectionEventArgs
                     {
                         ConnectionStatusType = Lib.Enums.ConnectionStatusType.Disconnected
                     });
@@ -134,8 +131,6 @@ namespace TheMonitaur.WebSocket
                 default:
                     break;
             }
-
-            return Task.CompletedTask;
         }
 
         public virtual async Task SendAlertAsync(AlertCreateRequest request)
@@ -151,7 +146,7 @@ namespace TheMonitaur.WebSocket
             }
             catch (Exception ex)
             {
-                ErrorEvent?.Invoke(this, new ErrorEventArgs
+                await ErrorEvent?.Invoke(this, new ErrorEventArgs
                 {
                     Exception = ex
                 });
