@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="TheMonitaur" Version="1.2.1" />
+    <PackageReference Include="TheMonitaur" Version="1.2.2" />
   </ItemGroup>
 
 </Project>
