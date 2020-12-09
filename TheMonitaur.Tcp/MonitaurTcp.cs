@@ -14,8 +14,6 @@ namespace TheMonitaur.Tcp
     public class MonitaurTcp : IMonitaurTcp
     {
         protected readonly ITcpNETClient _client;
-        protected readonly string _token;
-        protected readonly int _port;
 
         public event ConnectionEventHandler ConnectionEvent;
         public event MessageEventHandler MessageEvent;
@@ -26,8 +24,6 @@ namespace TheMonitaur.Tcp
             int port = 6780,
             bool isSSL = true)
         {
-            _token = token;
-
             var parameters = new ParamsTcpClient
             {
                 EndOfLineCharacters = "\r\n",
