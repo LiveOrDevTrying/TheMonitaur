@@ -17,10 +17,25 @@ namespace TheMonitaur.WebAPI
         protected readonly string _webAPIBaseUri;
         protected string _token;
 
+        private static HttpClient _client;
+        private static readonly object _clientLock = new object();
+
         public WebAPIClient(string token, string webAPIBaseUri = "https://api.themonitaur.com")
         {
             _token = token;
             _webAPIBaseUri = webAPIBaseUri;
+
+            if (_client == null)
+            {
+                lock (_clientLock)
+                {
+                    if (_client == null)
+                    {
+                        _client = new HttpClient();
+                        _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -30,6 +45,7 @@ namespace TheMonitaur.WebAPI
         public virtual void SetToken(string token)
         {
             _token = token;
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
         }
 
         /// <summary>
@@ -141,27 +157,18 @@ namespace TheMonitaur.WebAPI
                     "Please use SetAccesssToken to load a new access token and try again");
             }
         }
-        protected virtual HttpClient CreateClient()
-        {
-            var client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-            return client;
-        }
         protected virtual async Task<T> GetAsync<T>(string path, string parameters = "")
         {
             CheckIfTokenIsValid();
 
             try
             {
-                using (var client = CreateClient())
-                {
-                    var fullPath = $"{_webAPIBaseUri}/{path}" + (!string.IsNullOrWhiteSpace(parameters) ? $"/{parameters}" : string.Empty);
-                    var response = await client.GetAsync(fullPath);
+                var fullPath = $"{_webAPIBaseUri}/{path}" + (!string.IsNullOrWhiteSpace(parameters) ? $"/{parameters}" : string.Empty);
+                var response = await _client.GetAsync(fullPath);
 
-                    if (response.StatusCode == HttpStatusCode.OK)
-                    {
-                        return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
-                    }
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
                 }
             }
             catch
@@ -175,15 +182,12 @@ namespace TheMonitaur.WebAPI
 
             try
             {
-                using (var client = CreateClient())
-                {
-                    var fullPath = $"{_webAPIBaseUri}/{path}";
-                    var response = await client.PostAsync(fullPath, new JsonContent(request));
+                var fullPath = $"{_webAPIBaseUri}/{path}";
+                var response = await _client.PostAsync(fullPath, new JsonContent(request));
 
-                    if (response.StatusCode == HttpStatusCode.Created)
-                    {
-                        return JsonConvert.DeserializeObject<U>(await response.Content.ReadAsStringAsync());
-                    }
+                if (response.StatusCode == HttpStatusCode.Created)
+                {
+                    return JsonConvert.DeserializeObject<U>(await response.Content.ReadAsStringAsync());
                 }
             }
             catch
@@ -197,12 +201,9 @@ namespace TheMonitaur.WebAPI
 
             try
             {
-                using (var client = CreateClient())
-                {
-                    var fullPath = $"{_webAPIBaseUri}/{path}/{id}";
-                    var response = await client.DeleteAsync(fullPath);
-                    return response.StatusCode == HttpStatusCode.NoContent;
-                }
+                var fullPath = $"{_webAPIBaseUri}/{path}/{id}";
+                var response = await _client.DeleteAsync(fullPath);
+                return response.StatusCode == HttpStatusCode.NoContent;
             }
             catch
             { }
