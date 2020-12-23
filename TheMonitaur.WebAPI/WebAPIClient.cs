@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -15,27 +14,13 @@ namespace TheMonitaur.WebAPI
     public class WebAPIClient : IWebAPIClient
     {
         protected readonly string _webAPIBaseUri;
+        protected readonly HttpClient _client = new HttpClient();
         protected string _token;
-
-        private static HttpClient _client;
-        private static readonly object _clientLock = new object();
 
         public WebAPIClient(string token, string webAPIBaseUri = "https://api.themonitaur.com")
         {
             _token = token;
             _webAPIBaseUri = webAPIBaseUri;
-
-            if (_client == null)
-            {
-                lock (_clientLock)
-                {
-                    if (_client == null)
-                    {
-                        _client = new HttpClient();
-                        _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-                    }
-                }
-            }
         }
 
         /// <summary>
@@ -45,7 +30,6 @@ namespace TheMonitaur.WebAPI
         public virtual void SetToken(string token)
         {
             _token = token;
-            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
         }
 
         /// <summary>
@@ -163,6 +147,8 @@ namespace TheMonitaur.WebAPI
 
             try
             {
+                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+
                 var fullPath = $"{_webAPIBaseUri}/{path}" + (!string.IsNullOrWhiteSpace(parameters) ? $"/{parameters}" : string.Empty);
                 var response = await _client.GetAsync(fullPath);
 
@@ -182,6 +168,8 @@ namespace TheMonitaur.WebAPI
 
             try
             {
+                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+
                 var fullPath = $"{_webAPIBaseUri}/{path}";
                 var response = await _client.PostAsync(fullPath, new JsonContent(request));
 
@@ -201,6 +189,8 @@ namespace TheMonitaur.WebAPI
 
             try
             {
+                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+
                 var fullPath = $"{_webAPIBaseUri}/{path}/{id}";
                 var response = await _client.DeleteAsync(fullPath);
                 return response.StatusCode == HttpStatusCode.NoContent;

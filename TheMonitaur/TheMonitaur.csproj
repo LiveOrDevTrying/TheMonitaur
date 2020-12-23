@@ -15,7 +15,7 @@
     <RepositoryUrl>https://github.com/liveordevtrying/themonitaur</RepositoryUrl>
     <RepositoryType>Github Public</RepositoryType>
     <PackageTags>N-Tier ntier tcp websocket webapi monitor monitoring async await 2.1 2.1 2.2 message services liveordevtrying monitaur themonitaur log logger logging universal</PackageTags>
-    <Version>1.2.4</Version>
+    <Version>1.2.6</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,7 +27,7 @@
 
   <ItemGroup>
     <PackageReference Include="TheMonitaur.Tcp" Version="1.2.4" />
-    <PackageReference Include="TheMonitaur.WebAPI" Version="1.1.5" />
+    <PackageReference Include="TheMonitaur.WebAPI" Version="1.1.7" />
     <PackageReference Include="TheMonitaur.WebSocket" Version="1.2.3" />
   </ItemGroup>
 
