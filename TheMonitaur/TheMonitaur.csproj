@@ -26,9 +26,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TheMonitaur.Tcp\TheMonitaur.Tcp.csproj" />
-    <ProjectReference Include="..\TheMonitaur.WebAPI\TheMonitaur.WebAPI.csproj" />
-    <ProjectReference Include="..\TheMonitaur.WebSocket\TheMonitaur.WebSocket.csproj" />
+    <PackageReference Include="TheMonitaur.Tcp" Version="2.1.*" />
+	<PackageReference Include="TheMonitaur.WebAPI" Version="2.1.*" />
+	<PackageReference Include="TheMonitaur.WebSocket" Version="2.1.*" />
   </ItemGroup>
-
+	
 </Project>

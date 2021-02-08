@@ -19,7 +19,8 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.*" />
-    <PackageReference Include="Tcp.NET.Client" Version="2.1.*" />
+	<PackageReference Include="Tcp.NET.Client" Version="2.1.*" />
+	<PackageReference Include="TheMonitaur.Lib" Version="2.1.*" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,10 +28,6 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\TheMonitaur.Lib\TheMonitaur.Lib.csproj" />
   </ItemGroup>
 
 </Project>

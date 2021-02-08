@@ -26,10 +26,7 @@
 
   <ItemGroup>
     <PackageReference Include="WebsocketsSimple.Client" Version="2.1.*" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\TheMonitaur.Lib\TheMonitaur.Lib.csproj" />
+    <PackageReference Include="TheMonitaur.Lib" Version="2.1.*" />
   </ItemGroup>
 
 </Project>
