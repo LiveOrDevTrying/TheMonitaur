@@ -14,13 +14,29 @@ namespace TheMonitaur.WebAPI
     public class WebAPIClient : IWebAPIClient
     {
         protected readonly string _webAPIBaseUri;
-        protected readonly HttpClient _client = new HttpClient();
         protected string _token;
+        private static HttpClient _client;
+        private static object _clientLock = new object();
 
-        public WebAPIClient(string token, string webAPIBaseUri = "https://api.themonitaur.com")
+        public WebAPIClient(string token, string webAPIBaseUri = "https://api.themonitaur.com", HttpClient client = null)
         {
             _token = token;
             _webAPIBaseUri = webAPIBaseUri;
+
+            if (client != null)
+            {
+                _client = client;
+            }
+            else
+            {
+                lock(_clientLock)
+                {
+                    if (_client == null)
+                    {
+                        _client = new HttpClient();
+                    }
+                }
+            }
         }
 
         /// <summary>

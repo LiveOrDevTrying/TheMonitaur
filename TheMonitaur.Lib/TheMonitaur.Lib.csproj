@@ -1,24 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <ApplicationIcon>Logo.ico</ApplicationIcon>
     <Authors>Rob Engel - LiveOrDevTrying</Authors>
     <Company>Rob Engel - LiveOrDevTrying - Pixel Horror Studios</Company>
     <Description>This is the public library for https://www.TheMonitaur.com, a free and simple single-source web application for monitoring all your application layers using Tcp, Websocket, and/or WebAPI / Http.</Description>
-    <Copyright>Copyright 2020</Copyright>
+    <Copyright>Copyright 2021</Copyright>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageProjectUrl>https://www.TheMonitaur.com</PackageProjectUrl>
     <PackageIcon>Logo.png</PackageIcon>
     <PackageIconUrl />
-    <PackageTags>N-Tier ntier tcp websocket webapi monitor monitoring async await 2.1 2.1 2.2 message services liveordevtrying monitaur themonitaur log logger logging universal</PackageTags>
+    <PackageTags>N-Tier ntier tcp websocket webapi monitor monitoring async await 2.1 2.1 2.2 message services liveordevtrying monitaur themonitaur log logger logging universal pixelhorrorstudios pixel horror studios</PackageTags>
     <RepositoryType>Github Public</RepositoryType>
     <RepositoryUrl>https://github.com/liveordevtrying/themonitaur</RepositoryUrl>
-    <Version>1.1.2</Version>
+    <Version>2.1.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\Companies\PixelHorrorStudios\Projects\PHS.TheMonitaur\Source\TheMonitaur.App\Backend\TheMonitaur.Public\TheMonitaur.Lib\TheMonitaur.Lib.xml</DocumentationFile>
+    <DocumentationFile>C:\Companies\PixelHorrorStudios\Projects\PHS.TheMonitaur\Source\TheMonitaur.Public\TheMonitaur.Lib\TheMonitaur.Lib.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

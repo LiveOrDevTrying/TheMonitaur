@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="TheMonitaur" Version="1.2.6" />
+    <ProjectReference Include="..\..\TheMonitaur\TheMonitaur.csproj" />
   </ItemGroup>
 
 </Project>

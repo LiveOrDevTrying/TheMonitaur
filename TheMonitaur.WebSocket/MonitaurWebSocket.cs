@@ -1,5 +1,4 @@
-﻿using Microsoft.CSharp.RuntimeBinder;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using PHS.Networking.Enums;
 using PHS.Networking.Models;
 using System;
@@ -33,7 +32,7 @@ namespace TheMonitaur.WebSocket
                 Uri = uri
             };
 
-            _client = new WebsocketClient(_parameters, oauthToken: token);
+            _client = new WebsocketClient(_parameters, token: token);
             _client.ConnectionEvent += OnConnectionEvent;
             _client.MessageEvent += OnMessageEvent;
             _client.ErrorEvent += OnErrorEvent;
