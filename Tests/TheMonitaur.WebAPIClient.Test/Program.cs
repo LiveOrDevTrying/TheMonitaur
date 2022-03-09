@@ -13,7 +13,7 @@ namespace TheMonitaur.WebAPI.Test
         
         static void Main(string[] args)
         {
-            _client = new WebAPIClient("", "https://localhost:44300");
+            _client = new WebAPIClient("95c18bed36ec4def92bd3f385cbf6310763242a644b542a08848a9dbadaf6151");
 
             _timer = new Timer(TimerCallback, null, 50, 50);
 
