@@ -42,7 +42,7 @@ namespace TheMonitaur.Tcp
         {
             try
             {
-                await DisconnectAsync();
+                Disconnect();
 
                 await _client.ConnectAsync();
 
@@ -53,24 +53,21 @@ namespace TheMonitaur.Tcp
             }
             catch (Exception ex)
             {
-                if (ErrorEvent != null)
+                ErrorEvent?.Invoke(this, new ErrorEventArgs
                 {
-                    await ErrorEvent?.Invoke(this, new ErrorEventArgs
-                    {
-                        Exception = ex
-                    });
-                }
+                    Exception = ex
+                });
             }
 
             return false;
         }
-        public virtual async Task<bool> DisconnectAsync()
+        public virtual bool Disconnect()
         {
             try
             {
                 if (_client.IsRunning)
                 {
-                    await _client.DisconnectAsync();
+                    _client.Disconnect();
                     return true;
                 }
 
@@ -80,7 +77,7 @@ namespace TheMonitaur.Tcp
             {
                 if (ErrorEvent != null)
                 {
-                    await ErrorEvent?.Invoke(this, new ErrorEventArgs
+                    ErrorEvent?.Invoke(this, new ErrorEventArgs
                     {
                         Exception = ex
                     });
@@ -90,36 +87,36 @@ namespace TheMonitaur.Tcp
             return false;
         }
 
-        protected virtual async Task OnErrorEvent(object sender, TcpErrorClientEventArgs args)
+        protected virtual void OnErrorEvent(object sender, TcpErrorClientEventArgs args)
         {
             if (ErrorEvent != null)
             {
-                await ErrorEvent?.Invoke(this, new ErrorEventArgs
+                ErrorEvent?.Invoke(this, new ErrorEventArgs
                 {
                     Exception = args.Exception
                 });
             }
         }
-        protected virtual async Task OnMessageEvent(object sender, TcpMessageClientEventArgs args)
+        protected virtual void OnMessageEvent(object sender, TcpMessageClientEventArgs args)
         {
             switch (args.MessageEventType)
             {
                 case MessageEventType.Sent:
                     if (MessageEvent != null)
                     {
-                        await MessageEvent?.Invoke(this, new MessageEventArgs
+                        MessageEvent?.Invoke(this, new MessageEventArgs
                         {
                             MessageEventType = Lib.Enums.MessageEventType.Outbound,
-                            Message = args.Message
+                            Message = args.Packet.Data
                         });
                     }
                     break;
                 case MessageEventType.Receive:
-                    if (args.Message == "You are successfully connected to The Monitaur over Tcp.")
+                    if (args.Packet.Data == "You are successfully connected to The Monitaur over Tcp.")
                     {
                         if (ConnectionEvent != null)
                         {
-                            await ConnectionEvent?.Invoke(this, new ConnectionEventArgs
+                            ConnectionEvent?.Invoke(this, new ConnectionEventArgs
                             {
                                 ConnectionStatusType = Lib.Enums.ConnectionStatusType.Connected
                             });
@@ -129,10 +126,10 @@ namespace TheMonitaur.Tcp
                     {
                         if (MessageEvent != null)
                         {
-                            await MessageEvent?.Invoke(this, new MessageEventArgs
+                            MessageEvent?.Invoke(this, new MessageEventArgs
                             {
                                 MessageEventType = Lib.Enums.MessageEventType.Inbound,
-                                Message = args.Message
+                                Message = args.Packet.Data
                             });
                         }
                     }
@@ -141,7 +138,7 @@ namespace TheMonitaur.Tcp
                     break;
             }
         }
-        protected virtual async Task OnConnectionEvent(object sender, TcpConnectionClientEventArgs args)
+        protected virtual void OnConnectionEvent(object sender, TcpConnectionClientEventArgs args)
         {
             switch (args.ConnectionEventType)
             {
@@ -150,7 +147,7 @@ namespace TheMonitaur.Tcp
                 case ConnectionEventType.Disconnect:
                     if (ConnectionEvent != null)
                     {
-                        await ConnectionEvent?.Invoke(this, new ConnectionEventArgs
+                        ConnectionEvent?.Invoke(this, new ConnectionEventArgs
                         {
                             ConnectionStatusType = Lib.Enums.ConnectionStatusType.Disconnected
                         });
@@ -178,7 +175,7 @@ namespace TheMonitaur.Tcp
             {
                 if (ErrorEvent != null)
                 {
-                    await ErrorEvent?.Invoke(this, new ErrorEventArgs
+                    ErrorEvent?.Invoke(this, new ErrorEventArgs
                     {
                         Exception = ex
                     });

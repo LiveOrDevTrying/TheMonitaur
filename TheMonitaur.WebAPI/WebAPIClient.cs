@@ -14,29 +14,20 @@ namespace TheMonitaur.WebAPI
     public class WebAPIClient : IWebAPIClient
     {
         protected readonly string _webAPIBaseUri;
+        protected readonly IHttpClientFactory _httpClientFactory;
         protected string _token;
-        private static HttpClient _client;
-        private static object _clientLock = new object();
 
-        public WebAPIClient(string token, string webAPIBaseUri = "https://api.themonitaur.com", HttpClient client = null)
+        /// <summary>
+        /// Constructor for WebAPIClient
+        /// </summary>
+        /// <param name="token">OAuth token for the application registered on The Monitaur</param>
+        /// <param name="webAPIBaseUri">Optional - The API URI for The Monitaur</param>
+        /// <param name="httpClientFactory">Optional - Http client injection for Dependency Injection</param>
+        public WebAPIClient(string token, string webAPIBaseUri = "https://api.themonitaur.com", IHttpClientFactory httpClientFactory = null)
         {
             _token = token;
             _webAPIBaseUri = webAPIBaseUri;
-
-            if (client != null)
-            {
-                _client = client;
-            }
-            else
-            {
-                lock(_clientLock)
-                {
-                    if (_client == null)
-                    {
-                        _client = new HttpClient();
-                    }
-                }
-            }
+            _httpClientFactory = httpClientFactory;
         }
 
         /// <summary>
@@ -94,7 +85,7 @@ namespace TheMonitaur.WebAPI
                 queryString.Append($"maxRecordsToRetrieve={request.MaxRecordsToRetrieve.Value}&");
             }
             if (request.IncludeActiveAlerts.HasValue)
-            {
+            {   
                 queryString.Append($"includeActiveAlerts={request.IncludeActiveAlerts.Value}&");
             }
             if (request.IncludeActiveAlerts.HasValue)
@@ -163,13 +154,15 @@ namespace TheMonitaur.WebAPI
 
             try
             {
-                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+                var client = _httpClientFactory != null ? _httpClientFactory.CreateClient() : new HttpClient();
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
 
                 var fullPath = $"{_webAPIBaseUri}/{path}" + (!string.IsNullOrWhiteSpace(parameters) ? $"/{parameters}" : string.Empty);
-                var response = await _client.GetAsync(fullPath);
+                var response = await client.GetAsync(fullPath);
 
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
+                    client.Dispose();
                     return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
                 }
             }
@@ -184,13 +177,15 @@ namespace TheMonitaur.WebAPI
 
             try
             {
-                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+                var client = _httpClientFactory != null ? _httpClientFactory.CreateClient() : new HttpClient();
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
 
                 var fullPath = $"{_webAPIBaseUri}/{path}";
-                var response = await _client.PostAsync(fullPath, new JsonContent(request));
+                var response = await client.PostAsync(fullPath, new JsonContent(request));
 
                 if (response.StatusCode == HttpStatusCode.Created)
                 {
+                    client.Dispose();
                     return JsonConvert.DeserializeObject<U>(await response.Content.ReadAsStringAsync());
                 }
             }
@@ -205,10 +200,12 @@ namespace TheMonitaur.WebAPI
 
             try
             {
-                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+                var client = _httpClientFactory != null ? _httpClientFactory.CreateClient() : new HttpClient();
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
 
                 var fullPath = $"{_webAPIBaseUri}/{path}/{id}";
-                var response = await _client.DeleteAsync(fullPath);
+                var response = await client.DeleteAsync(fullPath);
+                client.Dispose();
                 return response.StatusCode == HttpStatusCode.NoContent;
             }
             catch

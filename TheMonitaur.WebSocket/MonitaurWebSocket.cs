@@ -54,7 +54,7 @@ namespace TheMonitaur.WebSocket
             {
                 if (ErrorEvent != null)
                 {
-                    await ErrorEvent?.Invoke(this, new ErrorEventArgs
+                    ErrorEvent?.Invoke(this, new ErrorEventArgs
                     {
                         Exception = ex
                     });
@@ -75,76 +75,58 @@ namespace TheMonitaur.WebSocket
             }
             catch (Exception ex)
             {
-                if (ErrorEvent != null)
+                ErrorEvent?.Invoke(this, new ErrorEventArgs
                 {
-                    await ErrorEvent?.Invoke(this, new ErrorEventArgs
-                    {
-                        Exception = ex
-                    });
-                }
+                    Exception = ex
+                });
             }
 
             return false;
         }
-        protected virtual async Task OnErrorEvent(object sender, WSErrorClientEventArgs args)
+        protected virtual void OnErrorEvent(object sender, WSErrorClientEventArgs args)
         {
-            if (ErrorEvent != null)
+            ErrorEvent?.Invoke(this, new ErrorEventArgs
             {
-                await ErrorEvent?.Invoke(this, new ErrorEventArgs
-                {
-                    Exception = args.Exception
-                });
-            }
+                Exception = args.Exception
+            });
         }
-        protected virtual async Task OnMessageEvent(object sender, WSMessageClientEventArgs args)
+        protected virtual void OnMessageEvent(object sender, WSMessageClientEventArgs args)
         {
             switch (args.MessageEventType)
             {
                 case MessageEventType.Sent:
-                    if (MessageEvent != null)
+                    MessageEvent?.Invoke(this, new MessageEventArgs
                     {
-                        await MessageEvent?.Invoke(this, new MessageEventArgs
-                        {
-                            MessageEventType = Lib.Enums.MessageEventType.Outbound,
-                            Message = args.Message
-                        });
-                    }
+                        MessageEventType = Lib.Enums.MessageEventType.Outbound,
+                        Message = args.Packet.Data
+                    });
                     break;
                 case MessageEventType.Receive:
-                    if (MessageEvent != null)
+                    MessageEvent?.Invoke(this, new MessageEventArgs
                     {
-                        await MessageEvent?.Invoke(this, new MessageEventArgs
-                        {
-                            MessageEventType = Lib.Enums.MessageEventType.Inbound,
-                            Message = args.Message
-                        });
-                    }
+                        MessageEventType = Lib.Enums.MessageEventType.Inbound,
+                        Message = args.Packet.Data
+                    });
                     break;
                 default:
                     break;
             }
         }
-        protected virtual async Task OnConnectionEvent(object sender, WSConnectionClientEventArgs args)
+        protected virtual void OnConnectionEvent(object sender, WSConnectionClientEventArgs args)
         {
             switch (args.ConnectionEventType)
             {
                 case ConnectionEventType.Connected:
-                    if (ConnectionEvent != null)
+                    ConnectionEvent?.Invoke(this, new ConnectionEventArgs
                     {
-                        await ConnectionEvent?.Invoke(this, new ConnectionEventArgs
-                        {
-                            ConnectionStatusType = Lib.Enums.ConnectionStatusType.Connected
-                        });
-                    }
+                        ConnectionStatusType = Lib.Enums.ConnectionStatusType.Connected
+                    });
                     break;
                 case ConnectionEventType.Disconnect:
-                    if (ConnectionEvent != null)
+                    ConnectionEvent?.Invoke(this, new ConnectionEventArgs
                     {
-                        await ConnectionEvent?.Invoke(this, new ConnectionEventArgs
-                        {
-                            ConnectionStatusType = Lib.Enums.ConnectionStatusType.Disconnected
-                        });
-                    }
+                        ConnectionStatusType = Lib.Enums.ConnectionStatusType.Disconnected
+                    });
                     break;
                 case ConnectionEventType.Connecting:
                     break;
@@ -166,13 +148,10 @@ namespace TheMonitaur.WebSocket
             }
             catch (Exception ex)
             {
-                if (ErrorEvent != null)
+                ErrorEvent?.Invoke(this, new ErrorEventArgs
                 {
-                    await ErrorEvent?.Invoke(this, new ErrorEventArgs
-                    {
-                        Exception = ex
-                    });
-                }
+                    Exception = ex
+                });
             }
         }
 

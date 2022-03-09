@@ -11,7 +11,7 @@ namespace TheMonitaur.Tcp
 
         Task<bool> ConnectAsync();
 
-        Task<bool> DisconnectAsync();
+        bool Disconnect();
 
         event ConnectionEventHandler ConnectionEvent;
         event MessageEventHandler MessageEvent;
