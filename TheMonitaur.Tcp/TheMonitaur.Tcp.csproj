@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -19,7 +19,6 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.*" />
-    <PackageReference Include="Tcp.NET.Client" Version="6.0.*" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,6 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Resources\Tcp.NET\Tcp.NET.Client\Tcp.NET.Client.csproj" />
     <ProjectReference Include="..\TheMonitaur.Lib\TheMonitaur.Lib.csproj" />
   </ItemGroup>
 
