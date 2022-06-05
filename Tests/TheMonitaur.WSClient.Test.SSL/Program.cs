@@ -73,7 +73,7 @@ namespace TheMonitaur.WSClient.Test.SSL
                 Console.WriteLine("That is not a valid entry.");
             } while (string.IsNullOrWhiteSpace(_oauthToken));
 
-            _client = new MonitaurWebSocket(_oauthToken);
+            _client = new MonitaurWebSocket(new Tcp.Models.MonitaurWSParams(_oauthToken));
             await _client.ConnectAsync();
 
             Console.WriteLine();

@@ -1,22 +1,18 @@
-﻿using System;
+﻿using PHS.Networking.Services;
 using System.Threading.Tasks;
-using TheMonitaur.Lib.Events;
 using TheMonitaur.Lib.Requests;
+using TheMonitaur.WebSocket.Events;
+using WebsocketsSimple.Core.Models;
 
 namespace TheMonitaur.WebSocket
 {
-    public interface IMonitaurWebSocket : IDisposable
+    public interface IMonitaurWebSocket :
+        ICoreNetworkingClient<
+            MonitaurWSConnectionEventArgs,
+            MonitaurWSMessageEventArgs,
+            MonitaurWSErrorEventArgs,
+            ConnectionWS>
     {
-        Task SendAlertAsync(AlertCreateRequest request);
-
-        Task<bool> ConnectAsync();
-
-        Task<bool> DisconnectAsync();
-
-        event ConnectionEventHandler ConnectionEvent;
-        event MessageEventHandler MessageEvent;
-        event ErrorEventHandler ErrorEvent;
-
-        bool IsRunning { get; }
+        Task<bool> SendAlertAsync(AlertCreateRequest request);
     }
 }

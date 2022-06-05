@@ -17,8 +17,9 @@
     <dependencies>
       <group targetFramework="net6.0">
         <dependency id="TheMonitaur.Lib" version="[6.0,6.1)" />
-        <dependency id="WebsocketsSimple.Client" version="[6.0,6.1)" />
-      </group>
+		<dependency id="WebsocketsSimple.Client" version="[6.0,6.1)" />
+		<dependency id="Newtonsoft.Json" version="[13,14)" />
+	  </group>
     </dependencies>
   </metadata>
   <files>
