@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\TheMonitaur\TheMonitaur.csproj" />
+    <ProjectReference Include="..\..\TheMonitaur.WebSocket\TheMonitaur.WebSocket.csproj" />
   </ItemGroup>
 
 </Project>

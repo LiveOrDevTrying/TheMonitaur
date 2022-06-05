@@ -1,6 +1,0 @@
-[submodule "Resources/Tcp.NET"]
-	path = Resources/Tcp.NET
-	url = https://github.com/liveorDevTrying/tcp.net
-[submodule "Resources/WebsocketsSimple"]
-	path = Resources/WebsocketsSimple
-	url = https://github.com/liveorDevTrying/websocketssimple

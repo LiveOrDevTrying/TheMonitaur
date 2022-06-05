@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Tcp.NET.Client.Models;
 using TheMonitaur.Lib.Enums;
 using TheMonitaur.Lib.Requests;
 using TheMonitaur.Tcp;
+using TheMonitaur.Tcp.Models;
 
 namespace TheMonitaur.TcpClient.Test
 {
@@ -73,7 +75,7 @@ namespace TheMonitaur.TcpClient.Test
                 Console.WriteLine("That is not a valid entry.");
             } while (string.IsNullOrWhiteSpace(_oauthToken));
 
-            _client = new MonitaurTcp(_oauthToken, isSSL: false, port: 6785);
+            _client = new MonitaurTcp(new MonitaurTcpParams(_oauthToken, isSSL: false, port: 6785));
             await _client.ConnectAsync();
             Console.WriteLine();
 

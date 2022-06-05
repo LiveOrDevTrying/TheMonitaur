@@ -73,7 +73,7 @@ namespace TheMonitaur.TcpClient.Test.SSL
                 Console.WriteLine("That is not a valid entry.");
             } while (string.IsNullOrWhiteSpace(_oauthToken));
 
-            _client = new MonitaurTcp(_oauthToken);
+            _client = new MonitaurTcp(new Tcp.Models.MonitaurTcpParams(_oauthToken));
             await _client.ConnectAsync();
 
             Console.WriteLine();

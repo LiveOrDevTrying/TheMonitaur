@@ -1,22 +1,18 @@
-﻿using System;
+﻿using PHS.Networking.Services;
 using System.Threading.Tasks;
-using TheMonitaur.Lib.Events;
+using Tcp.NET.Core.Models;
 using TheMonitaur.Lib.Requests;
+using TheMonitaur.Tcp.Events;
 
 namespace TheMonitaur.Tcp
 {
-    public interface IMonitaurTcp : IDisposable
+    public interface IMonitaurTcp : 
+        ICoreNetworkingClient<
+            MonitaurTcpConnectionEventArgs, 
+            MonitaurTcpMessageEventArgs, 
+            MonitaurTcpErrorEventArgs, 
+            ConnectionTcp>
     {
         Task<bool> SendAlertAsync(AlertCreateRequest request);
-
-        Task<bool> ConnectAsync();
-
-        bool Disconnect();
-
-        event ConnectionEventHandler ConnectionEvent;
-        event MessageEventHandler MessageEvent;
-        event ErrorEventHandler ErrorEvent;
-
-        bool IsRunning { get; }
     }
 }

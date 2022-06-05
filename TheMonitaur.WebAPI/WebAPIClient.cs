@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using TheMonitaur.Lib.DTOs;
 using TheMonitaur.Lib.Requests;
@@ -40,28 +41,30 @@ namespace TheMonitaur.WebAPI
         }
 
         /// <summary>
-        /// Request the Authorized Client Application
+        /// Get the Authorized Client Application
         /// </summary>
+        /// <param name="cancellationToken">Optional cancellation token</param>
         /// <returns>A Client Application data-transfer object</returns>
-        public virtual async Task<ClientApplicationDTO> GetClientApplicationAsync()
+        public virtual async Task<ClientApplicationDTO> GetClientApplicationAsync(CancellationToken cancellationToken = default)
         {
-            return await GetAsync<ClientApplicationDTO>("clientApplication");
+            return await GetAsync<ClientApplicationDTO>("clientApplication", cancellationToken);
         }
         /// <summary>
-        /// Read the undismissed Alerts for a Client Application
+        /// Gets all undismissed Alerts
         /// </summary>
-        /// <param name="clientApplicationId">The Client Application to retrieve the non-dismissed Alerts</param>
+        /// <param name="cancellationToken">Optional cancellation token</param>
         /// <returns>An array of Alert data-transfer objects</returns>
-        public virtual async Task<AlertDTO[]> GetAlertsAsync()
+        public virtual async Task<AlertDTO[]> GetAlertsAsync(CancellationToken cancellationToken = default)
         {
-            return await GetAsync<AlertDTO[]>("alerts");
+            return await GetAsync<AlertDTO[]>("alerts", cancellationToken);
         }
         /// <summary>
-        /// Read the Alerts for a Client Application within the AlertsLookupRequest criteria
+        /// Get the Alerts for a Client Application within the AlertsLookupRequest criteria
         /// </summary>
-        /// <param name="AlertsLookupRequest">An Alerts Lookup Request object</param>
+        /// <param name="request">An Alerts Lookup Request object</param>
+        /// <param name="cancellationToken">Optional cancellation token</param>
         /// <returns>An array of Alert data-transfer objects</returns>
-        public virtual async Task<AlertDTO[]> GetAlertsAsync(AlertsLookupRequest request)
+        public virtual async Task<AlertDTO[]> GetAlertsAsync(AlertsLookupRequest request, CancellationToken cancellationToken = default)
         {
             var queryString = new StringBuilder();
             request.AlertTypes.ToList().ForEach(s =>
@@ -92,46 +95,50 @@ namespace TheMonitaur.WebAPI
             {
                 queryString.Append($"includeDismissedAlerts={request.IncludeDismissedAlerts.Value}&");
             }
-            return await GetAsync<AlertDTO[]>($"alerts?{queryString.ToString().Substring(0, queryString.ToString().Length - 1)}");
+            return await GetAsync<AlertDTO[]>($"alerts?{queryString.ToString().Substring(0, queryString.ToString().Length - 1)}", cancellationToken);
         }
         /// <summary>
-        /// Request an Alert
+        /// Get an Alert
         /// </summary>
         /// <param name="id">The Id of the requested Alert</param>
+        /// <param name="cancellationToken">Optional cancellation token</param>
         /// <returns>An Alert data-transfer object</returns>
-        public virtual async Task<AlertDTO> GetAlertAsync(long id)
+        public virtual async Task<AlertDTO> GetAlertAsync(long id, CancellationToken cancellationToken = default)
         {
-            return await GetAsync<AlertDTO>("alert", id.ToString());
+            return await GetAsync<AlertDTO>("alert", cancellationToken, id.ToString());
         }
         /// <summary>
         /// Create a new Alert
         /// </summary>
         /// <param name="request">An Alert create request</param>
+        /// <param name="cancellationToken">Optional cancellation token</param>
         /// <returns>An Alert data-transfer object</returns>
-        public virtual async Task<AlertDTO> CreateAlertAsync(AlertCreateRequest request)
+        public virtual async Task<AlertDTO> CreateAlertAsync(AlertCreateRequest request, CancellationToken cancellationToken = default)
         {
-            return await PostAsync<AlertCreateRequest, AlertDTO>("alerts", request);
+            return await PostAsync<AlertCreateRequest, AlertDTO>("alerts", request, cancellationToken);
         }
         /// <summary>
         /// Dismiss up to 150 Alerts
         /// </summary>
-        /// <param name="request">The Ids (up to 150) of the Alerts to dismiss</param>
+        /// <param name="ids">The Ids (up to 150) of the Alerts to dismiss</param>
+        /// <param name="cancellationToken">Optional cancellation token</param>
         /// <returns>True if the Alerts were dismissed, and false if the Alerts could not be dismissed</returns>
-        public virtual async Task<bool> DismissAlertsAsync(long[] ids)
+        public virtual async Task<bool> DismissAlertsAsync(long[] ids, CancellationToken cancellationToken = default)
         {
             return await PostAsync<AlertsDismissRequest, bool>("alerts/dismiss", new AlertsDismissRequest
             {
                 Ids = ids
-            });
+            }, cancellationToken);
         }
         /// <summary>
         /// Delete an existing Alert
         /// </summary>
         /// <param name="id">The Id of the requested Alert to delete</param>
+        /// <param name="cancellationToken">Optional cancellation token</param>
         /// <returns>True if the delete was successful</returns>
-        public virtual async Task<bool> DeleteAlertAsync(long id)
+        public virtual async Task<bool> DeleteAlertAsync(long id, CancellationToken cancellationToken = default)
         {
-            return await DeleteAsync("alerts", id);
+            return await DeleteAsync("alerts", id, cancellationToken);
         }
 
         /// <summary>
@@ -148,22 +155,24 @@ namespace TheMonitaur.WebAPI
                     "Please use SetAccesssToken to load a new access token and try again");
             }
         }
-        protected virtual async Task<T> GetAsync<T>(string path, string parameters = "")
+        protected virtual async Task<T> GetAsync<T>(string path, CancellationToken cancellationToken, string parameters = "")
         {
             CheckIfTokenIsValid();
 
             try
             {
-                var client = _httpClientFactory != null ? _httpClientFactory.CreateClient() : new HttpClient();
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-
-                var fullPath = $"{_webAPIBaseUri}/{path}" + (!string.IsNullOrWhiteSpace(parameters) ? $"/{parameters}" : string.Empty);
-                var response = await client.GetAsync(fullPath);
-
-                if (response.StatusCode == HttpStatusCode.OK)
+                using (var client = _httpClientFactory != null ? _httpClientFactory.CreateClient() : new HttpClient())
                 {
-                    client.Dispose();
-                    return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+
+                    var fullPath = $"{_webAPIBaseUri}/{path}" + (!string.IsNullOrWhiteSpace(parameters) ? $"/{parameters}" : string.Empty);
+
+                    var response = await client.GetAsync(fullPath, cancellationToken);
+
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
+                    }
                 }
             }
             catch
@@ -171,22 +180,24 @@ namespace TheMonitaur.WebAPI
 
             return default;
         }
-        protected virtual async Task<U> PostAsync<T, U>(string path, T request)
+        protected virtual async Task<U> PostAsync<T, U>(string path, T request, CancellationToken cancellationToken)
         {
             CheckIfTokenIsValid();
 
             try
             {
-                var client = _httpClientFactory != null ? _httpClientFactory.CreateClient() : new HttpClient();
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-
-                var fullPath = $"{_webAPIBaseUri}/{path}";
-                var response = await client.PostAsync(fullPath, new JsonContent(request));
-
-                if (response.StatusCode == HttpStatusCode.Created)
+                using (var client = _httpClientFactory != null ? _httpClientFactory.CreateClient() : new HttpClient())
                 {
-                    client.Dispose();
-                    return JsonConvert.DeserializeObject<U>(await response.Content.ReadAsStringAsync());
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+
+                    var fullPath = $"{_webAPIBaseUri}/{path}";
+
+                    var response = await client.PostAsync(fullPath, new JsonContent(request), cancellationToken);
+
+                    if (response.StatusCode == HttpStatusCode.Created)
+                    {
+                        return JsonConvert.DeserializeObject<U>(await response.Content.ReadAsStringAsync());
+                    }
                 }
             }
             catch
@@ -194,19 +205,21 @@ namespace TheMonitaur.WebAPI
 
             return default;
         }
-        protected virtual async Task<bool> DeleteAsync(string path, long id)
+        protected virtual async Task<bool> DeleteAsync(string path, long id, CancellationToken cancellationToken)
         {
             CheckIfTokenIsValid();
 
             try
             {
-                var client = _httpClientFactory != null ? _httpClientFactory.CreateClient() : new HttpClient();
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+                using (var client = _httpClientFactory != null ? _httpClientFactory.CreateClient() : new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
 
-                var fullPath = $"{_webAPIBaseUri}/{path}/{id}";
-                var response = await client.DeleteAsync(fullPath);
-                client.Dispose();
-                return response.StatusCode == HttpStatusCode.NoContent;
+                    var fullPath = $"{_webAPIBaseUri}/{path}/{id}";
+
+                    var response = await client.DeleteAsync(fullPath, cancellationToken);
+                    return response.StatusCode == HttpStatusCode.NoContent;
+                }
             }
             catch
             { }
