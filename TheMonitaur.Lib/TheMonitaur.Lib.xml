@@ -131,6 +131,65 @@
             The type when a message is being sent to the server
             </summary>
         </member>
+        <member name="T:TheMonitaur.Lib.Events.ConnectionEventArgs">
+            <summary>
+            The abstract base class for a Connection event
+            </summary>
+        </member>
+        <member name="P:TheMonitaur.Lib.Events.ConnectionEventArgs.ConnectionStatusType">
+            <summary>
+            The connection status type
+            </summary>
+        </member>
+        <member name="T:TheMonitaur.Lib.Events.ErrorEventArgs">
+            <summary>
+            The abstract base class for an Error event
+            </summary>
+        </member>
+        <member name="P:TheMonitaur.Lib.Events.ErrorEventArgs.Exception">
+            <summary>
+            The exception thrown
+            </summary>
+        </member>
+        <member name="T:TheMonitaur.Lib.Events.ConnectionEventHandler">
+            <summary>
+            The event handler for a Connection Event
+            </summary>
+            <param name="sender">The sending object</param>
+            <param name="args">The specific arguments for the event</param>
+            <returns>As async Task when the event  is invoked</returns>
+        </member>
+        <member name="T:TheMonitaur.Lib.Events.MessageEventHandler">
+            <summary>
+            The event handler for a Message Event
+            </summary>
+            <param name="sender">The sending object</param>
+            <param name="args">The specific arguments for the event</param>
+            <returns>As async Task when the event fires</returns> 
+        </member>
+        <member name="T:TheMonitaur.Lib.Events.ErrorEventHandler">
+            <summary>
+            The event handler for an Error Event
+            </summary>
+            <param name="sender">The sending object</param>
+            <param name="args">The specific arguments for the event</param>
+            <returns>As async Task when the event is invoked</returns>
+        </member>
+        <member name="T:TheMonitaur.Lib.Events.MessageEventArgs">
+            <summary>
+            The abstract base class for a Message event
+            </summary>
+        </member>
+        <member name="P:TheMonitaur.Lib.Events.MessageEventArgs.MessageEventType">
+            <summary>
+            The message event type
+            </summary>
+        </member>
+        <member name="P:TheMonitaur.Lib.Events.MessageEventArgs.Message">
+            <summary>
+            The message content
+            </summary>
+        </member>
         <member name="T:TheMonitaur.Lib.Requests.AlertCreateRequest">
             <summary>
             An Alert create request
