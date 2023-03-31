@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using TheMonitaur.Lib.Requests;
 using TheMonitaur.Tcp.Models;
@@ -28,14 +29,14 @@ namespace TheMonitaur.WebSocket
             return new MonitaurWebsocketClientHandler(_parameters);
         }
 
-        public virtual async Task<bool> SendAlertAsync(AlertCreateRequest request)
+        public virtual async Task<bool> SendAlertAsync(AlertCreateRequest request, CancellationToken cancellationToken = default)
         {
             if (request.Message.Trim().Length > 255)
             {
                 throw new System.Exception("Max message length is 255 characters");
             }
 
-            return await SendAsync(JsonConvert.SerializeObject(request));
+            return await SendAsync(JsonConvert.SerializeObject(request), cancellationToken);
         }
 
     }

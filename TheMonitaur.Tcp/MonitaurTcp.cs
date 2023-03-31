@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using PHS.Networking.Enums;
+using System.Threading;
 using System.Threading.Tasks;
 using Tcp.NET.Client;
 using Tcp.NET.Client.Models;
@@ -69,14 +70,14 @@ namespace TheMonitaur.Tcp
             base.OnConnectionEvent(this, args);
         }
 
-        public virtual async Task<bool> SendAlertAsync(AlertCreateRequest request)
+        public virtual async Task<bool> SendAlertAsync(AlertCreateRequest request, CancellationToken cancellationToken = default)
         {
             if (request.Message.Trim().Length > 255)
             {
                 throw new System.Exception("Max message length is 255 characters");
             }
 
-            return await SendAsync(JsonConvert.SerializeObject(request));
+            return await SendAsync(JsonConvert.SerializeObject(request), cancellationToken);
         }
     }
 }

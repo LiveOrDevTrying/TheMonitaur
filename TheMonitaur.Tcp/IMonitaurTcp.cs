@@ -1,4 +1,5 @@
 ﻿using PHS.Networking.Services;
+using System.Threading;
 using System.Threading.Tasks;
 using Tcp.NET.Core.Models;
 using TheMonitaur.Lib.Requests;
@@ -13,6 +14,6 @@ namespace TheMonitaur.Tcp
             MonitaurTcpErrorEventArgs, 
             ConnectionTcp>
     {
-        Task<bool> SendAlertAsync(AlertCreateRequest request);
+        Task<bool> SendAlertAsync(AlertCreateRequest request, CancellationToken cancellationToken = default);
     }
 }
