@@ -71,6 +71,11 @@ namespace TheMonitaur.Tcp
 
         public virtual async Task<bool> SendAlertAsync(AlertCreateRequest request)
         {
+            if (request.Message.Trim().Length > 255)
+            {
+                throw new System.Exception("Max message length is 255 characters");
+            }
+
             return await SendAsync(JsonConvert.SerializeObject(request));
         }
     }

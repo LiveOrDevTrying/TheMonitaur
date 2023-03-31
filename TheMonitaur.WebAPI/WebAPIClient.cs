@@ -115,6 +115,11 @@ namespace TheMonitaur.WebAPI
         /// <returns>An Alert data-transfer object</returns>
         public virtual async Task<AlertDTO> CreateAlertAsync(AlertCreateRequest request, CancellationToken cancellationToken = default)
         {
+            if (request.Message.Trim().Length > 255)
+            {
+                throw new Exception("Max message length is 255 characters");
+            }
+
             return await PostAsync<AlertCreateRequest, AlertDTO>("alerts", request, cancellationToken);
         }
         /// <summary>
