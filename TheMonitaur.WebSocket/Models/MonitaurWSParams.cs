@@ -5,9 +5,7 @@ namespace TheMonitaur.Tcp.Models
     public class MonitaurWSParams : ParamsWSClient
     {
         public MonitaurWSParams(string token,
-            string uri = "connect.themonitaur.com",
-            int port = 6790,    
-            bool isSSL = true) : base(uri, port, isSSL, token)
+            bool useSSL = true) : base("connect.themonitaur.com", useSSL ? 6790 : 6795, useSSL, token)
         {
         }
     }
