@@ -1,4 +1,5 @@
 ﻿using PHS.Networking.Services;
+using System.Threading;
 using System.Threading.Tasks;
 using TheMonitaur.Lib.Requests;
 using TheMonitaur.WebSocket.Events;
@@ -13,6 +14,6 @@ namespace TheMonitaur.WebSocket
             MonitaurWSErrorEventArgs,
             ConnectionWS>
     {
-        Task<bool> SendAlertAsync(AlertCreateRequest request);
+        Task<bool> SendAlertAsync(AlertCreateRequest request, CancellationToken cancellationToken = default);
     }
 }

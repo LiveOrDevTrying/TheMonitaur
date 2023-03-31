@@ -164,24 +164,19 @@ namespace TheMonitaur.WebAPI
         {
             CheckIfTokenIsValid();
 
-            try
+            using (var client = _httpClientFactory != null ? _httpClientFactory.CreateClient() : new HttpClient())
             {
-                using (var client = _httpClientFactory != null ? _httpClientFactory.CreateClient() : new HttpClient())
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+
+                var fullPath = $"{_webAPIBaseUri}/{path}" + (!string.IsNullOrWhiteSpace(parameters) ? $"/{parameters}" : string.Empty);
+
+                var response = await client.GetAsync(fullPath, cancellationToken);
+
+                if (response.StatusCode == HttpStatusCode.OK)
                 {
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-
-                    var fullPath = $"{_webAPIBaseUri}/{path}" + (!string.IsNullOrWhiteSpace(parameters) ? $"/{parameters}" : string.Empty);
-
-                    var response = await client.GetAsync(fullPath, cancellationToken);
-
-                    if (response.StatusCode == HttpStatusCode.OK)
-                    {
-                        return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
-                    }
+                    return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync(cancellationToken));
                 }
             }
-            catch
-            { }
 
             return default;
         }
@@ -189,24 +184,19 @@ namespace TheMonitaur.WebAPI
         {
             CheckIfTokenIsValid();
 
-            try
+            using (var client = _httpClientFactory != null ? _httpClientFactory.CreateClient() : new HttpClient())
             {
-                using (var client = _httpClientFactory != null ? _httpClientFactory.CreateClient() : new HttpClient())
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+
+                var fullPath = $"{_webAPIBaseUri}/{path}";
+
+                var response = await client.PostAsync(fullPath, new JsonContent(request), cancellationToken);
+
+                if (response.StatusCode == HttpStatusCode.Created)
                 {
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-
-                    var fullPath = $"{_webAPIBaseUri}/{path}";
-
-                    var response = await client.PostAsync(fullPath, new JsonContent(request), cancellationToken);
-
-                    if (response.StatusCode == HttpStatusCode.Created)
-                    {
-                        return JsonConvert.DeserializeObject<U>(await response.Content.ReadAsStringAsync());
-                    }
+                    return JsonConvert.DeserializeObject<U>(await response.Content.ReadAsStringAsync(cancellationToken));
                 }
             }
-            catch
-            { }
 
             return default;
         }
@@ -214,22 +204,15 @@ namespace TheMonitaur.WebAPI
         {
             CheckIfTokenIsValid();
 
-            try
+            using (var client = _httpClientFactory != null ? _httpClientFactory.CreateClient() : new HttpClient())
             {
-                using (var client = _httpClientFactory != null ? _httpClientFactory.CreateClient() : new HttpClient())
-                {
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
 
-                    var fullPath = $"{_webAPIBaseUri}/{path}/{id}";
+                var fullPath = $"{_webAPIBaseUri}/{path}/{id}";
 
-                    var response = await client.DeleteAsync(fullPath, cancellationToken);
-                    return response.StatusCode == HttpStatusCode.NoContent;
-                }
+                var response = await client.DeleteAsync(fullPath, cancellationToken);
+                return response.StatusCode == HttpStatusCode.NoContent;
             }
-            catch
-            { }
-
-            return false;
         }
 
         /// <summary>
