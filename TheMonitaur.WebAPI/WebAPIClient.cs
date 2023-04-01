@@ -24,15 +24,15 @@ namespace TheMonitaur.WebAPI
         /// <param name="token">OAuth token for the application registered on The Monitaur</param>
         /// <param name="webAPIBaseUri">Optional - The API URI for The Monitaur</param>
         /// <param name="httpClientFactory">Optional - Http client injection for Dependency Injection</param>
-        public WebAPIClient(string token, string webAPIBaseUri = "https://api.themonitaur.com", HttpClient httpClient = null)
+        public WebAPIClient(string token, HttpClient httpClient = null)
         {
             _token = token;
-            _webAPIBaseUri = webAPIBaseUri;
 
             if (httpClient != null)
             {
                 _httpClient = httpClient;
             }
+            _webAPIBaseUri = "https://api.themonitaur.com";
         }
 
         /// <summary>
