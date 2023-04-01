@@ -2,11 +2,11 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="TheMonitaur.Tcp" Version="6.0.*" />
+    <PackageReference Include="TheMonitaur.Tcp" Version="5.0.*" />
   </ItemGroup>
 
 </Project>
