@@ -3,7 +3,7 @@
     /// <summary>
     /// An Alerts dismiss request
     /// </summary>
-    public class AlertsDismissRequest
+    public class AlertsSelectedRequest
     {
         /// <summary>
         /// The Ids of the Alerts to dismiss

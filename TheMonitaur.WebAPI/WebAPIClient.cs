@@ -130,7 +130,7 @@ namespace TheMonitaur.WebAPI
         /// <returns>True if the Alerts were dismissed, and false if the Alerts could not be dismissed</returns>
         public virtual async Task<bool> DismissAlertsAsync(long[] ids, CancellationToken cancellationToken = default)
         {
-            return await PostAsync<AlertsDismissRequest, bool>("alerts/dismiss", new AlertsDismissRequest
+            return await PostAsync<AlertsSelectedRequest, bool>("alerts/dismiss", new AlertsSelectedRequest
             {
                 Ids = ids
             }, cancellationToken);

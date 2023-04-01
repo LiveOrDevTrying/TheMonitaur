@@ -212,16 +212,6 @@
             The message or payload attached to the Alert
             </summary>
         </member>
-        <member name="T:TheMonitaur.Lib.Requests.AlertsDismissRequest">
-            <summary>
-            An Alerts dismiss request
-            </summary>
-        </member>
-        <member name="P:TheMonitaur.Lib.Requests.AlertsDismissRequest.Ids">
-            <summary>
-            The Ids of the Alerts to dismiss
-            </summary>
-        </member>
         <member name="T:TheMonitaur.Lib.Requests.AlertsLookupRequest">
             <summary>
             An Alerts Lookup request
@@ -263,6 +253,16 @@
         <member name="P:TheMonitaur.Lib.Requests.AlertsLookupRequest.IncludeDismissedAlerts">
             <summary>
             Flag to indicate if the query should include dismissed Alerts
+            </summary>
+        </member>
+        <member name="T:TheMonitaur.Lib.Requests.AlertsSelectedRequest">
+            <summary>
+            An Alerts dismiss request
+            </summary>
+        </member>
+        <member name="P:TheMonitaur.Lib.Requests.AlertsSelectedRequest.Ids">
+            <summary>
+            The Ids of the Alerts to dismiss
             </summary>
         </member>
         <member name="T:TheMonitaur.Lib.Requests.CreateRequest">
