@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
     <ApplicationIcon>Logo.ico</ApplicationIcon>
     <Authors>Rob Engel - LiveOrDevTrying</Authors>
     <Company>Rob Engel - LiveOrDevTrying - Pixel Horror Studios</Company>
@@ -14,7 +14,7 @@
     <RepositoryUrl>https://github.com/liveordevtrying/themonitaur</RepositoryUrl>
     <RepositoryType>Github Public</RepositoryType>
     <PackageTags>N-Tier ntier tcp websocket webapi monitor monitoring async await message services liveordevtrying monitaur themonitaur log logger logging universal pixelhorrorstudios pixel horror studios</PackageTags>
-    <Version>6.0.0</Version>
+    <Version>3.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,8 +26,8 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.*" />
-    <PackageReference Include="WebsocketsSimple.Client" Version="6.0.*" />
-	<PackageReference Include="TheMonitaur.Lib" Version="6.0.*" />
+    <PackageReference Include="WebsocketsSimple.Client" Version="3.0.*" />
+	<PackageReference Include="TheMonitaur.Lib" Version="3.0.*" />
   </ItemGroup>
 
 
