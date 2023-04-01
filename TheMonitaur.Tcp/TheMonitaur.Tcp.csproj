@@ -30,9 +30,4 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\TheMonitaur.Lib\TheMonitaur.Lib.csproj" />
-  </ItemGroup>
-
-
 </Project>
