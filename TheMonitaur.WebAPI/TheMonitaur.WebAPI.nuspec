@@ -18,7 +18,6 @@
       <group targetFramework="netcoreapp3.0">
         <dependency id="Newtonsoft.Json" version="[13,14)" />
 		<dependency id="TheMonitaur.Lib" version="[3.0,3.1)" />
-		<dependency id="Microsoft.Extensions.Http" version="[6.0,6.1)" />
       </group>
     </dependencies>
   </metadata>

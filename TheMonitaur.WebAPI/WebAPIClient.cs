@@ -15,7 +15,7 @@ namespace TheMonitaur.WebAPI
     public class WebAPIClient : IWebAPIClient
     {
         protected readonly string _webAPIBaseUri;
-        protected readonly IHttpClientFactory _httpClientFactory;
+        protected readonly HttpClient _httpClient;
         protected string _token;
 
         /// <summary>
@@ -24,11 +24,15 @@ namespace TheMonitaur.WebAPI
         /// <param name="token">OAuth token for the application registered on The Monitaur</param>
         /// <param name="webAPIBaseUri">Optional - The API URI for The Monitaur</param>
         /// <param name="httpClientFactory">Optional - Http client injection for Dependency Injection</param>
-        public WebAPIClient(string token, string webAPIBaseUri = "https://api.themonitaur.com", IHttpClientFactory httpClientFactory = null)
+        public WebAPIClient(string token, string webAPIBaseUri = "https://api.themonitaur.com", HttpClient httpClient = null)
         {
             _token = token;
             _webAPIBaseUri = webAPIBaseUri;
-            _httpClientFactory = httpClientFactory;
+
+            if (httpClient != null)
+            {
+                _httpClient = httpClient;
+            }
         }
 
         /// <summary>
@@ -164,18 +168,22 @@ namespace TheMonitaur.WebAPI
         {
             CheckIfTokenIsValid();
 
-            using (var client = _httpClientFactory != null ? _httpClientFactory.CreateClient() : new HttpClient())
+            var client = _httpClient;
+
+            if (client == null)
             {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+                client = new HttpClient();
+            }
 
-                var fullPath = $"{_webAPIBaseUri}/{path}" + (!string.IsNullOrWhiteSpace(parameters) ? $"/{parameters}" : string.Empty);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
 
-                var response = await client.GetAsync(fullPath, cancellationToken);
+            var fullPath = $"{_webAPIBaseUri}/{path}" + (!string.IsNullOrWhiteSpace(parameters) ? $"/{parameters}" : string.Empty);
 
-                if (response.StatusCode == HttpStatusCode.OK)
-                {
-                    return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync(cancellationToken));
-                }
+            var response = await client.GetAsync(fullPath, cancellationToken);
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
             }
 
             return default;
@@ -184,18 +192,22 @@ namespace TheMonitaur.WebAPI
         {
             CheckIfTokenIsValid();
 
-            using (var client = _httpClientFactory != null ? _httpClientFactory.CreateClient() : new HttpClient())
+            var client = _httpClient;
+
+            if (client == null)
             {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+                client = new HttpClient();
+            }
 
-                var fullPath = $"{_webAPIBaseUri}/{path}";
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
 
-                var response = await client.PostAsync(fullPath, new JsonContent(request), cancellationToken);
+            var fullPath = $"{_webAPIBaseUri}/{path}";
 
-                if (response.StatusCode == HttpStatusCode.Created)
-                {
-                    return JsonConvert.DeserializeObject<U>(await response.Content.ReadAsStringAsync(cancellationToken));
-                }
+            var response = await client.PostAsync(fullPath, new JsonContent(request), cancellationToken);
+
+            if (response.StatusCode == HttpStatusCode.Created)
+            {
+                return JsonConvert.DeserializeObject<U>(await response.Content.ReadAsStringAsync());
             }
 
             return default;
@@ -204,15 +216,19 @@ namespace TheMonitaur.WebAPI
         {
             CheckIfTokenIsValid();
 
-            using (var client = _httpClientFactory != null ? _httpClientFactory.CreateClient() : new HttpClient())
+            var client = _httpClient;
+
+            if (client == null)
             {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-
-                var fullPath = $"{_webAPIBaseUri}/{path}/{id}";
-
-                var response = await client.DeleteAsync(fullPath, cancellationToken);
-                return response.StatusCode == HttpStatusCode.NoContent;
+                client = new HttpClient();
             }
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+
+            var fullPath = $"{_webAPIBaseUri}/{path}/{id}";
+
+            var response = await client.DeleteAsync(fullPath, cancellationToken);
+            return response.StatusCode == HttpStatusCode.NoContent;
         }
 
         /// <summary>
