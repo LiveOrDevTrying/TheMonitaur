@@ -174,7 +174,7 @@ namespace TheMonitaur.WebAPI
 
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
-                    return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync(cancellationToken));
+                    return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
                 }
             }
 
@@ -194,7 +194,7 @@ namespace TheMonitaur.WebAPI
 
                 if (response.StatusCode == HttpStatusCode.Created)
                 {
-                    return JsonConvert.DeserializeObject<U>(await response.Content.ReadAsStringAsync(cancellationToken));
+                    return JsonConvert.DeserializeObject<U>(await response.Content.ReadAsStringAsync());
                 }
             }
 
