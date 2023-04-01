@@ -12,7 +12,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>This is the Websocket Client .NET plugin for logging with https://www.TheMonitaur.com, a free and simple single-source web application for monitoring all your application layers using Tcp, Websocket, and/or WebAPI / Http.</description>
     <releaseNotes></releaseNotes>
-    <copyright>Copyright 2022</copyright>
+    <copyright>Copyright 2023</copyright>
     <tags>N-Tier ntier tcp websocket webapi monitor monitoring async await message services liveordevtrying monitaur themonitaur log logger logging universal pixelhorrorstudios pixel horror studios</tags>
     <dependencies>
       <group targetFramework="netcoreapp2.2">
