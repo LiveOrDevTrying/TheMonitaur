@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -7,7 +7,7 @@
     <Company>Rob Engel - LiveOrDevTrying - Pixel Horror Studios</Company>
     <Product>The Monitaur</Product>
     <Description>This packages contains the public plugins for interacting with https://www.TheMonitaur.com, a free and simple single-source web application for monitoring all your application layers using Tcp, Websocket, and/or WebAPI / Http.</Description>
-    <Copyright>Copyright 2022</Copyright>
+    <Copyright>Copyright 2023</Copyright>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageProjectUrl>https://www.TheMontiaur.com</PackageProjectUrl>
     <PackageIcon>Logo.png</PackageIcon>
