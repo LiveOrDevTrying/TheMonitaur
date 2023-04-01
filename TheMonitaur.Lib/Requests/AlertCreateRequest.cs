@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using TheMonitaur.Lib.Enums;
+﻿using TheMonitaur.Lib.Enums;
 
 namespace TheMonitaur.Lib.Requests
 {
@@ -21,7 +20,6 @@ namespace TheMonitaur.Lib.Requests
         /// <summary>
         /// The message or payload attached to the Alert
         /// </summary>
-        [MaxLength(255)]
         public string Message { get; set; }
     }
 }
