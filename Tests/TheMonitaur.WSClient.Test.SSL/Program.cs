@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Threading.Tasks;
 using TheMonitaur.Lib.Enums;
+using TheMonitaur.Lib.Events;
 using TheMonitaur.Lib.Requests;
 using TheMonitaur.WebSocket;
 
@@ -73,12 +75,18 @@ namespace TheMonitaur.WSClient.Test.SSL
                 Console.WriteLine("That is not a valid entry.");
             } while (string.IsNullOrWhiteSpace(_oauthToken));
 
-            _client = new MonitaurWebSocket((new Tcp.Models.MonitaurWSParams(_oauthToken)).ParamsWSClient);
+            _client = new MonitaurWebSocket((new Tcp.Models.MonitaurWSParams(_oauthToken)));
+            _client.AlertReceived += OnAlertReceived;
             await _client.ConnectAsync();
 
             Console.WriteLine();
 
             await MenuAsync();
+        }
+
+        private static void OnAlertReceived(object sender, AlertReceivedArgs args)
+        {
+            Console.WriteLine("Received: " + JsonConvert.SerializeObject(args.Alert));
         }
 
         static async Task SendAlertAsync()
