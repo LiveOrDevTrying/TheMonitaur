@@ -1,4 +1,5 @@
 ﻿using Tcp.NET.Client.Handlers;
+using Tcp.NET.Client.Models;
 using Tcp.NET.Core.Events.Args;
 using Tcp.NET.Core.Models;
 using TheMonitaur.Tcp.Events;
@@ -11,10 +12,10 @@ namespace TheMonitaur.Tcp.Handlers
             MonitaurTcpConnectionEventArgs,
             MonitaurTcpMessageEventArgs,
             MonitaurTcpErrorEventArgs,
-            MonitaurTcpParams,
+            ParamsTcpClient,
             ConnectionTcp>
     {
-        public MonitaurTcpClientHandler(MonitaurTcpParams parameters) : base(parameters)
+        public MonitaurTcpClientHandler(ParamsTcpClient parameters) : base(parameters)
         {
         }
 
