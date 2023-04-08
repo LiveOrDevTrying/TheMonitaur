@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Threading.Tasks;
 using TheMonitaur.Lib.Enums;
+using TheMonitaur.Lib.Events;
 using TheMonitaur.Lib.Requests;
 using TheMonitaur.Tcp;
 
@@ -74,11 +76,17 @@ namespace TheMonitaur.TcpClient.Test.SSL
             } while (string.IsNullOrWhiteSpace(_oauthToken));
 
             _client = new MonitaurTcp(new Tcp.Models.MonitaurTcpParams(_oauthToken));
+            _client.AlertReceived += OnAlertReceived;
             await _client.ConnectAsync();
 
             Console.WriteLine();
 
             await MenuAsync();
+        }
+
+        private static void OnAlertReceived(object sender, AlertReceivedArgs args)
+        {
+            Console.WriteLine("Received: " + JsonConvert.SerializeObject(args.Alert));
         }
 
         static async Task SendAlertAsync()
