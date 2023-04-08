@@ -131,6 +131,16 @@
             The type when a message is being sent to the server
             </summary>
         </member>
+        <member name="T:TheMonitaur.Lib.Events.AlertReceivedArgs">
+            <summary>
+            The event args for when an Alert is received
+            </summary>
+        </member>
+        <member name="P:TheMonitaur.Lib.Events.AlertReceivedArgs.Alert">
+            <summary>
+            The alert that was received
+            </summary>
+        </member>
         <member name="T:TheMonitaur.Lib.Events.ConnectionEventArgs">
             <summary>
             The abstract base class for a Connection event
@@ -157,7 +167,6 @@
             </summary>
             <param name="sender">The sending object</param>
             <param name="args">The specific arguments for the event</param>
-            <returns>As async Task when the event  is invoked</returns>
         </member>
         <member name="T:TheMonitaur.Lib.Events.MessageEventHandler">
             <summary>
@@ -165,7 +174,6 @@
             </summary>
             <param name="sender">The sending object</param>
             <param name="args">The specific arguments for the event</param>
-            <returns>As async Task when the event fires</returns> 
         </member>
         <member name="T:TheMonitaur.Lib.Events.ErrorEventHandler">
             <summary>
@@ -173,7 +181,13 @@
             </summary>
             <param name="sender">The sending object</param>
             <param name="args">The specific arguments for the event</param>
-            <returns>As async Task when the event is invoked</returns>
+        </member>
+        <member name="T:TheMonitaur.Lib.Events.AlertReceived">
+            <summary>
+            The event handler for receiving an Alert
+            </summary>
+            <param name="sender">The sending object</param>
+            <param name="args">The specific arguments for the event</param>
         </member>
         <member name="T:TheMonitaur.Lib.Events.MessageEventArgs">
             <summary>

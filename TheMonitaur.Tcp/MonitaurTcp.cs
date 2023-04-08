@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Tcp.NET.Client;
 using Tcp.NET.Client.Models;
 using Tcp.NET.Core.Models;
+using TheMonitaur.Lib.DTOs;
+using TheMonitaur.Lib.Events;
 using TheMonitaur.Lib.Requests;
 using TheMonitaur.Tcp.Events;
 using TheMonitaur.Tcp.Handlers;
@@ -17,13 +19,44 @@ namespace TheMonitaur.Tcp
             MonitaurTcpConnectionEventArgs,
             MonitaurTcpMessageEventArgs,
             MonitaurTcpErrorEventArgs,
-            MonitaurTcpParams,
+            ParamsTcpClient,
             MonitaurTcpClientHandler,
             ConnectionTcp>, 
         IMonitaurTcp
     {
-        public MonitaurTcp(MonitaurTcpParams parameters) : base(parameters)
+        private event AlertReceived _alertReceived;
+        private volatile bool _isConnectedFlag;
+        private int _connectIndexMS;
+        private const int CONNECT_TIMEOUT_MS = 5000;
+
+        public MonitaurTcp(MonitaurTcpParams parameters) : base(parameters.ParamsTcpClient)
         {
+        }
+
+        public override async Task<bool> ConnectAsync(CancellationToken cancellationToken = default)
+        {
+            var success = await base.ConnectAsync(cancellationToken);
+
+            if (success)
+            {
+                do
+                {
+                    await Task.Delay(150, cancellationToken);
+                    _connectIndexMS += 150;
+
+                    if (_isConnectedFlag)
+                    {
+                        _isConnectedFlag = false;
+                        _connectIndexMS = 0;
+                        return true;
+                    }
+
+                } while (_connectIndexMS < CONNECT_TIMEOUT_MS);
+            }
+
+            _isConnectedFlag = false;
+            _connectIndexMS = 0;
+            return false;
         }
 
         protected override MonitaurTcpClientHandler CreateTcpClientHandler()
@@ -40,6 +73,7 @@ namespace TheMonitaur.Tcp
                 case MessageEventType.Receive:
                     if (args.Message == "You are successfully connected to The Monitaur over Tcp.")
                     {
+                        _isConnectedFlag = true;
                         FireEvent(this, new MonitaurTcpConnectionEventArgs
                         {
                             Connection = args.Connection,
@@ -48,6 +82,22 @@ namespace TheMonitaur.Tcp
 
                         return;
                     }
+
+                    try
+                    {
+                        var alert = JsonConvert.DeserializeObject<AlertDTO>(args.Message);
+
+                        if (alert != null)
+                        {
+                            _alertReceived?.Invoke(this, new AlertReceivedArgs
+                            {
+                                Alert = alert
+                            });
+                        }
+                    }
+                    catch
+                    { }
+
                     break;
                 default:
                     break;
@@ -78,6 +128,18 @@ namespace TheMonitaur.Tcp
             }
 
             return await SendAsync(JsonConvert.SerializeObject(request), cancellationToken);
+        }
+
+        public event AlertReceived AlertReceived
+        {
+            add
+            {
+                _alertReceived += value;
+            }
+            remove
+            {
+                _alertReceived -= value;
+            }
         }
     }
 }
