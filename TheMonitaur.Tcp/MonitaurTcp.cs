@@ -17,12 +17,12 @@ namespace TheMonitaur.Tcp
             MonitaurTcpConnectionEventArgs,
             MonitaurTcpMessageEventArgs,
             MonitaurTcpErrorEventArgs,
-            MonitaurTcpParams,
+            ParamsTcpClient,
             MonitaurTcpClientHandler,
             ConnectionTcp>, 
         IMonitaurTcp
     {
-        public MonitaurTcp(MonitaurTcpParams parameters) : base(parameters)
+        public MonitaurTcp(MonitaurTcpParams parameters) : base(parameters.ParamsTcpClient)
         {
         }
 

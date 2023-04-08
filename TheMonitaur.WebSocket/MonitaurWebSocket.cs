@@ -6,6 +6,7 @@ using TheMonitaur.Tcp.Models;
 using TheMonitaur.Websocket.Handlers;
 using TheMonitaur.WebSocket.Events;
 using WebsocketsSimple.Client;
+using WebsocketsSimple.Client.Models;
 using WebsocketsSimple.Core.Models;
 
 namespace TheMonitaur.WebSocket
@@ -15,12 +16,12 @@ namespace TheMonitaur.WebSocket
             MonitaurWSConnectionEventArgs,
             MonitaurWSMessageEventArgs,
             MonitaurWSErrorEventArgs,
-            MonitaurWSParams,
+            ParamsWSClient,
             MonitaurWebsocketClientHandler,
             ConnectionWS>,
         IMonitaurWebSocket
     {
-        public MonitaurWebSocket(MonitaurWSParams parameters) : base(parameters)
+        public MonitaurWebSocket(ParamsWSClient parameters) : base(parameters)
         {
         }
 
