@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Tcp.NET.Core.Models;
+using TheMonitaur.Lib.Events;
 using TheMonitaur.Lib.Requests;
 using TheMonitaur.Tcp.Events;
 
@@ -15,5 +16,7 @@ namespace TheMonitaur.Tcp
             ConnectionTcp>
     {
         Task<bool> SendAlertAsync(AlertCreateRequest request, CancellationToken cancellationToken = default);
+
+        event AlertReceived AlertReceived;
     }
 }

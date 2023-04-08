@@ -11,10 +11,10 @@ namespace TheMonitaur.Websocket.Handlers
             MonitaurWSConnectionEventArgs,
             MonitaurWSMessageEventArgs,
             MonitaurWSErrorEventArgs,
-            MonitaurWSParams,
+            ParamsWSClient,
             ConnectionWS>
     {
-        public MonitaurWebsocketClientHandler(MonitaurWSParams parameters) : base(parameters)
+        public MonitaurWebsocketClientHandler(ParamsWSClient parameters) : base(parameters)
         {
         }
 
