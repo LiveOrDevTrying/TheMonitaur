@@ -17,8 +17,8 @@
     <dependencies>
       <group targetFramework="net7.0">
         <dependency id="Newtonsoft.Json" version="[13,14)" />
-        <dependency id="Tcp.NET.Client" version="[7.0,6.1)" />
-        <dependency id="TheMonitaur.Lib" version="[7.0,6.1)" />
+        <dependency id="Tcp.NET.Client" version="[7.0,7.1)" />
+        <dependency id="TheMonitaur.Lib" version="[7.0,7.1)" />
       </group>
     </dependencies>
   </metadata>
