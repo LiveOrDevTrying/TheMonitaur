@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using PHS.Networking.Enums;
+using PHS.Networking.Services;
 using System.Threading;
 using System.Threading.Tasks;
 using Tcp.NET.Client;
@@ -14,8 +15,8 @@ using TheMonitaur.Tcp.Models;
 
 namespace TheMonitaur.Tcp
 {
-    public class MonitaurTcp : 
-        TcpNETClientBase<
+    public class MonitaurTcp :
+        CoreNetworkingClient<
             MonitaurTcpConnectionEventArgs,
             MonitaurTcpMessageEventArgs,
             MonitaurTcpErrorEventArgs,
@@ -29,7 +30,7 @@ namespace TheMonitaur.Tcp
         private int _connectIndexMS;
         private const int CONNECT_TIMEOUT_MS = 5000;
 
-        public MonitaurTcp(MonitaurTcpParams parameters) : base(parameters.ParamsTcpClient)
+        public MonitaurTcp(MonitaurTcpParams parameters) : base(parameters)
         {
         }
 
@@ -59,7 +60,7 @@ namespace TheMonitaur.Tcp
             return false;
         }
 
-        protected override MonitaurTcpClientHandler CreateTcpClientHandler()
+        protected override MonitaurTcpClientHandler CreateHandler()
         {
             return new MonitaurTcpClientHandler(_parameters);
         }
@@ -77,7 +78,8 @@ namespace TheMonitaur.Tcp
                         FireEvent(this, new MonitaurTcpConnectionEventArgs
                         {
                             Connection = args.Connection,
-                            ConnectionEventType = ConnectionEventType.Connected
+                            ConnectionEventType = ConnectionEventType.Connected,
+                            CancellationToken = args.CancellationToken
                         });
 
                         return;
@@ -104,20 +106,6 @@ namespace TheMonitaur.Tcp
             }
 
             base.OnMessageEvent(this, args);
-        }
-        protected override void OnConnectionEvent(object sender, MonitaurTcpConnectionEventArgs args)
-        {
-            switch (args.ConnectionEventType)
-            {
-                case ConnectionEventType.Connected:
-                    return;
-                case ConnectionEventType.Disconnect:
-                    break;
-                default:
-                    break;
-            }
-
-            base.OnConnectionEvent(this, args);
         }
 
         public virtual async Task<bool> SendAlertAsync(AlertCreateRequest request, CancellationToken cancellationToken = default)

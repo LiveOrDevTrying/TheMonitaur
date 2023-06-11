@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using PHS.Networking.Enums;
+using PHS.Networking.Services;
 using System.Threading;
 using System.Threading.Tasks;
 using TheMonitaur.Lib.DTOs;
@@ -15,8 +16,8 @@ using WebsocketsSimple.Core.Models;
 namespace TheMonitaur.WebSocket
 {
 
-    public class MonitaurWebSocket : 
-        WebsocketClientBase<
+    public class MonitaurWebSocket :
+        CoreNetworkingClient<
             MonitaurWSConnectionEventArgs,
             MonitaurWSMessageEventArgs,
             MonitaurWSErrorEventArgs,
@@ -31,7 +32,7 @@ namespace TheMonitaur.WebSocket
         {
         }
 
-        protected override MonitaurWebsocketClientHandler CreateWebsocketClientHandler()
+        protected override MonitaurWebsocketClientHandler CreateHandler()
         {
             return new MonitaurWebsocketClientHandler(_parameters);
         }
