@@ -13,17 +13,17 @@ namespace TheMonitaur.WebAPI.Test
         
         static void Main(string[] args)
         {
-            _client = new WebAPIClient("95c18bed36ec4def92bd3f385cbf6310763242a644b542a08848a9dbadaf6151");
+            _client = new WebAPIClient("acb339de1d6d41378e2d95c067473f07e49eab5aa6f94703be655fbcd50d1a6c");
 
             _timer = new Timer(TimerCallback, null, 50, 50);
 
             Console.WriteLine("Running ...");
 
-            for (int j = 0; j < 50; j++)
+            for (int j = 0; j < 500; j++)
             {
                 Task.Run(async () =>
                 {
-                    for (int i = 0; i < 300; i++)
+                    for (int i = 0; i < 500; i++)
                     {
                         Console.WriteLine("Counter: " + (++_counter).ToString());
                         await _client.CreateAlertAsync(new Lib.Requests.AlertCreateRequest
@@ -34,6 +34,8 @@ namespace TheMonitaur.WebAPI.Test
                         });
                     }
                 });
+
+                Task.Delay(1000);
             }
 
             while (true)
