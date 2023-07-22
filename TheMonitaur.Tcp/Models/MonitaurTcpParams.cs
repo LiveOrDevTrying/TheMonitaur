@@ -8,7 +8,7 @@ namespace TheMonitaur.Tcp.Models
         protected string _token;
         protected bool _useSSL;
 
-        public MonitaurTcpParams(string token, bool useSSL = true) : base("connect.themonitaur.com", useSSL ? 6780 : 6785, "\r\n", token)
+        public MonitaurTcpParams(string token, bool useSSL = true) : base("connect.themonitaur.com", useSSL ? 6780 : 6785, "\r\n", token, useSSL)
         {
         }
     }
