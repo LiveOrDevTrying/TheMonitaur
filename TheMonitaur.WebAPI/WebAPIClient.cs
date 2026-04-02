@@ -32,7 +32,7 @@ namespace TheMonitaur.WebAPI
             {
                 _httpClient = httpClient;
             }
-            _webAPIBaseUri = "https://api.themonitaur.com";
+            _webAPIBaseUri = "https://api.themonitaur.pushedtoprod.com";
         }
 
         /// <summary>
