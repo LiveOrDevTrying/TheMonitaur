@@ -5,15 +5,15 @@
     <version>$version$</version>
     <title>The Monitaur</title>
     <authors>Rob Engel - LiveOrDevTrying</authors>
-    <owners>Rob Engel - LiveOrDevTrying - Pixel Horror Studios</owners>
+    <owners>Rob Engel - LiveOrDevTrying - PushedToProd</owners>
     <license type="expression">Apache-2.0</license>
-    <projectUrl>https://www.TheMonitaur.com</projectUrl>
+    <projectUrl>https://themonitaur.pushedtoprod.com</projectUrl>
     <icon>Logo.png</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>This packages contains the public plugins for interacting with https://www.TheMonitaur.com, a free and simple single-source web application for monitoring all your application layers using Tcp, Websocket, and/or WebAPI / Http.</description>
+    <description>This packages contains the public plugins for interacting with https://themonitaur.pushedtoprod.com, a free and simple single-source web application for monitoring all your application layers using Tcp, Websocket, and/or WebAPI / Http.</description>
     <releaseNotes></releaseNotes>
     <copyright>Copyright 2023</copyright>
-    <tags>N-Tier ntier tcp websocket webapi monitor monitoring async await message services liveordevtrying monitaur themonitaur log logger logging universal pixelhorrorstudios pixel horror studios</tags>
+    <tags>N-Tier ntier tcp websocket webapi monitor monitoring async await message services liveordevtrying monitaur themonitaur log logger logging universal pushedtoprod pushed to prod</tags>
     <dependencies>
       <group targetFramework="netcoreapp2.2">
         <dependency id="TheMonitaur.Tcp" version="[2.2,2.3)" />

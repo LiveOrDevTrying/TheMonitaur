@@ -27,7 +27,7 @@ namespace TheMonitaur.WebAPI
         public WebAPIClient(string token, HttpClient httpClient = null)
         {
             _token = token;
-            _webAPIBaseUri = "https://api.themonitaur.com";
+            _webAPIBaseUri = "https://api.themonitaur.pushedtoprod.com";
             _httpClient = httpClient;
 
             if (httpClient != null)
