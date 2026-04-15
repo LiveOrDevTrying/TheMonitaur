@@ -5,10 +5,10 @@
     <ApplicationIcon>Logo.ico</ApplicationIcon>
     <Authors>Rob Engel - LiveOrDevTrying</Authors>
     <Company>Rob Engel - LiveOrDevTrying - PushedToProd</Company>
-    <Description>This is the Tcp .NET plugin for logging with https://themonitaur.pushedtoprod.com, a free and simple single-source web application for monitoring all your application layers using Tcp, Websocket, and/or WebAPI / Http.</Description>
+    <Description>This is the Tcp .NET plugin for logging with https://themonitaur.com, a free and simple single-source web application for monitoring all your application layers using Tcp, Websocket, and/or WebAPI / Http.</Description>
     <Copyright>Copyright 2023</Copyright>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageProjectUrl>https://themonitaur.pushedtoprod.com</PackageProjectUrl>
+    <PackageProjectUrl>https://themonitaur.com</PackageProjectUrl>
     <PackageIcon>Logo.png</PackageIcon>
     <PackageIconUrl />
     <RepositoryUrl>https://github.com/liveordevtrying/themonitaur</RepositoryUrl>
