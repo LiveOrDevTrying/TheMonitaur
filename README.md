@@ -1,11 +1,11 @@
 # **[The Monitaur](https://www.github.com/liveordevtrying/themonitaur)**<!-- omit in toc -->
-[The Monitaur](https://themonitaur.pushedtoprod.com) provides easy logging and health monitoring services for any server-side application. [The Monitaur](https://themonitaur.pushedtoprod.com) supports logging [Alerts](#alerts) through [WebAPI](#webapi), [Tcp](#tcp), and [WebSocket](#websocket) connections and provides support for any secured application including perennial, distributed, NTier layered applications. It is easy to begin implementing [The Monitaur](https://themonitaur.pushedtoprod.com) in your own .NET applications using the [provided .NET nuget packages](https://www.nuget.org/packages/themonitaur), and it is nearly as easy to write your own logic for interacting with the [WebAPI](#webapi), [WebSocket](#websocket), or [Tcp](#tcp) servers for your server-side applications. [The Monitaur's](https://themonitaur.pushedtoprod.com) [Tcp](#tcp) and [WebSocket](#websocket) servers can support non-SSL or SSL connections, and [acquiring your authorization / authentication `token`](#client-authorization-token) is as simple as registering a [Client Application](#client-applications) on [The Monitaur's Web Application](https://app.themonitaur.pushedtoprod.com), copying the provided [`token`](#client-authorization-token), and attaching it to your payload. All [The Monitaur](https://themonitaur.pushedtoprod.com) packages referenced in this documentation are available on the [NuGet package manager](https://www.nuget.org) in 1 aggregate package - [The Monitaur](https://www.nuget.org/packages/themonitaur/).
+[The Monitaur](https://themonitaur.com) provides easy logging and health monitoring services for any server-side application. [The Monitaur](https://themonitaur.com) supports logging [Alerts](#alerts) through [WebAPI](#webapi), [Tcp](#tcp), and [WebSocket](#websocket) connections and provides support for any secured application including perennial, distributed, NTier layered applications. It is easy to begin implementing [The Monitaur](https://themonitaur.com) in your own .NET applications using the [provided .NET nuget packages](https://www.nuget.org/packages/themonitaur), and it is nearly as easy to write your own logic for interacting with the [WebAPI](#webapi), [WebSocket](#websocket), or [Tcp](#tcp) servers for your server-side applications. [The Monitaur's](https://themonitaur.com) [Tcp](#tcp) and [WebSocket](#websocket) servers can support non-SSL or SSL connections, and [acquiring your authorization / authentication `token`](#client-authorization-token) is as simple as registering a [Client Application](#client-applications) on [The Monitaur's Web Application](https://app.themonitaur.com), copying the provided [`token`](#client-authorization-token), and attaching it to your payload. All [The Monitaur](https://themonitaur.com) packages referenced in this documentation are available on the [NuGet package manager](https://www.nuget.org) in 1 aggregate package - [The Monitaur](https://www.nuget.org/packages/themonitaur/).
 
-[![Image of The Monitaur Logo](https://pixelhorrorstudios.s3-us-west-2.amazonaws.com/The+Monitaur/Github/LogoGithub.png)](https://themonitaur.pushedtoprod.com)
+[![Image of The Monitaur Logo](https://pixelhorrorstudios.s3-us-west-2.amazonaws.com/The+Monitaur/Github/LogoGithub.png)](https://themonitaur.com)
 
 # **Getting Started**
 
-To get started, first register for a free account at [The Monitaur.com](https://themonitaur.pushedtoprod.com). You can login using an existing account provided by: [Google](https://www.google.com) or [Twitch](https://www.twitch.tv).
+To get started, first register for a free account at [The Monitaur.com](https://themonitaur.com). You can login using an existing account provided by: [Google](https://www.google.com) or [Twitch](https://www.twitch.tv).
 
 After your initial log in, you will be greeted with a banner guiding you through creating your first [Project](#projects) and [Client Application](#client-applications). Input a name for your new [Project](#projects).
 
@@ -15,7 +15,7 @@ Next, input a name for your [Client Application](#client-applications) and choos
 
 ![Image welcome banner new Client Application](https://pixelhorrorstudios.s3-us-west-2.amazonaws.com/The+Monitaur/Github/Figure+2.PNG)
 
-The next screen shows your new [Client Application's](#client-applications) [`token`](#client-authorization-token) and offers you a chance to copy it to your clipboard. `This token is private and should not be publically exposed.` When you click close on the final screen, [The Monitaur.com's](https://themonitaur.pushedtoprod.com) dashboard will load and show your new [Project](#projects) and [Client Application](#client-applications).
+The next screen shows your new [Client Application's](#client-applications) [`token`](#client-authorization-token) and offers you a chance to copy it to your clipboard. `This token is private and should not be publically exposed.` When you click close on the final screen, [The Monitaur.com's](https://themonitaur.com) dashboard will load and show your new [Project](#projects) and [Client Application](#client-applications).
 
 ![Image dashboard](https://pixelhorrorstudios.s3-us-west-2.amazonaws.com/The+Monitaur/Github/Figure+3.PNG)
 ***
@@ -84,7 +84,7 @@ The next screen shows your new [Client Application's](#client-applications) [`to
 
 # **Components**
 
-There are 3 types of objects that are used within [The Monitaur](https://themonitaur.pushedtoprod.com):
+There are 3 types of objects that are used within [The Monitaur](https://themonitaur.com):
 
 * [Projects](#projects)
 * [Client Applications](#client-applications)
@@ -94,13 +94,13 @@ There are 3 types of objects that are used within [The Monitaur](https://themoni
 
 ## **Projects**
 
-A [Project](#projects) represents the top-most object you can create on [The Monitaur](https://themonitaur.pushedtoprod.com). A [Project](#projects) represents a collection of [Client Applications](#client-applications) that will be sending [Alerts](#alerts) to [The Monitaur's](https://themonitaur.pushedtoprod.com) servers. `A newly created account allows for 3 Projects total, but additional projects can be purchased from the Purchasable Items screen.`
+A [Project](#projects) represents the top-most object you can create on [The Monitaur](https://themonitaur.com). A [Project](#projects) represents a collection of [Client Applications](#client-applications) that will be sending [Alerts](#alerts) to [The Monitaur's](https://themonitaur.com) servers. `A newly created account allows for 3 Projects total, but additional projects can be purchased from the Purchasable Items screen.`
 
 ***
 
 ## **Client Applications**
 
-A [Client Application](#client-applications) represents the entity that will be submitting [Alerts](#alerts) to [The Monitaur's servers](# "connect.themonitaur.pushedtoprod.com"). Each [Client Application](#client-applications) will receive its own [`token`](#client-authorization-token) which will be used for logging [Alerts](#alerts).\
+A [Client Application](#client-applications) represents the entity that will be submitting [Alerts](#alerts) to [The Monitaur's servers](# "connect.themonitaur.com"). Each [Client Application](#client-applications) will receive its own [`token`](#client-authorization-token) which will be used for logging [Alerts](#alerts).\
 \
 **This [`token`](#client-authorization-token) should not be publically exposed.**\
 \
@@ -112,10 +112,10 @@ interface IClientApplication
     "clientDescription": string       // The Client Application Description
 }
 ```
-In order to submit [Alerts](#alerts) on behalf of a [Client Application](#client-applications), the [Client Application's](#client-applications) [`token`](#client-authorization-token) must be submit on or following connection to [The Monitaur's servers](# "connect.themonitaur.pushedtoprod.com").
+In order to submit [Alerts](#alerts) on behalf of a [Client Application](#client-applications), the [Client Application's](#client-applications) [`token`](#client-authorization-token) must be submit on or following connection to [The Monitaur's servers](# "connect.themonitaur.com").
 
 ### **Client Authorization Token**
-`To retrieve your Client Application's token`, log into [The Monitaur](https://themonitaur.pushedtoprod.com) and click on the [Projects](#projects) button the top navbar. 
+`To retrieve your Client Application's token`, log into [The Monitaur](https://themonitaur.com) and click on the [Projects](#projects) button the top navbar. 
 
 ![Image Projects menu item](https://pixelhorrorstudios.s3-us-west-2.amazonaws.com/The+Monitaur/Github/Figure+4.PNG)
 
@@ -135,7 +135,7 @@ A newly created account allows for 3 [Client Applications](#client-applications)
 
 ## **Alerts**
 
-An [Alert](#alerts) is an object sent by your registered [Client Application(s)](#client-applications) and logged at [The Monitaur](https://themonitaur.pushedtoprod.com). [Alerts](#alerts) can contain template information and are useful when evaluating and monitoring perennial distributed production applications. For example, an [Alert](#alerts) could be issued on a polling interval that discloses the current health of the application, or an [Alert](#alerts) could be sent to a WebAPI endpoint to ensure it remains online. [Alerts](#alerts) can also contain custom messages that can contain any data you like, and this could include custom status objects deserialized into a string and sent along with the [Alert](#alerts).
+An [Alert](#alerts) is an object sent by your registered [Client Application(s)](#client-applications) and logged at [The Monitaur](https://themonitaur.com). [Alerts](#alerts) can contain template information and are useful when evaluating and monitoring perennial distributed production applications. For example, an [Alert](#alerts) could be issued on a polling interval that discloses the current health of the application, or an [Alert](#alerts) could be sent to a WebAPI endpoint to ensure it remains online. [Alerts](#alerts) can also contain custom messages that can contain any data you like, and this could include custom status objects deserialized into a string and sent along with the [Alert](#alerts).
 
 The [Alert](#alerts) object is as follows:
 ```
@@ -170,40 +170,40 @@ enum StatusType {
 }
 ```
 ### **Active and Dismissed**
-[Alerts](#alerts) have 2 states: **Active**, and **Dismissed**. An [**Active**](#active-and-dismissed) [Alert](#alerts) has not yet been viewed and will be shown on [The Monitaur's Web Application](https://app.themonitaur.pushedtoprod.com) by default. After reviewing the [Alert(s)](#alerts), they can be [**Dismissed**](#active-and-dismissed) and archived. In this state, [Alerts](#alerts) are assumed to have been reviewed and are no longer displayed on the [Web Application](https://app.themonitaur.pushedtoprod.com). They can still be retrieved using [The Monitaur's WebAPI](https://api.themonitaur.pushedtoprod.com/swagger) and performing an [**Alerts Get**](#get-alerts), and specifying **IncludeDismissedAlerts=true** in the query parameters.
+[Alerts](#alerts) have 2 states: **Active**, and **Dismissed**. An [**Active**](#active-and-dismissed) [Alert](#alerts) has not yet been viewed and will be shown on [The Monitaur's Web Application](https://app.themonitaur.com) by default. After reviewing the [Alert(s)](#alerts), they can be [**Dismissed**](#active-and-dismissed) and archived. In this state, [Alerts](#alerts) are assumed to have been reviewed and are no longer displayed on the [Web Application](https://app.themonitaur.com). They can still be retrieved using [The Monitaur's WebAPI](https://api.themonitaur.com/swagger) and performing an [**Alerts Get**](#get-alerts), and specifying **IncludeDismissedAlerts=true** in the query parameters.
 
 ***
 
 # **Protocols**
 
-[The Monitaur](https://themonitaur.pushedtoprod.com) currently supports 3 types of connections for logging [Alerts](#alerts):
+[The Monitaur](https://themonitaur.com) currently supports 3 types of connections for logging [Alerts](#alerts):
 
 * [WebAPI](#webAPI)
 * [Tcp](#tcp)
 * [WebSocket](#websocket)
 
 ## **WebAPI**
-You can connect to [The Monitaur's WebAPI](https://api.themonitaur.pushedtoprod.com/swagger) either [manually](#manual-connections) or you can use the provided [WebAPI Nuget Packages](#webapi-nuget-packages).
+You can connect to [The Monitaur's WebAPI](https://api.themonitaur.com/swagger) either [manually](#manual-connections) or you can use the provided [WebAPI Nuget Packages](#webapi-nuget-packages).
 
 ### **Manual Connections**
 ***
-[The Monitaur](https://themonitaur.pushedtoprod.com) includes a [Swagger documented WebAPI](https://api.themonitaur.pushedtoprod.com/swagger) detailing the available WebAPI endpoints, requests, responses, and the capability to use test the WebAPI from the browser. Click on the Authorize in the upper-right hand corner of the [Swagger main page](https://api.themonitaur.pushedtoprod.com/swagger) and paste in the [`token`](#client-authorization-token) you previously retrieved for your [Client Application](#client-applications).
+[The Monitaur](https://themonitaur.com) includes a [Swagger documented WebAPI](https://api.themonitaur.com/swagger) detailing the available WebAPI endpoints, requests, responses, and the capability to use test the WebAPI from the browser. Click on the Authorize in the upper-right hand corner of the [Swagger main page](https://api.themonitaur.com/swagger) and paste in the [`token`](#client-authorization-token) you previously retrieved for your [Client Application](#client-applications).
 
 #### **Authorization**
 In order to use the WebAPI, `you must include an authorization header to your request with the value as 'Bearer {token}', where {token} is the token generated for the desired Client Application.` [Please see above if you need help locating your token](#client-authorization-token).
 
 #### **Endpoints**
-6 secured WebAPI endpoints are included with [The Monitaur](https://themonitaur.pushedtoprod.com):
+6 secured WebAPI endpoints are included with [The Monitaur](https://themonitaur.com):
 
 ##### **Get Client Application**
-* GET https://api.themonitaur.pushedtoprod.com/clientApplication
+* GET https://api.themonitaur.com/clientApplication
 * Retrieve the [Client Application](#client-applications) registered to the [`token`](#client-authorization-token) included in the request header.
 * Returns: **[IClientApplication](#client-applications)**
 
-> curl -H "Authorization: bearer 3284283479255623" https://api.themonitaur.pushedtoprod.com/clientApplication
+> curl -H "Authorization: bearer 3284283479255623" https://api.themonitaur.com/clientApplication
 
 ##### **Get Alerts**
-* GET https://api.themonitaur.pushedtoprod.com/alerts
+* GET https://api.themonitaur.com/alerts
 * Retrieve the undismissed Alerts registered to the [Client Application](#client-applications)
 * Request: Query string parameters
     * **Max Records to Retrieve** - *number* - optional - The maximum number of Alerts to retrieve. Defaults to 150 and maximum is 50,000
@@ -215,19 +215,19 @@ In order to use the WebAPI, `you must include an authorization header to your re
     * **IncludeDismissedAlerts** - *boolean* - optional - A flag to indiciate a request of Alerts that include those that have been dismissed
 * Returns: **array[[IAlert](#alerts)]**
 
-> curl -H "Authorization: bearer 3284283479255623" https://api.themonitaur.pushedtoprod.com/alerts?maxRecordsToRetrieve=30000&alertTypes=0&alertTypes=1&alertTypes=2&statusTypes=0&startDate=2020-04-15T07:00:00.000Z&endDate=2020-05-15T07:00:00.000Z&includeActiveAlerts=true&includeDismissedAlerts=false
+> curl -H "Authorization: bearer 3284283479255623" https://api.themonitaur.com/alerts?maxRecordsToRetrieve=30000&alertTypes=0&alertTypes=1&alertTypes=2&statusTypes=0&startDate=2020-04-15T07:00:00.000Z&endDate=2020-05-15T07:00:00.000Z&includeActiveAlerts=true&includeDismissedAlerts=false
 
 ##### **Get Alert**
-* GET https://api.themonitaur.pushedtoprod.com/alert/{id}
+* GET https://api.themonitaur.com/alert/{id}
 * Retrieve the specified [Alert](#alerts) registered to the authorized [Client Application](#client-applications)
 * Request: Route parameter
     * **Id** - *number* - required - The Id of the [Alert](#alerts) to retrieve
 * Returns: **[IAlert](#alerts)**
 
-> curl -H "Authorization: bearer 3284283479255623" https://api.themonitaur.pushedtoprod.com/alert/5347
+> curl -H "Authorization: bearer 3284283479255623" https://api.themonitaur.com/alert/5347
 
 ##### **Create Alert**
-* POST https://api.themonitaur.pushedtoprod.com/alerts
+* POST https://api.themonitaur.com/alerts
 * Create a new [Alert](#alerts) registered to the authenticated [Client Application](#client-applications)
 * Request: Body
     *       interface IAlertCreateRequest {
@@ -240,10 +240,10 @@ In order to use the WebAPI, `you must include an authorization header to your re
     * **Message** - *string* - optional - Any additional information (messages or serialized state data) to include with the [Alert](#alerts)
 * Returns: **[IAlert](#alerts)**
 
-> curl -X POST "https://api.themonitaur.pushedtoprod.com/Alerts" -H "Content-Type: application/json" -d "{\"statusType\":1,\"alertType\":4,\"message\":\"Hello world\"}" -H "Authorization: bearer 3284283479255623"
+> curl -X POST "https://api.themonitaur.com/Alerts" -H "Content-Type: application/json" -d "{\"statusType\":1,\"alertType\":4,\"message\":\"Hello world\"}" -H "Authorization: bearer 3284283479255623"
 
 ##### **Dismiss Alerts**
-* POST https://api.themonitaur.pushedtoprod.com/alerts/dismiss
+* POST https://api.themonitaur.com/alerts/dismiss
 * Dismiss [Alert(s)](#alerts) registered to the authenticated [Client Application](#client-applications)
 * Request: Body
     *       interface IAlertsDismissRequest {
@@ -252,34 +252,34 @@ In order to use the WebAPI, `you must include an authorization header to your re
     * **Ids** - *array[number]* - required - The Ids of the [Alert(s)](#alerts) requested to dismiss
 * Returns: **Code 204**
 
-> curl -X POST "https://api.themonitaur.pushedtoprod.com/Alerts/Dismiss" -H "Content-Type: application/json" -d "{\"ids\":[15,46,86]}" -H "Authorization: bearer 3284283479255623"
+> curl -X POST "https://api.themonitaur.com/Alerts/Dismiss" -H "Content-Type: application/json" -d "{\"ids\":[15,46,86]}" -H "Authorization: bearer 3284283479255623"
 
 ##### **Delete Alert**
-* DELETE https://api.themonitaur.pushedtoprod.com/alerts/{id}
+* DELETE https://api.themonitaur.com/alerts/{id}
 * Delete an [Alert](#alerts) registered to the authenticated [Client Application](#client-applications)
 * **Note: This endpoint should be used as infrequently as possible**
 * Request: Route parameter
     * **Id** - *number* - required - The Id of the [Alert](#alerts) requested to delete
 * Returns: **Code 204**
 
-> curl -X DELETE "https://api.themonitaur.pushedtoprod.com/Alerts/568" -H "Authorization: bearer 3284283479255623"
+> curl -X DELETE "https://api.themonitaur.com/Alerts/568" -H "Authorization: bearer 3284283479255623"
 
 ***
 ### **Nuget Packages**
-A [WebAPI Client module](https://www.nuget.org/packages/TheMonitaur.WebAPI) is included and can be used to access [The Monitaur's WebAPI](https://api.themonitaur.pushedtoprod.com/swagger). First, install the [NuGet package](https://www.nuget.org/packages/TheMonitaur.WebAPI) using the [NuGet package manager](https://www.nuget.org):
+A [WebAPI Client module](https://www.nuget.org/packages/TheMonitaur.WebAPI) is included and can be used to access [The Monitaur's WebAPI](https://api.themonitaur.com/swagger). First, install the [NuGet package](https://www.nuget.org/packages/TheMonitaur.WebAPI) using the [NuGet package manager](https://www.nuget.org):
 > install-package TheMonitaur.WebAPI
 
 This will add the most-recent version of the [The Monitaur WebAPI Module](https://www.nuget.org/packages/TheMonitaur.WebAPI) to your specified [Project](#projects).
 
 Once installed, we can instantiate an instance of **IWebAPIClient** with the included implementation **WebAPIClient**. 
-* `WebAPIClient(string token, string webAPIBaseUri = "https://api.themonitaur.pushedtoprod.com")`
+* `WebAPIClient(string token, string webAPIBaseUri = "https://api.themonitaur.com")`
     * An example instantiation is below:
 ```
 IWebAPIClient client = new WebAPIClient(8943258989435839054532);
 ```  
 #### **Parameters**
-* **Token** - *string* - Required - Parameter containing the [`token`](#client-authorization-token) of the registered [Client Application](#client-applications) retrieved from [The Monitaur.com](https://themonitaur.pushedtoprod.com).
-* **WebAPIBaseUri** - *string* - Optional - The endpoint / host / url of [The Monitaur's](https://themonitaur.pushedtoprod.com) WebAPI server instance to connect (defaults to [https://api.themonitaur.pushedtoprod.com](#)).
+* **Token** - *string* - Required - Parameter containing the [`token`](#client-authorization-token) of the registered [Client Application](#client-applications) retrieved from [The Monitaur.com](https://themonitaur.com).
+* **WebAPIBaseUri** - *string* - Optional - The endpoint / host / url of [The Monitaur's](https://themonitaur.com) WebAPI server instance to connect (defaults to [https://api.themonitaur.com](#)).
 
 #### **Methods**
 The following methods are exposed on IWebAPIClient:
@@ -322,29 +322,29 @@ If you need to update the [`token`](#client-authorization-token) that you set in
 
 ## **WebSocket**
 
-You can connect to [The Monitaur's WebSocket servers](# "connect.themonitaur.pushedtoprod.com") either [manually](#manual-connections-2) or you can use the provided [WebSocket Nuget Packages](#websocket-nuget-packages).
+You can connect to [The Monitaur's WebSocket servers](# "connect.themonitaur.com") either [manually](#manual-connections-2) or you can use the provided [WebSocket Nuget Packages](#websocket-nuget-packages).
 
 ***
 ### **Manual Connections**
 #### **Connect to the Server**
-To connect to [The Monitaur's WebSocket servers](# "https://connect.themonitaur.pushedtoprod.com"), you will need a [`token`](#client-authorization-token) for a registered [Client Application](#client-applications). To retrieve the [`token`](#client-authorization-token), please see [Retrieving Your Client Application Token](#retrieving-you-client-application-token).
+To connect to [The Monitaur's WebSocket servers](# "https://connect.themonitaur.com"), you will need a [`token`](#client-authorization-token) for a registered [Client Application](#client-applications). To retrieve the [`token`](#client-authorization-token), please see [Retrieving Your Client Application Token](#retrieving-you-client-application-token).
 
 Connect your WebSocket Client to the following endpoint and port. There are 2 ports to choose from - 1 is for an SSL secured WebSocket Server, the second is for an unsecured WebSocket Server. More information on the use of both servers is detailed in [SSL or Non-SSL](#websocket-ssl-or-non-ssl).
 
 For the secured server:
 ```
-Uri: wss://connect.themonitaur.pushedtoprod.com:6415/{token}
+Uri: wss://connect.themonitaur.com:6415/{token}
 ```
 For the non-secured server: 
 ```
-Uri: ws://connect.themonitaur.pushedtoprod.com:6420/{token}
+Uri: ws://connect.themonitaur.com:6420/{token}
 ```
 #### **Token**
 `You must send your token for your Client Application as a route parameter on the initial connection Uri in order to be authenticated on The Monitaur's Servers.` You do not need to add a prefix. An example of an initial connection Uri for the secured server is as follows:
 
-> wss://connect.themonitaur.pushedtoprod.com:6415/659459068904568908434588847
+> wss://connect.themonitaur.com:6415/659459068904568908434588847
 
-If you connect successfully, you will receive a raw message back telling you that your connection to [The Monitaur](https://themonitaur.pushedtoprod.com) was successful.
+If you connect successfully, you will receive a raw message back telling you that your connection to [The Monitaur](https://themonitaur.com) was successful.
 
 #### **SSL or Non-SSL**
 To enable SSL for your connection to [The Monitaur WebSocket servers](#websocket), you need to connect to port 6415. **It is recommended to use the SSL server for increased security**. You can however use the non-SSL server by connecting to port 6420. Both servers function identically, and because there is no encryption on the non-SSL server, the non-SSL server may have a slightly improved response rate.
@@ -358,7 +358,7 @@ interface AlertCreateRequest {
     "message": string             // Custom message or serialized to include with the Alert
 }
 ```
-To send an [Alert](#alerts) to [The Monitaur's WebSocket servers](#websocket), create in JSON a new **AlertCreateRequest** and serialize it to a string. On your WebSocket Client that is connected to [The Monitaur's WebSocket servers](# "connect.themonitaur.pushedtoprod.com"), send the serialized data. An example of the serialized payload is below:
+To send an [Alert](#alerts) to [The Monitaur's WebSocket servers](#websocket), create in JSON a new **AlertCreateRequest** and serialize it to a string. On your WebSocket Client that is connected to [The Monitaur's WebSocket servers](# "connect.themonitaur.com"), send the serialized data. An example of the serialized payload is below:
 
 > socket.Send('{"statusType":0, "alertType": 1, "message": "Hello world"}')
 
@@ -376,21 +376,21 @@ A [WebSocket Client module](https://www.nuget.org/packages/themonitaur.websocket
 This will add the most-recent version of the [The Monitaur's WebSocket Module](https://www.nuget.org/packages/themonitaur.websocket) to your specified [Project](#projects). 
 
 Once installed, we can instantiate an instance of **IMonitaurWebSocket** with the included implementation **MonitaurWebSocket**. 
-* `MonitaurWebSocket(string token, string uri = "connect.themonitaur.pushedtoprod.com", int port = 6415, bool isSSL = true)`
+* `MonitaurWebSocket(string token, string uri = "connect.themonitaur.com", int port = 6415, bool isSSL = true)`
     * An example instantiation is below:
 ```
 IMonitaurWebSocket client = new MonitaurWebSocket(8943258989435839054532);
 ```  
 #### **Parameters**
-* **Token** - *string* - Required - Parameter containing the [`token`](#client-authorization-token) of the registered [Client Application](#client-applications) retrieved from [The Monitaur.com](https://themonitaur.pushedtoprod.com).
-* **Uri** - *string* - Optional - The endpoint / host / url of [The Monitaur's](https://themonitaur.pushedtoprod.com) server instance to connect (defaults to [connect.themonitaur.pushedtoprod.com](#).
-* **Port** - *int* - Optional - The port of [The Monitaur's](https://themonitaur.pushedtoprod.com) server instance to connect (e.g. 6415, 6420).
+* **Token** - *string* - Required - Parameter containing the [`token`](#client-authorization-token) of the registered [Client Application](#client-applications) retrieved from [The Monitaur.com](https://themonitaur.com).
+* **Uri** - *string* - Optional - The endpoint / host / url of [The Monitaur's](https://themonitaur.com) server instance to connect (defaults to [connect.themonitaur.com](#).
+* **Port** - *int* - Optional - The port of [The Monitaur's](https://themonitaur.com) server instance to connect (e.g. 6415, 6420).
 * **IsSSL** - *bool* - Optional - Flag specifying if the connection should be made using SSL encryption for the connection to the server.
 
 #### **Methods**
 1 method is exposed in [The Monitaur's WebSocket Module](#websocket):
 * `Task SendAlertAsync(AlertCreateRequest request);`
-    * Async method to send a new [Alert](#alerts) to [The Monitaur's](https://themonitaur.pushedtoprod.com) servers.
+    * Async method to send a new [Alert](#alerts) to [The Monitaur's](https://themonitaur.com) servers.
 
 The **AlertCreateRequest** has the following signature:
 ```
@@ -441,7 +441,7 @@ Below is a simple Html Client that you can use to test [The Monitaur's WebSocket
 	<ul id="messages"></ul>
 
     	<script language="javascript" type="text/javascript">
-        const uri = "wss://connect.themonitaur.pushedtoprod.com:6415/{token}";
+        const uri = "wss://connect.themonitaur.com:6415/{token}";
         function connect() {
             socket = new WebSocket(uri);
             socket.onopen = function(event) {
@@ -492,16 +492,16 @@ Below is a simple Html Client that you can use to test [The Monitaur's WebSocket
 ***
 
 ## **Tcp**
-You can connect to [The Monitaur's Tcp servers](# "connect.themonitaur.pushedtoprod.com") either [manually](#manual-connections-1) or you can use the provided [Tcp Nuget Packages](#tcp-nuget-packages).
+You can connect to [The Monitaur's Tcp servers](# "connect.themonitaur.com") either [manually](#manual-connections-1) or you can use the provided [Tcp Nuget Packages](#tcp-nuget-packages).
 
 ### **Manual Connections**
 ***
 #### **Connect to the Server**
-To connect to [The Monitaur's Tcp Servers](# "connect.themonitaur.pushedtoprod.com"), you will need a [`token`](#client-authorization-token) for a registered [Client Application](#client-applications). To retrieve the [`token`](#client-authorization-token), please see [Retrieving Your Client Application Token](#retrieving-you-client-application-token).
+To connect to [The Monitaur's Tcp Servers](# "connect.themonitaur.com"), you will need a [`token`](#client-authorization-token) for a registered [Client Application](#client-applications). To retrieve the [`token`](#client-authorization-token), please see [Retrieving Your Client Application Token](#retrieving-you-client-application-token).
 
 Connect your Tcp Client to the following endpoint and port. There are 2 ports to choose from - 1 is for an SSL secured Tcp Server, the second is for an unsecured Tcp Server. More information on the use of both servers is detailed in [Tcp SSL or Non-SSL](#tcp-ssl-or-non-ssl).
 ```
-Uri: connect.themonitaur.pushedtoprod.com
+Uri: connect.themonitaur.com
 SSL Port: 6425
 Non-SSL Port: 6430
 End-of-Line Characters: \r\n
@@ -510,7 +510,7 @@ End-of-Line Characters: \r\n
 `You must send as the first message to the server a raw message containing your token. You must add **oauth:** as the prefix for your token.` This first message should look similar to the following:
 > oauth:yourOAuthTokenGoesHere
 
-If you connect successfully, you will receive a raw message back telling you that your connection to [The Monitaur](https://themonitaur.pushedtoprod.com) was successful.
+If you connect successfully, you will receive a raw message back telling you that your connection to [The Monitaur](https://themonitaur.com) was successful.
 
 #### **SSL or Non-SSL**
 To enable SSL for your connection to [The Monitaur Tcp Server](#tcp), you need to connect to port 6425. **It is recommended to use the SSL server for increased security**. You can however use the non-SSL server by connecting to port 6430. Both servers function identically, and because there is no encryption on the non-SSL server, the non-SSL server may have a slightly improved response rate.
@@ -531,7 +531,7 @@ To send an [Alert](#alerts) to [The Monitaur's Tcp servers](#tcp), create in JSO
 **Make sure to send the [End-of-Line characters](#end-of-line-characters) or your [Alert](#alerts) will not be written to the server**.
 
 #### **End-of-Line Characters**
-Tcp connections are persistent connections of streamed data. The server is unable to determine where breaks in the data exist without [End-Of-Line characters](#end-of-line-characters) to identify where to split apart the data. For [The Monitaur's](https://themonitaur.pushedtoprod.com) [end-Of-Line characters](#end-of-line-characters) are defined to be:
+Tcp connections are persistent connections of streamed data. The server is unable to determine where breaks in the data exist without [End-Of-Line characters](#end-of-line-characters) to identify where to split apart the data. For [The Monitaur's](https://themonitaur.com) [end-Of-Line characters](#end-of-line-characters) are defined to be:
 
 > \r\n
 
@@ -550,21 +550,21 @@ A [Tcp Client module](https://www.nuget.org/packages/themonitaur.tcp) is include
 This will add the most-recent version of the [The Monitaur's Tcp Module](https://www.nuget.org/packages/TheMonitaur.Tcp) to your specified [Project](#projects). 
 
 Once installed, we can instantiate an instance of **IMonitaurTcp** with the included implementation **MonitaurTcp**. 
-* `MonitaurTcp(string token, string uri = "connect.themonitaur.pushedtoprod.com", int port = 6425, bool isSSL = true)`
+* `MonitaurTcp(string token, string uri = "connect.themonitaur.com", int port = 6425, bool isSSL = true)`
     * An example instantiation is below:
 ```
 IMonitaurTcp client = new MonitaurTcp(8943258989435839054532);
 ```  
 #### **Parameters**
-* **Token** - *string* - Required - Parameter containing the [`token`](#client-authorization-token) of the registered [Client Application](#client-applications) retrieved from [The Monitaur.com](https://app.themonitaur.pushedtoprod.com).
-* **Uri** - *string* - Optional - The endpoint / host / url of [The Monitaur's Tcp Servers](https://themonitaur.pushedtoprod.com)(defaults to [connect.themonitaur.pushedtoprod.com](#)).
-* **Port** - *number* - Optional - The port of [The Monitaur's](https://themonitaur.pushedtoprod.com) server instance to connect (e.g. 6425, 6430).
+* **Token** - *string* - Required - Parameter containing the [`token`](#client-authorization-token) of the registered [Client Application](#client-applications) retrieved from [The Monitaur.com](https://app.themonitaur.com).
+* **Uri** - *string* - Optional - The endpoint / host / url of [The Monitaur's Tcp Servers](https://themonitaur.com)(defaults to [connect.themonitaur.com](#)).
+* **Port** - *number* - Optional - The port of [The Monitaur's](https://themonitaur.com) server instance to connect (e.g. 6425, 6430).
 * **IsSSL** - *boolean* - Optional - Flag specifying if the connection should be made using SSL encryption for the connection to the server.
 
 #### **Methods**
 1 method is exposed in [The Monitaur's Tcp Module](#tcp):
 * `Task SendAlertAsync(AlertCreateRequest request);`
-    * Async method to send a new [Alert](#alerts) to [The Monitaur's Tcp Server](# "connect.themonitaur.pushedtoprod.com").
+    * Async method to send a new [Alert](#alerts) to [The Monitaur's Tcp Server](# "connect.themonitaur.com").
 
 The **AlertCreateRequest** has the following signature:
 ```
@@ -592,15 +592,15 @@ At the end of usage, be sure to call `Dispose()` on the **IMonitaurTcp** object 
 ***
 
 # **Dashboard**
-[The Monitaur Web Application's](https://app.themonitaur.pushedtoprod.com) dashboard has been designed to provide tooling to maximize available screen-space for reviewing your [Alerts](#alerts). It features real-time updates, and as your [Client Applications](#client-applications) post Alerts to either [WebAPI](#webAPI), [WebSocket](#websocket), or [Tcp](#tcp), the [Web Application](https://app.themonitaur.pushedtoprod.com") will be automatically updated to reflect the new or updated [Alerts](#alerts). Additionally, all [filter settings](#filters) including but not limited to [Alert Types](#alertType), [Status Types](#statusType), [Client Applications](#client-applications), and [Projects](#projects) are saved between sessions, so you can quickly log into [The Monitaur](https://themonitaur.pushedtoprod.com) to review Alert notifications conforming to your set [Filters](#filters) and quickly [dismiss your reviewed Alerts](#dismiss-alerts).
+[The Monitaur Web Application's](https://app.themonitaur.com) dashboard has been designed to provide tooling to maximize available screen-space for reviewing your [Alerts](#alerts). It features real-time updates, and as your [Client Applications](#client-applications) post Alerts to either [WebAPI](#webAPI), [WebSocket](#websocket), or [Tcp](#tcp), the [Web Application](https://app.themonitaur.com") will be automatically updated to reflect the new or updated [Alerts](#alerts). Additionally, all [filter settings](#filters) including but not limited to [Alert Types](#alertType), [Status Types](#statusType), [Client Applications](#client-applications), and [Projects](#projects) are saved between sessions, so you can quickly log into [The Monitaur](https://themonitaur.com) to review Alert notifications conforming to your set [Filters](#filters) and quickly [dismiss your reviewed Alerts](#dismiss-alerts).
 
 The [dashboard](#dashboard) includes 2 different ways to visualize your Alerts:
 * [Alert Cards](#alert-cards)
 * [Alert Tables](#alert-tables)
 
-*Note: At a later date, [The Monitaur](https://themonitaur.pushedtoprod.com) will support email notifications for selected [Alerts](#alerts). However, this feature is not yet ready for production.*
+*Note: At a later date, [The Monitaur](https://themonitaur.com) will support email notifications for selected [Alerts](#alerts). However, this feature is not yet ready for production.*
 ## **Alert Cards**
-[Cards](#cards) are designed to be used when reviewing [Alerts](#alerts) or are browsing [The Monitaur](https://themonitaur.pushedtoprod.com) on a mobile device. There are 3 potential locations to interact with cards: on the Alert Cards page, on the [Client Application](#client-applications) dashboard, or after selecting [Alerts](#alerts) and clicking on **Review Selected Alerts**. Screenshots of these screens are included below.
+[Cards](#cards) are designed to be used when reviewing [Alerts](#alerts) or are browsing [The Monitaur](https://themonitaur.com) on a mobile device. There are 3 potential locations to interact with cards: on the Alert Cards page, on the [Client Application](#client-applications) dashboard, or after selecting [Alerts](#alerts) and clicking on **Review Selected Alerts**. Screenshots of these screens are included below.
 
 ![Image Review Alerts and Alert Cards screens](https://pixelhorrorstudios.s3-us-west-2.amazonaws.com/The+Monitaur/Github/Figure+9.png)
 
@@ -614,7 +614,7 @@ The [dashboard](#dashboard) includes 2 different ways to visualize your Alerts:
 ![Image Client Application dashboard tables](https://pixelhorrorstudios.s3-us-west-2.amazonaws.com/The+Monitaur/Github/Figure+10.PNG)
 
 ## **Dismiss Alerts**
-You can [dismiss displayed Alerts](#active-and-dismissed) from the [Web Application](https://themonitaur.pushedtoprod.com). If the [Alerts](#alerts) are currently displayed as [Cards](#cards) (and is not a queried dataset), you can [dismiss any Alert](#dismiss-alerts) by clicking or tapping on it. If when looking at the [Client Application](#client-applications) dashboard component, you will see a modal showing you the [Alert](#alerts) in more detail with the **Dismiss Alert** as an action. [Dismissed Alerts](#dismiss-alerts) are not visible by default on the Web Application, but can be viewed and / or exported using [Queries](#queries) and [Outputting Data](#outputting-data).
+You can [dismiss displayed Alerts](#active-and-dismissed) from the [Web Application](https://themonitaur.com). If the [Alerts](#alerts) are currently displayed as [Cards](#cards) (and is not a queried dataset), you can [dismiss any Alert](#dismiss-alerts) by clicking or tapping on it. If when looking at the [Client Application](#client-applications) dashboard component, you will see a modal showing you the [Alert](#alerts) in more detail with the **Dismiss Alert** as an action. [Dismissed Alerts](#dismiss-alerts) are not visible by default on the Web Application, but can be viewed and / or exported using [Queries](#queries) and [Outputting Data](#outputting-data).
 
 ## **Filters**
 You can [Filter](#filters) [undismissed](#dismiss-alerts) [Alerts](#alerts) dynamically on the [Alerts Cards](#alerts-cards) / [Tables](#alerts-tables) screens or on any [Client Application](#client-applications) dashboard component. To [filter](#filters) [alerts](#alerts), first select **Set Filters** from the filter panel. The screen will refresh with [Alert Type](#alertType) and [Status Type](#statusType) expandable [filter](#filters) selections, and if in the [Alert Cards](#alert-cards) / [Table](#alert-tables) screen, a [Projects](#projects]) [filter](#filter) selection. Set the desired [filter](#filter) criteria including the shown [Alert Types](#alertType), [Status Types](#statusType), and / or [Projects](#projects) / [Client Applications](#client-applications), and the [Alert Card](#alert-cards) or [Table](#alert-tables) component will update immediately.
@@ -635,7 +635,7 @@ Data that has been [Queried](#queries) can be exported as a Comma Separated Valu
 
 ![Image export queried Alerts](https://pixelhorrorstudios.s3-us-west-2.amazonaws.com/The+Monitaur/Github/Figure+13.png)
 
-The maximum number of rows you can query using [The Monitaur's Web Application](https://themonitaur.pushedtoprod.com) is 50,000 records per request. If you require more than 50,000 records, you can modify the query parameters to return sub-queries and union them on your local machine.
+The maximum number of rows you can query using [The Monitaur's Web Application](https://themonitaur.com) is 50,000 records per request. If you require more than 50,000 records, you can modify the query parameters to return sub-queries and union them on your local machine.
 
 ## **Customize**
 [Alerts](#alerts) can have their colors customized by [Alert Type](#alertType) and [Status Type](#statusType) by clicking on the **Accounts** menu item. 
@@ -647,6 +647,6 @@ To setup customized colors, select the [Alert Type](#alertType) you would like t
 ***
 
 # **Additional Information**
-[The Monitaur](https://themonitaur.pushedtoprod.com) was created by [LiveOrDevTrying](https://www.liveordevtrying.com) and is maintained by [PushedToProd](https://www.pushedtoprod.com). [The Monitaur](https://themonitaur.pushedtoprod.com) is currently implemented in (but not limited to) the following projects: [There Is No Turning Back!](https://noturningback.pushedtoprod.com) and [OpenDJRadio](https://opendjradio.pushedtoprod.com).  \
+[The Monitaur](https://themonitaur.com) was created by [LiveOrDevTrying](https://www.liveordevtrying.com) and is maintained by [PushedToProd](https://www.pushedtoprod.com). [The Monitaur](https://themonitaur.com) is currently implemented in (but not limited to) the following projects: [There Is No Turning Back!](https://noturningbackgame.com) and [OpenDJRadio](https://opendjradio.com).  \
 \
 ![PushedToProd Logo](https://pixelhorrorstudios.s3-us-west-2.amazonaws.com/Packages/PHS.png)

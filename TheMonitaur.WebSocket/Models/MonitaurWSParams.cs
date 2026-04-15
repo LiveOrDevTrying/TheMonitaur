@@ -18,7 +18,7 @@ namespace TheMonitaur.Tcp.Models
         {
             get
             {
-                return new ParamsWSClient("connect.themonitaur.pushedtoprod.com", _useSSL ? 6415 : 6420, _useSSL, _token);
+                return new ParamsWSClient("connect.themonitaur.com", _useSSL ? 6415 : 6420, _useSSL, _token);
             }
         }
     }

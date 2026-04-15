@@ -7,10 +7,10 @@
     <authors>Rob Engel - LiveOrDevTrying</authors>
     <owners>Rob Engel - LiveOrDevTrying - PushedToProd</owners>
     <license type="expression">Apache-2.0</license>
-    <projectUrl>https://themonitaur.pushedtoprod.com</projectUrl>
+    <projectUrl>https://themonitaur.com</projectUrl>
     <icon>Logo.png</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>This is the Tcp .NET plugin for logging with https://themonitaur.pushedtoprod.com, a free and simple single-source web application for monitoring all your application layers using Tcp, Websocket, and/or WebAPI / Http.</description>
+    <description>This is the Tcp .NET plugin for logging with https://themonitaur.com, a free and simple single-source web application for monitoring all your application layers using Tcp, Websocket, and/or WebAPI / Http.</description>
     <releaseNotes></releaseNotes>
     <copyright>Copyright 2023</copyright>
     <tags>N-Tier ntier tcp websocket webapi monitor monitoring async await message services liveordevtrying monitaur themonitaur log logger logging universal pushedtoprod pushed to prod</tags>
