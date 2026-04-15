@@ -1,0 +1,182 @@
+name: Build and Publish NuGet Packages
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - branch: NETCore2.2
+            dotnet-version: "2.2.x"
+          - branch: NETStandard2.1
+            dotnet-version: "3.1.x"
+          - branch: NETCore3.0
+            dotnet-version: "3.0.x"
+          - branch: NETCore3.1
+            dotnet-version: "3.1.x"
+          - branch: NET5.0
+            dotnet-version: "5.0.x"
+          - branch: NET6.0
+            dotnet-version: "6.0.x"
+          - branch: NET7.0
+            dotnet-version: "7.0.x"
+      fail-fast: false
+
+    steps:
+      - name: Checkout ${{ matrix.branch }}
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ matrix.branch }}
+          fetch-depth: 0
+
+      - name: Setup .NET ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+
+      - name: Configure git
+        run: |
+          git config user.email "LiveOrDevTrying@gmail.com"
+          git config user.name "LiveOrDevTrying"
+
+      - name: Merge master into ${{ matrix.branch }}
+        run: |
+          git merge origin/master
+          git push origin ${{ matrix.branch }}
+
+      - name: Determine next version
+        id: version
+        run: |
+          # Read major.minor from TheMonitaur.csproj
+          CSPROJ_VERSION=$(grep -oP '(?<=<Version>)[^<]+' TheMonitaur/TheMonitaur.csproj)
+          MAJOR=$(echo "$CSPROJ_VERSION" | cut -d. -f1)
+          MINOR=$(echo "$CSPROJ_VERSION" | cut -d. -f2)
+          CSPROJ_REVISION=$(echo "$CSPROJ_VERSION" | cut -d. -f3)
+
+          # Query NuGet for the latest published revision for this major.minor
+          NUGET_REVISION=-1
+          for i in $(seq 1 20); do
+            RESPONSE=$(curl -s "https://api.nuget.org/v3-flatcontainer/themonitaur.lib/index.json" || true)
+            if [ -n "$RESPONSE" ]; then
+              LATEST=$(echo "$RESPONSE" | jq -r '.versions[]' 2>/dev/null \
+                | grep "^${MAJOR}\.${MINOR}\." \
+                | while IFS=. read -r M m r; do echo "$r"; done \
+                | sort -n | tail -1)
+              if [ -n "$LATEST" ] && [ "$LATEST" -gt "$NUGET_REVISION" ] 2>/dev/null; then
+                NUGET_REVISION=$LATEST
+              fi
+            fi
+            sleep 1
+          done
+
+          # Determine next version
+          if [ "$NUGET_REVISION" -ge 0 ] 2>/dev/null; then
+            NEXT_REVISION=$((NUGET_REVISION + 1))
+            if [ "$NEXT_REVISION" -gt "$CSPROJ_REVISION" ]; then
+              VERSION="${MAJOR}.${MINOR}.${NEXT_REVISION}"
+            else
+              VERSION="${CSPROJ_VERSION}"
+            fi
+          else
+            VERSION="${CSPROJ_VERSION}"
+          fi
+
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "Resolved version: ${VERSION}"
+
+      - name: Build and push TheMonitaur.Lib
+        run: |
+          cd TheMonitaur.Lib
+          dotnet restore TheMonitaur.Lib.csproj
+          dotnet clean TheMonitaur.Lib.csproj
+          dotnet build TheMonitaur.Lib.csproj --configuration Release -p:Version=${{ steps.version.outputs.version }}
+          dotnet pack -c Release TheMonitaur.Lib.csproj -p:Version=${{ steps.version.outputs.version }}
+          dotnet nuget push bin/Release/TheMonitaur.Lib.${{ steps.version.outputs.version }}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+
+      - name: Wait for TheMonitaur.Lib to be indexed
+        run: |
+          VERSION=${{ steps.version.outputs.version }}
+          echo "Waiting for TheMonitaur.Lib ${VERSION} to appear on NuGet..."
+          while true; do
+            RESPONSE=$(curl -s "https://api.nuget.org/v3-flatcontainer/themonitaur.lib/index.json" || true)
+            if echo "$RESPONSE" | jq -e --arg v "$VERSION" '.versions[] | select(. == $v)' > /dev/null 2>&1; then
+              echo "TheMonitaur.Lib ${VERSION} is indexed."
+              break
+            fi
+            sleep 20
+          done
+
+      - name: Build and push TheMonitaur.Tcp
+        run: |
+          cd TheMonitaur.Tcp
+          dotnet restore TheMonitaur.Tcp.csproj
+          dotnet clean TheMonitaur.Tcp.csproj
+          dotnet build TheMonitaur.Tcp.csproj --configuration Release -p:Version=${{ steps.version.outputs.version }}
+          dotnet pack -c Release TheMonitaur.Tcp.csproj -p:Version=${{ steps.version.outputs.version }}
+          dotnet nuget push bin/Release/TheMonitaur.Tcp.${{ steps.version.outputs.version }}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+
+      - name: Build and push TheMonitaur.WebAPI
+        run: |
+          cd TheMonitaur.WebAPI
+          dotnet restore TheMonitaur.WebAPI.csproj
+          dotnet clean TheMonitaur.WebAPI.csproj
+          dotnet build TheMonitaur.WebAPI.csproj --configuration Release -p:Version=${{ steps.version.outputs.version }}
+          dotnet pack -c Release TheMonitaur.WebAPI.csproj -p:Version=${{ steps.version.outputs.version }}
+          dotnet nuget push bin/Release/TheMonitaur.WebAPI.${{ steps.version.outputs.version }}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+
+      - name: Build and push TheMonitaur.WebSocket
+        run: |
+          cd TheMonitaur.WebSocket
+          dotnet restore TheMonitaur.WebSocket.csproj
+          dotnet clean TheMonitaur.WebSocket.csproj
+          dotnet build TheMonitaur.WebSocket.csproj --configuration Release -p:Version=${{ steps.version.outputs.version }}
+          dotnet pack -c Release TheMonitaur.WebSocket.csproj -p:Version=${{ steps.version.outputs.version }}
+          dotnet nuget push bin/Release/TheMonitaur.WebSocket.${{ steps.version.outputs.version }}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+
+      - name: Wait for Tcp, WebAPI, WebSocket to be indexed
+        run: |
+          VERSION=${{ steps.version.outputs.version }}
+          for PACKAGE in themonitaur.tcp themonitaur.webapi themonitaur.websocket; do
+            echo "Waiting for ${PACKAGE} ${VERSION} to appear on NuGet..."
+            while true; do
+              RESPONSE=$(curl -s "https://api.nuget.org/v3-flatcontainer/${PACKAGE}/index.json" || true)
+              if echo "$RESPONSE" | jq -e --arg v "$VERSION" '.versions[] | select(. == $v)' > /dev/null 2>&1; then
+                echo "${PACKAGE} ${VERSION} is indexed."
+                break
+              fi
+              sleep 20
+            done
+          done
+
+      - name: Build and push TheMonitaur
+        run: |
+          cd TheMonitaur
+          dotnet restore TheMonitaur.csproj
+          dotnet clean TheMonitaur.csproj
+          dotnet build TheMonitaur.csproj --configuration Release -p:Version=${{ steps.version.outputs.version }}
+          dotnet pack -c Release TheMonitaur.csproj -p:Version=${{ steps.version.outputs.version }}
+          dotnet nuget push bin/Release/TheMonitaur.${{ steps.version.outputs.version }}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+
+      - name: Wait for TheMonitaur to be indexed
+        run: |
+          VERSION=${{ steps.version.outputs.version }}
+          echo "Waiting for TheMonitaur ${VERSION} to appear on NuGet..."
+          while true; do
+            RESPONSE=$(curl -s "https://api.nuget.org/v3-flatcontainer/themonitaur/index.json" || true)
+            if echo "$RESPONSE" | jq -e --arg v "$VERSION" '.versions[] | select(. == $v)' > /dev/null 2>&1; then
+              echo "TheMonitaur ${VERSION} is indexed."
+              break
+            fi
+            sleep 20
+          done
+
+      - name: Tag repository
+        run: |
+          VERSION=${{ steps.version.outputs.version }}
+          git tag "v${VERSION}" ${{ matrix.branch }}
+          git push origin "v${VERSION}"
